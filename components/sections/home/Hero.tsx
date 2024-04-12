@@ -4,7 +4,7 @@ import { CirclePlus, UserRoundPlus } from 'lucide-react'
 
 const Hero = () => {
     return (
-        <section className='pt-8 flex justify-center items-center'>
+        <section className='pt-16 flex justify-center items-center'>
             <main className='max-w-screen-lg flex flex-col align-center justify-center'>
 
                 <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-6xl text-center'>

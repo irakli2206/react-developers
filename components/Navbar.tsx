@@ -27,10 +27,10 @@ import { ArrowRightIcon } from '@radix-ui/react-icons'
 
 const Navbar = () => {
     return (
-        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-white/20 backdrop-blur-md px-4 md:px-6">
+        <header className="fixed w-full top-0 flex h-16 items-center gap-4 border-b bg-white/20 backdrop-blur-md px-4 md:px-6">
             <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                 <Link
-                    href="#"
+                    href="/"
                     className="flex items-center gap-2 text-lg font-semibold md:text-base"
                 >
                     < FaReact className="h-8 w-8" />
@@ -119,9 +119,12 @@ const Navbar = () => {
                 </SheetContent>
             </Sheet>
             <div className="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-3">
-                <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline">Sign in</Button>
+                <Button asChild size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline">
+                    <Link href="/signin">Sign in</Link>
+                </Button>
                 <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' >
-                    Sign Up <ArrowRight size='16px' className='ml-1' />
+                    <Link href="/signup" className='flex items-center'>Sign Up <ArrowRight size='16px' className='ml-1' /></Link>
+
                 </Button>
                 {/* <DropdownMenu>
                     <DropdownMenuTrigger asChild>
