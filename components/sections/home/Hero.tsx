@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '../../ui/button'
-import { CirclePlus, UsersRound } from 'lucide-react'
+import { CirclePlus, UserRoundPlus } from 'lucide-react'
 
 const Hero = () => {
     return (
@@ -17,7 +17,7 @@ const Hero = () => {
 
                 <div className='flex mt-10 gap-8 w-fit m-auto'>
                     <Button className='rounded-full drop-shadow-sm hover:drop-shadow-none' size='lg' variant='outline'><CirclePlus  size='20px' className='mr-2 text-zinc-800' />Add your profile</Button>
-                    <Button className='rounded-full drop-shadow-sm' size='lg'><UsersRound size='20px' className='mr-2' />Start hiring</Button>
+                    <Button className='rounded-full drop-shadow-sm' size='lg'><UserRoundPlus size='20px' className='mr-2' />Start hiring</Button>
                 </div>
             </main>
         </section>
