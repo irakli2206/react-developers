@@ -9,7 +9,7 @@ const General = () => {
             <div className="flex justify-between">
                 <div className="">
                     <h3 className="text-base font-semibold leading-7 text-gray-900">General Information</h3>
-                    <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Before you begin applying, shortly introduce yourself to potential employers.</p>
+                    <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Before you begin applying, shortly introduce yourself to potential employers</p>
                 </div>
                 <Button size='sm' className='rounded-full mt-auto  '>Save changes</Button>
             </div>

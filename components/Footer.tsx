@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button'
+import { Separator } from './ui/separator'
 
 const Footer = () => {
     return (
-        <footer>
-            <div className='w-full  border-t border-zinc-200 py-16 px-[15%]'>
+        <footer className='w-full border-t'>
+            <div className='container  border-zinc-200 py-16 '>
                 <div className="flex flex-col gap-2">
                     <p className='text-sm font-semibold'>React Developers</p>
                     <ul className='flex flex-col gap-2'>
@@ -18,7 +19,8 @@ const Footer = () => {
                 </div>
 
             </div>
-            <div className="py-4 px-[15%] w-full border-t border-zinc-200 flex justify-between">
+            <Separator  />
+            <div className="py-4 container  border-zinc-200 flex justify-between">
                 <p className='font-light  text-zinc-500 text-sm'>Copyright © 2024. All rights reserved.</p>
 
                 <div className='flex items-center gap-1 text-sm'>
