@@ -34,7 +34,7 @@ const Navbar = () => {
     const isLoggedIn = pathname.includes('dashboard')
 
     return (
-        <header className="fixed w-full z-50 top-0 flex h-16 items-center gap-4 border-b bg-white/20 backdrop-blur-md px-4 md:px-6">
+        <header className="fixed w-full  z-50 top-0 flex h-16 items-center gap-4 border-b bg-white/20 backdrop-blur-md px-4 md:px-6">
             <Sheet>
                 <SheetTrigger asChild>
                     <Button

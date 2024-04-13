@@ -25,7 +25,7 @@ const DashboardLayout = ({ children }: Props) => {
   return (
     <div className='min-h-screen h-screen flex w-full pt-[64px]'>
       <Sidebar />
-      <div className="p-8 w-full flex justify-center">
+      <div className="p-8 lg:px-16 lg:py-10 w-full flex">
         {children}
       </div>
     </div>
