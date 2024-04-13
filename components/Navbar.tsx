@@ -27,7 +27,7 @@ import { ArrowRightIcon } from '@radix-ui/react-icons'
 
 const Navbar = () => {
     return (
-        <header className="fixed w-full top-0 flex h-16 items-center gap-4 border-b bg-white/20 backdrop-blur-md px-4 md:px-6">
+        <header className="fixed w-full z-50 top-0 flex h-16 items-center gap-4 border-b bg-white/20 backdrop-blur-md px-4 md:px-6">
             <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                 <Link
                     href="/"
@@ -122,8 +122,8 @@ const Navbar = () => {
                 <Button asChild size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline">
                     <Link href="/signin">Sign in</Link>
                 </Button>
-                <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' >
-                    <Link href="/signup" className='flex items-center'>Sign Up <ArrowRight size='16px' className='ml-1' /></Link>
+                <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none p-0' >
+                    <Link href="/signup" className='flex items-center px-3'>Sign Up <ArrowRight size='16px' className='ml-1' /></Link>
 
                 </Button>
                 {/* <DropdownMenu>

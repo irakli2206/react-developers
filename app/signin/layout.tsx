@@ -4,7 +4,7 @@ type Props = Readonly<{
     children: React.ReactNode;
 }>
 
-const SignupLayout = ({ children }: Props) => {
+const SigninLayout = ({ children }: Props) => {
     //TODO: Wizard steps using useRoute or however you get current route
     return (
         <div className='min-h-screen h-screen w-full pt-[64px] '>
@@ -15,4 +15,4 @@ const SignupLayout = ({ children }: Props) => {
     )
 }
 
-export default SignupLayout
+export default SigninLayout

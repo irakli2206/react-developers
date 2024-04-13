@@ -1,3 +1,7 @@
+import ChooseType from '@/components/sections/signup/ChooseType'
+import { AccountType } from '@/types/general'
+import { BriefcaseBusiness, UserRoundSearch } from 'lucide-react'
+import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -11,19 +15,20 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { FaGoogle } from "react-icons/fa";
+import Image from "next/image"
 
 
 const Signin = () => {
     return (
-        <main className='min-h-screen w-full pt-[20vh]'>
-            <Card className="mx-auto max-w-sm  ">
-                <CardHeader>
-                    <CardTitle className="text-2xl">Login</CardTitle>
-                    <CardDescription>
-                        Enter your email below to login to your account
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
+        <div className="w-full flex  min-h-full">
+            <div className="flex items-center justify-center py-12 flex-1">
+                <div className="mx-auto grid w-[350px] gap-6">
+                    <div className="grid gap-2 text-center">
+                        <h1 className="text-3xl font-bold ">Sign in</h1>
+                        <p className="text-balance text-muted-foreground">
+                            Enter your email below to login to your account
+                        </p>
+                    </div>
                     <div className="grid gap-4">
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
@@ -37,28 +42,41 @@ const Signin = () => {
                         <div className="grid gap-2">
                             <div className="flex items-center">
                                 <Label htmlFor="password">Password</Label>
-                                <Link href="#" className="ml-auto inline-block text-sm underline">
+                                <Link
+                                    href="/forgot-password"
+                                    className="ml-auto inline-block text-sm underline"
+                                >
                                     Forgot your password?
                                 </Link>
                             </div>
                             <Input id="password" type="password" required />
                         </div>
                         <Button type="submit" className="w-full">
-                            Login
+                            Sign in
                         </Button>
                         <Button variant="outline" className="w-full">
-                           <FaGoogle size='16px' className='mr-2'/>  Login with Google
+                            Sign in with Google
                         </Button>
                     </div>
                     <div className="mt-4 text-center text-sm">
-                        Don&apos;t have an account?{" "}
+                        Don't have an account?{" "}
                         <Link href="#" className="underline">
                             Sign up
                         </Link>
                     </div>
-                </CardContent>
-            </Card>
-        </main>
+                </div>
+            </div>
+            <div className="hidden bg-muted lg:block flex-1 ">
+                <Image
+                    src="https://fakeimg.pl/400x400"
+                    alt="Image"
+                    width="1920"
+                    height="1080"
+                    // fill={true}
+                    className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                />
+            </div>
+        </div>
     )
 }
 

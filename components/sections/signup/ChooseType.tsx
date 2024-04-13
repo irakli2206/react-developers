@@ -10,12 +10,13 @@ import { FaCircleCheck } from "react-icons/fa6";
 type Props = {
     accountType: AccountType | null,
     setAccountType: (accountType: AccountType) => void
+    setWizardStep: (wizardStep: number) => void
 }
 
-const ChooseType = ({ accountType, setAccountType }: Props) => {
+const ChooseType = ({ accountType, setAccountType, setWizardStep }: Props) => {
     console.log(accountType)
     return (
-        <section className=" max-w-lg mx-auto text-center rounded-xl bg-transparent shadow-[inset_0_0_25px_5px_rgba(255,255,255,1)] px-12 py-16 ring-1 ring-zinc-200">
+        <section className=" text-center ">
             <div className="flex flex-col m-auto">
                 <h1 className='scroll-m-20 text-3xl font-bold tracking-tight '>Choose your account type</h1>
                 <p className='text-zinc-500 mt-2'>Are you looking for a job or for developers?</p>
@@ -54,7 +55,7 @@ const ChooseType = ({ accountType, setAccountType }: Props) => {
                 </Card>
             </div>
 
-            <Button className='w-full mt-8'>Continue</Button>
+            <Button className='w-full mt-8' onClick={() => setWizardStep(1)}>Continue</Button>
         </section>
     )
 }

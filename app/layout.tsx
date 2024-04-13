@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -24,10 +25,12 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className}>
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
-        
+
       )}>
         <Navbar />
-        {children}</body>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
