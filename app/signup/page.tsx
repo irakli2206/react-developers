@@ -28,7 +28,7 @@ const Signup = () => {
 
     return (
         <div className="w-full flex  min-h-full">
-            <div className="flex items-center justify-center py-12 flex-1">
+            <div className="flex items-center justify-center pb-12 flex-1">
                 <div className="mx-auto grid w-[350px] gap-6">
                     <div className="grid gap-2 text-center">
                         <h1 className="text-3xl font-bold ">Sign up</h1>

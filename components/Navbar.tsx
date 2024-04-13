@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import Link from "next/link"
 import { ArrowRight, CircleUser, Menu, MoveRight, Package2, Search } from "lucide-react"
@@ -23,9 +25,14 @@ import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { FaReact } from "react-icons/fa";
 import { ArrowRightIcon } from '@radix-ui/react-icons'
+import { usePathname } from 'next/navigation'
 
 
 const Navbar = () => {
+    const pathname = usePathname()
+
+    const isLoggedIn = pathname.includes('dashboard')
+
     return (
         <header className="fixed w-full z-50 top-0 flex h-16 items-center gap-4 border-b bg-white/20 backdrop-blur-md px-4 md:px-6">
             <Sheet>
@@ -90,6 +97,7 @@ const Navbar = () => {
                     Pricing
                 </Link>
             </div>
+
             <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
                 <Button asChild size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline">
                     <Link href="/signin">Sign in</Link>
@@ -98,23 +106,18 @@ const Navbar = () => {
                     <Link href="/signup" className='flex items-center px-3'>Sign Up <ArrowRight size='16px' className='ml-1' /></Link>
 
                 </Button>
-                {/* <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="secondary" size="icon" className="rounded-full">
-                            <CircleUser className="h-5 w-5" />
-                            <span className="sr-only">Toggle user menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Settings</DropdownMenuItem>
-                        <DropdownMenuItem>Support</DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Logout</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu> */}
+
             </div>
+            {/* <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
+                        <Button asChild size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline">
+                            <Link href="/signin">Sign out</Link>
+                        </Button>
+                        <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none p-0' >
+                            <Link href="/dashboard" className='flex items-center px-3'>To Dashboard<ArrowRight size='16px' className='ml-1' /></Link>
+
+                        </Button>
+
+                    </div> */}
         </header>
     )
 }
