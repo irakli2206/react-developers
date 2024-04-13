@@ -28,46 +28,6 @@ import { ArrowRightIcon } from '@radix-ui/react-icons'
 const Navbar = () => {
     return (
         <header className="fixed w-full z-50 top-0 flex h-16 items-center gap-4 border-b bg-white/20 backdrop-blur-md px-4 md:px-6">
-            <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-                <Link
-                    href="/"
-                    className="flex items-center gap-2 text-lg font-semibold md:text-base"
-                >
-                    < FaReact className="h-8 w-8" />
-
-                    <span className="sr-only">Acme Inc</span>
-                </Link>
-                <Link
-                    href="#"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                    Dashboard
-                </Link>
-                <Link
-                    href="#"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                    Orders
-                </Link>
-                <Link
-                    href="#"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                    Products
-                </Link>
-                <Link
-                    href="#"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                    Customers
-                </Link>
-                <Link
-                    href="#"
-                    className="text-foreground transition-colors hover:text-foreground"
-                >
-                    Settings
-                </Link>
-            </nav>
             <Sheet>
                 <SheetTrigger asChild>
                     <Button
@@ -89,36 +49,48 @@ const Navbar = () => {
                             <span className="sr-only">Acme Inc</span>
                         </Link>
                         <Link
-                            href="#"
+                            href="developers"
                             className="text-muted-foreground hover:text-foreground"
                         >
-                            Dashboard
+                            Developers
                         </Link>
                         <Link
-                            href="#"
+                            href="pricing"
                             className="text-muted-foreground hover:text-foreground"
                         >
-                            Orders
+                            Pricing
                         </Link>
-                        <Link
-                            href="#"
-                            className="text-muted-foreground hover:text-foreground"
-                        >
-                            Products
-                        </Link>
-                        <Link
-                            href="#"
-                            className="text-muted-foreground hover:text-foreground"
-                        >
-                            Customers
-                        </Link>
-                        <Link href="#" className="hover:text-foreground">
-                            Settings
-                        </Link>
+
                     </nav>
                 </SheetContent>
             </Sheet>
-            <div className="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-3">
+            <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+                <Link
+                    href="/"
+                    className="flex items-center gap-2 text-lg font-semibold md:text-base"
+                >
+                    < FaReact className="h-8 w-8" />
+
+                    <span className="sr-only">Acme Inc</span>
+                </Link>
+
+
+            </nav>
+            <div className=" flex gap-8 items-center ml-auto text-sm">
+                <Link
+                    href="developers"
+                    className="text-zinc-700 transition-colors hover:text-foreground"
+                >
+                    Developers
+                </Link>
+                <Link
+                    href="pricing"
+                    className="text-zinc-700 transition-colors hover:text-foreground"
+                >
+                    Pricing
+                </Link>
+            </div>
+            <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
                 <Button asChild size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline">
                     <Link href="/signin">Sign in</Link>
                 </Button>

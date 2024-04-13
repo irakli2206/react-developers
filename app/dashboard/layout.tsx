@@ -6,7 +6,7 @@ type Props = {
 
 const DashboardLayout = ({children}: Props) => {
   return (
-    <div className='min-h-screen w-full pt-[64px]'>
+    <div className='min-h-screen h-screen w-full pt-[64px]'>
 
       {children}
     </div>
