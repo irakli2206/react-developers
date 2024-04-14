@@ -16,7 +16,9 @@ const Contacts = () => {
                     <h3 className="text-base font-semibold leading-7 text-gray-900">Contact Links</h3>
                     <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Make it easier for talent experts to get in touch with you</p>
                 </div>
-                <Button size='sm' className='rounded-full mt-auto  '><Save size='16px' className='mr-2' /> Save changes</Button>
+                <Button size='sm' className='rounded-full mt-auto  '>
+                    {/* <Save size='16px' className='mr-2' />  */}
+                    Save changes</Button>
             </div>
             <div className="mt-4 border-t border-gray-100">
                 <dl className="divide-y divide-gray-100">
