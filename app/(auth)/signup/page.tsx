@@ -21,9 +21,19 @@ import Image from "next/image"
 import { useRouter } from 'next/navigation'
 import { useFormState, useFormStatus } from 'react-dom'
 import { signup } from './action'
+import { z } from 'zod'
+import { SignupSchema } from '@/utils/form/schemas'
 
-const initialState = {
-    message: ""
+export type ValidationDataT = z.inferFlattenedErrors<
+    typeof SignupSchema
+// { message: string; errorCode: string }
+>
+
+const initialState: { validationData: ValidationDataT } = {
+    validationData: {
+        formErrors: [],
+        fieldErrors: {}
+    }
 }
 
 const Signup = () => {
@@ -33,7 +43,8 @@ const Signup = () => {
     const { pending } = useFormStatus();
     const router = useRouter()
 
-    console.log(state)
+    console.log('state', state.validationData)
+    const fieldErrors = state.validationData.fieldErrors
 
     return (
         <div className="w-full flex  min-h-full">
@@ -45,44 +56,44 @@ const Signup = () => {
                             Enter your information to create an account
                         </p>
                     </div>
-                    <form 
-                    action={signupAction} 
-                    className="grid gap-4">
+                    <form
+                        action={signupAction}
+                        className="grid gap-4">
                         <div className='flex gap-4'>
-                            <div className="flex flex-col gap-2">
-                                <Label htmlFor="firstname">First name</Label>
+                            <div className="flex flex-col flex-1 gap-1">
+                                <Label htmlFor="firstname" className='mb-1'>First name</Label>
                                 <Input
                                     id="first_name"
                                     name="first_name"
                                     type="text"
                                     placeholder="John"
-                                    required
                                 />
+                                {fieldErrors?.first_name && <p className='text-xs text-destructive'>{fieldErrors.first_name[0]}</p>}
                             </div>
-                            <div className="flex flex-col gap-2">
-                                <Label htmlFor="lastname">Last name</Label>
+                            <div className="flex flex-col flex-1 gap-1">
+                                <Label htmlFor="lastname" className='mb-1'>Last name</Label>
                                 <Input
                                     id="last_name"
                                     name="last_name"
                                     type="text"
                                     placeholder="Doe"
-                                    required
                                 />
+                                {fieldErrors?.last_name && <p className='text-xs text-destructive'>{fieldErrors.last_name[0]}</p>}
                             </div>
                         </div>
-                        <div className="grid gap-2">
+                        <div className="grid gap-1">
                             <Label htmlFor="email">Email</Label>
                             <Input
                                 id="email"
                                 type="email"
                                 name="email"
                                 placeholder="m@example.com"
-                                required
                             />
+                            {fieldErrors?.email && <p className='text-xs text-destructive'>{fieldErrors.email[0]}</p>}
                         </div>
-                        <div className="grid gap-2">
+                        <div className="grid gap-1">
                             <div className="flex items-center">
-                                <Label htmlFor="password">Password</Label>
+                                <Label htmlFor="password" className='mb-1'>Password</Label>
                                 <Link
                                     href="/forgot-password"
                                     className="ml-auto inline-block text-sm underline"
@@ -90,9 +101,10 @@ const Signup = () => {
                                     Forgot your password?
                                 </Link>
                             </div>
-                            <Input id="password" type="password" name="password" required />
+                            <Input id="password" type="password" name="password" />
+                            {fieldErrors?.password && <p className='text-xs text-destructive'>{fieldErrors.password[0]}</p>}
                         </div>
-                        <Button type="submit" className="w-full" aria-disabled={pending}
+                        <Button type="submit" className="w-full" disabled={pending} aria-disabled={pending}
                         // onClick={() => router.push('/dashboard')}
                         >
                             Sign up

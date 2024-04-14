@@ -7,6 +7,7 @@ import { GeistMono } from 'geist/font/mono';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { createClient } from "@/utils/supabase/server";
+import { signout } from "./action";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -33,7 +34,7 @@ export default async function RootLayout({
         "min-h-screen bg-background font-sans antialiased",
 
       )}>
-        <Navbar isLoggedIn={isLoggedIn} />
+        <Navbar isLoggedIn={isLoggedIn} signout={signout} />
         <div className="min-h-screen">
           {children}
         </div>

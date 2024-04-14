@@ -28,18 +28,18 @@ import { ArrowRightIcon } from '@radix-ui/react-icons'
 import { usePathname } from 'next/navigation'
 import Banner from './ui/banner'
 import { createClient } from '@/utils/supabase/client'
+import { revalidatePath } from 'next/cache'
+import { signout } from '@/app/action'
 
 type Props = {
     isLoggedIn: boolean
-    // signout: () => Promise<void>
+    signout: (formData: FormData) => Promise<void>
 }
 
-const Navbar = ({ isLoggedIn }: Props) => {
+const Navbar = ({ isLoggedIn, signout }: Props) => {
     const pathname = usePathname()
     const supabase = createClient()
-    const signout = async () => {
-        const { error } = await supabase.auth.signOut()
-    }
+ 
     console.log(isLoggedIn)
     return (
         <>
@@ -111,7 +111,7 @@ const Navbar = ({ isLoggedIn }: Props) => {
                     {isLoggedIn ?
                         <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
                             <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline"
-                                onClick={signout}
+                                onClick={() => signout({})}
                             >
                                 Sign out
                             </Button>

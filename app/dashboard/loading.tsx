@@ -1,8 +1,13 @@
+import { LoaderCircle } from 'lucide-react'
 import React from 'react'
 
 const Loading = () => {
   return (
-    <div>Loading</div>
+    <div className='w-full h-full flex justify-center items-center'>
+      <div className="animate-spin text-zinc-600">
+      <LoaderCircle size={64} />
+      </div>
+    </div>
   )
 }
 

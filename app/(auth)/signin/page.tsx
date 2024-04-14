@@ -1,3 +1,5 @@
+'use client'
+
 import ChooseType from '@/components/sections/signup/ChooseType'
 import { AccountType } from '@/types/general'
 import { BriefcaseBusiness, UserRoundSearch } from 'lucide-react'
@@ -16,9 +18,33 @@ import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { FaGoogle } from "react-icons/fa";
 import Image from "next/image"
+import { createClient } from '@/utils/supabase/server'
+import { z } from 'zod'
+import { SigninSchema, SignupSchema } from '@/utils/form/schemas'
+import { useFormState, useFormStatus } from 'react-dom'
+import { signin } from './action'
 
+
+export type ValidationDataT = z.inferFlattenedErrors<
+    typeof SigninSchema
+// { message: string; errorCode: string }
+>
+
+const initialState: { validationData: ValidationDataT } = {
+    validationData: {
+        formErrors: [],
+        fieldErrors: {}
+    }
+}
 
 const Signin = () => {
+    const [state, signinAction] = useFormState(signin, initialState)
+    const { pending } = useFormStatus();
+
+    console.log(state.validationData)
+    const fieldErrors = state.validationData.fieldErrors
+
+
     return (
         <div className="w-full flex  min-h-full">
             <div className="flex items-center justify-center pb-12 flex-1">
@@ -29,15 +55,16 @@ const Signin = () => {
                             Enter your email below to login to your account
                         </p>
                     </div>
-                    <div className="grid gap-4">
+                    <form action={signinAction} className="grid gap-4">
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
                                 id="email"
                                 type="email"
+                                name="email"
                                 placeholder="m@example.com"
-                                required
                             />
+                            {fieldErrors.email && <p className='text-xs text-destructive'>{fieldErrors.email[0]}</p>}
                         </div>
                         <div className="grid gap-2">
                             <div className="flex items-center">
@@ -49,15 +76,16 @@ const Signin = () => {
                                     Forgot your password?
                                 </Link>
                             </div>
-                            <Input id="password" type="password" required />
+                            <Input id="password" type="password" name="password" />
+                            {fieldErrors.password && <p className='text-xs text-destructive'>{fieldErrors.password[0]}</p>}
                         </div>
-                        <Button type="submit" className="w-full">
+                        <Button type="submit" className="w-full" disabled={pending} aria-disabled={pending}>
                             Sign in
                         </Button>
                         <Button variant="outline" className="w-full">
                             Sign in with Google
                         </Button>
-                    </div>
+                    </form>
                     <div className="mt-4 text-center text-sm">
                         Don't have an account?{" "}
                         <Link href="/signup" className="underline">
@@ -68,7 +96,7 @@ const Signin = () => {
             </div>
             <div className="hidden bg-muted lg:block flex-1 ">
                 <Image
-                    src="https://fakeimg.pl/400x400"
+                    src="/cosmos.png"
                     alt="Image"
                     width="1920"
                     height="1080"
