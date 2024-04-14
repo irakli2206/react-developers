@@ -3,16 +3,20 @@ import { Input } from '@/components/ui/input'
 import { Switch } from "@/components/ui/switch"
 import { Separator } from '@/components/ui/separator'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Button } from '@/components/ui/button'
 
 const Preferences = () => {
     return (
         <div className='w-full '>
-            <div className="">
-                <h3 className="text-base font-semibold leading-7 text-gray-900">Account Preferences</h3>
-                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">You're available for new opportunities and would like to appear in our listings</p>
+            <div className="flex justify-between">
+                <div className="">
+                    <h3 className="text-base font-semibold leading-7 text-gray-900">Account Preferences</h3>
+                    <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">You're available for new opportunities and would like to appear in our listings</p>
+                </div>
+                <Button size='sm' className='rounded-full mt-auto  '>Save changes</Button>
             </div>
 
-            <div className="mt-6 border-y  border-gray-100">
+            <div className="mt-4 border-y  border-gray-100">
                 <dl className=" grid grid-cols-1 lg:grid-cols-2 gap-x-16 divide-gray-100">
                     <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>

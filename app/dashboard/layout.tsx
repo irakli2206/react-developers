@@ -15,13 +15,20 @@ import { Badge } from "@/components/ui/badge"
 import BecomeEmployerOffer from "@/components/sections/dashboard/BecomeEmployerOffer"
 import { redirect } from "next/navigation"
 import Sidebar from '@/components/sections/dashboard/Sidebar'
+import { createClient } from '@/utils/supabase/server'
 
 
 type Props = {
   children: React.ReactNode
 }
 
-const DashboardLayout = ({ children }: Props) => {
+const DashboardLayout = async ({ children }: Props) => {
+  const supabase = createClient()
+  const {data, error} = await supabase.auth.getUser()
+  const isLoggedIn = Boolean(data.user)
+
+  if(!isLoggedIn) redirect('/signin')
+
   return (
     <div className='min-h-screen h-screen flex w-full pt-[64px]'>
       <Sidebar />

@@ -25,7 +25,7 @@ const Contacts = () => {
                             <dt className="  font-medium leading-6 text-gray-900">LinkedIn</dt>
                         </div>
                         <div className='flex-1 relative'>
-                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="John Doe" />
+                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="" />
                             <Linkedin className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
                         </div>
                     </div>
@@ -34,7 +34,7 @@ const Contacts = () => {
                             <dt className="  font-medium leading-6 text-gray-900">Github</dt>
                         </div>
                         <div className='flex-1 relative'>
-                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="John Doe" />
+                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="" />
                             <LuGithub className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
                         </div>
                     </div>
@@ -43,7 +43,7 @@ const Contacts = () => {
                             <dt className="  font-medium leading-6 text-gray-900">Gitlab</dt>
                         </div>
                         <div className='flex-1 relative'>
-                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="John Doe" />
+                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="" />
                             <LuGitlab className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
                         </div>
                     </div>
@@ -53,7 +53,7 @@ const Contacts = () => {
                             <dt className="  font-medium leading-6 text-gray-900">Website</dt>
                         </div>
                         <div className='flex-1 relative'>
-                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="John Doe" />
+                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="" />
                             <Globe className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200'/>
                         </div>
                     </div>
@@ -62,7 +62,7 @@ const Contacts = () => {
                             <dt className="  font-medium leading-6 text-gray-900">Twitter</dt>
                         </div>
                         <div className='flex-1 relative'>
-                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="John Doe" />
+                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="" />
                             <LuTwitter className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
                         </div>
                     </div>

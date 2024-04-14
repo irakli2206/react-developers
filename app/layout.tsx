@@ -6,6 +6,7 @@ import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { createClient } from "@/utils/supabase/server";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -16,19 +17,26 @@ export const metadata: Metadata = {
   description: "Number 1 hub for React devs and talent experts",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = createClient()
+  const { data, error } = await supabase.auth.getUser()
+  const isLoggedIn = Boolean(data.user)
+
+
   return (
     <html lang="en" className={GeistSans.className}>
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
 
       )}>
-        <Navbar />
-        {children}
+        <Navbar isLoggedIn={isLoggedIn} />
+        <div className="min-h-screen">
+          {children}
+        </div>
         <Footer />
       </body>
     </html>

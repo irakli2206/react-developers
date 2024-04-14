@@ -27,16 +27,23 @@ import { FaReact } from "react-icons/fa";
 import { ArrowRightIcon } from '@radix-ui/react-icons'
 import { usePathname } from 'next/navigation'
 import Banner from './ui/banner'
+import { createClient } from '@/utils/supabase/client'
 
+type Props = {
+    isLoggedIn: boolean
+    // signout: () => Promise<void>
+}
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn }: Props) => {
     const pathname = usePathname()
-
-    const isLoggedIn = pathname.includes('dashboard')
-
+    const supabase = createClient()
+    const signout = async () => {
+        const { error } = await supabase.auth.signOut()
+    }
+    console.log(isLoggedIn)
     return (
         <>
-            <header className="fixed w-full  z-50 top-0 flex h-16 items-center border-b bg-white/20 backdrop-blur-md px-4 md:px-6">
+            <header className="fixed w-full  z-50 top-0 flex h-16 items-center border-b border-border/40  backdrop-blur bg-background/60 px-4 md:px-6">
                 <div className="container flex">
                     <Sheet>
                         <SheetTrigger asChild>
@@ -101,16 +108,32 @@ const Navbar = () => {
                         </Link>
                     </div>
 
-                    <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
-                        <Button asChild size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline">
-                            <Link href="/signin">Sign in</Link>
-                        </Button>
-                        <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none p-0' >
-                            <Link href="/signup" className='flex items-center px-3'>Sign Up <ArrowRight size='16px' className='ml-1' /></Link>
+                    {isLoggedIn ?
+                        <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
+                            <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline"
+                                onClick={signout}
+                            >
+                                Sign out
+                            </Button>
+                            <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none p-0' >
+                                <Link href="/dashboard" className='flex items-center px-3'>Dashboard <ArrowRight size='16px' className='ml-1' /></Link>
 
-                        </Button>
+                            </Button>
 
-                    </div>
+                        </div>
+                        :
+                        <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
+                            <Button asChild size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline">
+                                <Link href="/signin">Sign in</Link>
+                            </Button>
+                            <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none p-0' >
+                                <Link href="/signup" className='flex items-center px-3'>Sign up <ArrowRight size='16px' className='ml-1' /></Link>
+
+                            </Button>
+
+                        </div>
+                    }
+
 
                 </div>
                 {/* <Banner /> */}
