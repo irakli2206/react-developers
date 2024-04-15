@@ -33,7 +33,7 @@ import { signout } from '@/app/action'
 
 type Props = {
     isLoggedIn: boolean
-    signout: (formData: FormData) => Promise<void>
+    signout: () => Promise<void>
 }
 
 const Navbar = ({ isLoggedIn, signout }: Props) => {
@@ -110,7 +110,7 @@ const Navbar = ({ isLoggedIn, signout }: Props) => {
                     {isLoggedIn ?
                         <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
                             <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline"
-                                onClick={() => signout({})}
+                                onClick={() => signout()}
                             >
                                 Sign out
                             </Button>

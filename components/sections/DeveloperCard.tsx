@@ -44,13 +44,13 @@ const DeveloperCard = ({ title, rate, stack, description, terms }: Props) => {
             </CardHeader>
             <CardContent>
                 <div className='flex gap-1 mb-4'>
-                    {stack.map(tech => <Badge variant="outline" className='rounded-md'>{tech}</Badge>)}
+                    {stack.map(tech => <Badge key={tech} variant="outline" className='rounded-md'>{tech}</Badge>)}
                 </div>
 
                 <p className='text-zinc-500 text-sm'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse facere rem, totam non asperiores ipsam quis quisquam quae ex neque, doloribus eum perferendis a. Pariatur.</p>
             </CardContent>
             <CardFooter className="flex gap-1">
-                {terms.map(term => <Badge variant="outline" className='rounded-md bg-blue-200'>{term}</Badge>)}
+                {terms.map(term => <Badge key={term} variant="outline" className='rounded-md bg-blue-200'>{term}</Badge>)}
             </CardFooter>
         </Card>
     )

@@ -20,7 +20,7 @@ export async function getProfileData() {
     return fullData
 }
 
-export async function signout(formData: FormData) {
+export async function signout() {
 
     const { error } = await supabase.auth.signOut()
     revalidatePath('/dashboard')
