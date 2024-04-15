@@ -89,7 +89,7 @@ const devData = [
 
 const OurDevs = () => {
     const plugin = useRef(
-        Autoplay({ delay: 2500, stopOnInteraction: true })
+        Autoplay({ delay: 2500, stopOnInteraction: false })
     )
 
     return (
@@ -103,8 +103,8 @@ const OurDevs = () => {
 
                 <Carousel className="w-full relative"
                     plugins={[plugin.current]}
-                    onMouseEnter={plugin.current.stop}
-                    onMouseLeave={plugin.current.reset}
+                    // onMouseEnter={plugin.current.stop}
+                    // onMouseLeave={plugin.current.reset}
                 >
                     <CarouselContent>
                         
@@ -115,7 +115,7 @@ const OurDevs = () => {
                             ))}
                         
                     </CarouselContent>
-                    <div className='absolute top-0 w-full h-full z-50 from-white via-transparent to-white bg-gradient-to-r' ></div>
+                    <div className='absolute pointer-events-none top-0 w-full h-full z-50 from-white via-transparent to-white bg-gradient-to-r' ></div>
 
                     <CarouselPrevious />
                     <CarouselNext />
