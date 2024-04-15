@@ -55,8 +55,9 @@ const Sidebar = () => {
 
                 <div className="flex-1">
                     <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-                        {tabs.map(({isActive, href, icon, title}) => (
+                        {tabs.map(({ isActive, href, icon, title }) => (
                             <Link
+                                key={title}
                                 href={href}
                                 className={classNames("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary", {
                                     'bg-muted': isActive
@@ -66,7 +67,7 @@ const Sidebar = () => {
                                 {title}
                             </Link>
                         ))}
- 
+
 
                     </nav>
                 </div>

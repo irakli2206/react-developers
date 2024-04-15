@@ -1,7 +1,7 @@
 'use client'
 
 import ChooseType from '@/components/sections/signup/ChooseType'
-import { AccountType } from '@/types/general'
+import { AccountTypeT } from '@/types/general'
 import { BriefcaseBusiness, UserRoundSearch } from 'lucide-react'
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
@@ -38,7 +38,7 @@ const initialState: { validationData: ValidationDataT } = {
 
 const Signup = () => {
     const [wizardStep, setWizardStep] = useState(0)
-    const [accountType, setAccountType] = useState<AccountType | null>(null)
+    const [accountType, setAccountType] = useState<AccountTypeT | null>(null)
     const [state, signupAction] = useFormState(signup, initialState)
     const { pending } = useFormStatus();
     const router = useRouter()

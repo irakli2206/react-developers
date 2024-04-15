@@ -1,7 +1,7 @@
 'use client'
 
 import ChooseType from '@/components/sections/signup/ChooseType'
-import { AccountType } from '@/types/general'
+import { AccountTypeT } from '@/types/general'
 import { BriefcaseBusiness, UserRoundSearch } from 'lucide-react'
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"

@@ -1,11 +1,54 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Switch } from "@/components/ui/switch"
 import { Separator } from '@/components/ui/separator'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
+import { getProfileData } from '@/app/action'
+import { createClient } from '@/utils/supabase/client'
+import { useToast } from '@/components/ui/use-toast'
+import Loading from '../loading'
+import { ProfileT } from '@/types/general'
+
+ 
+const supabase = createClient()
 
 const Preferences = () => {
+    const [profile, setProfile] = useState<ProfileT | undefined>()
+
+    const { toast } = useToast()
+
+    useEffect(() => {
+        const getPreferences = async () => {
+            const profileData = await getProfileData()
+            console.log('reached')
+            setProfile(profileData)
+        }
+        getPreferences()
+    }, [])
+
+
+    const handleSave = async () => {
+        try {
+            const { data, error } = await supabase.from('profiles').update(profile).eq('id', profile!.id)
+            toast({
+                title: "Success",
+                description: "Your profile details have been updated",
+                duration: 3000,
+            })
+        } catch (e) {
+            toast({
+                title: "Oops",
+                description: JSON.stringify(e),
+                duration: 3000,
+            })
+        }
+    }
+
+    if (!profile) return <Loading />
+
     return (
         <div className='w-full '>
             <div className="flex justify-between">
@@ -13,11 +56,23 @@ const Preferences = () => {
                     <h3 className="text-base font-semibold leading-7 text-gray-900">Account Preferences</h3>
                     <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">You're available for new opportunities and would like to appear in our listings</p>
                 </div>
-                <Button size='sm' className='rounded-full mt-auto  '>Save changes</Button>
+                <Button onClick={handleSave} size='sm' className='rounded-full mt-auto  '>Save changes</Button>
             </div>
 
-            <div className="mt-4 border-y  border-gray-100">
-                <dl className=" grid grid-cols-1 lg:grid-cols-2 gap-x-16 divide-gray-100">
+            <div className="mt-4 border-y  border-gray-200">
+                <dl className=" grid grid-cols-1 lg:grid-cols-2 gap-x-16  ">
+                    <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                        <div className='flex flex-col gap-1 flex-1 text-sm'>
+                            <dt className="  font-medium leading-6 text-gray-900">Available</dt>
+                            <dd className="  text-zinc-500 ">Are you open to take job offers?</dd>
+                        </div>
+                        {/* <Input className='flex-1 h-9 drop-shadow-sm' type="text" placeholder="John Doe" /> */}
+                        <Switch
+                            name='available'
+                            checked={profile.available}
+                            onClick={() => setProfile(prevState => ({ ...prevState, available: !prevState.available }))}
+                        />
+                    </div>
                     <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Freelance contracts</dt>
@@ -25,7 +80,8 @@ const Preferences = () => {
                         </div>
                         {/* <Input className='flex-1 h-9 drop-shadow-sm' type="text" placeholder="John Doe" /> */}
                         <Switch
-                            checked={true}
+                            checked={profile.freelance}
+                            onClick={() => setProfile(prevState => ({ ...prevState, freelance: !prevState.freelance }))}
                         />
                     </div>
                     <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
@@ -34,7 +90,8 @@ const Preferences = () => {
                             <dd className="  text-zinc-500 ">Are you open to employment?</dd>
                         </div>
                         <Switch
-                            checked={true}
+                            checked={profile.employment}
+                            onClick={() => setProfile(prevState => ({ ...prevState, employment: !prevState.employment }))}
                         />
                     </div>
 
@@ -44,7 +101,8 @@ const Preferences = () => {
                             <dd className="  text-zinc-500 ">Are you open to work remotely?</dd>
                         </div>
                         <Switch
-                            checked={false}
+                            checked={profile.remote}
+                            onClick={() => setProfile(prevState => ({ ...prevState, remote: !prevState.remote }))}
                         />
                     </div>
                     <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
@@ -53,7 +111,8 @@ const Preferences = () => {
                             <dd className="  text-zinc-500 ">Are you open to work on site?</dd>
                         </div>
                         <Switch
-                            checked={true}
+                            checked={profile.on_site}
+                            onClick={() => setProfile(prevState => ({ ...prevState, available: !prevState.on_site }))}
                         />
                     </div>
 
@@ -74,7 +133,17 @@ const Preferences = () => {
                                 >
                                     Junior
                                 </label>
-                                <Checkbox id="junior" />
+                                <Checkbox id="junior"
+                                    checked={profile && profile.role_levels ? profile.role_levels!.includes('junior') : false}
+                                    onCheckedChange={(e) => setProfile(prevState => {
+                                        let newData = { ...prevState }
+                                        if (e === true) {
+                                            newData.role_levels?.push('junior')
+                                        }
+                                        else newData.role_levels = newData.role_levels?.filter(rl => rl !== 'junior')
+                                        return newData
+                                    })}
+                                />
 
                             </div>
                             <div className="flex items-center space-x-2">
@@ -84,7 +153,17 @@ const Preferences = () => {
                                 >
                                     Mid
                                 </label>
-                                <Checkbox id="mid" />
+                                <Checkbox id="mid"
+                                    checked={profile && profile.role_levels ? profile.role_levels!.includes('mid') : false}
+                                    onCheckedChange={(e) => setProfile(prevState => {
+                                        let newData = { ...prevState }
+                                        if (e === true) {
+                                            newData.role_levels?.push('mid')
+                                        }
+                                        else newData.role_levels = newData.role_levels?.filter(rl => rl !== 'mid')
+                                        return newData
+                                    })}
+                                />
 
                             </div>
                             <div className="flex items-center space-x-2">
@@ -94,7 +173,17 @@ const Preferences = () => {
                                 >
                                     Senior
                                 </label>
-                                <Checkbox id="senior" />
+                                <Checkbox id="senior"
+                                    checked={profile && profile.role_levels ? profile.role_levels!.includes('senior') : false}
+                                    onCheckedChange={(e) => setProfile(prevState => {
+                                        let newData = { ...prevState }
+                                        if (e === true) {
+                                            newData.role_levels?.push('senior')
+                                        }
+                                        else newData.role_levels = newData.role_levels?.filter(rl => rl !== 'senior')
+                                        return newData
+                                    })}
+                                />
 
                             </div>
                         </div>

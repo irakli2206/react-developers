@@ -8,6 +8,15 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { createClient } from "@/utils/supabase/server";
 import { signout } from "./action";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { useState } from "react";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -24,8 +33,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const supabase = createClient()
+  const queryClient = new QueryClient()
+
   const { data, error } = await supabase.auth.getUser()
   const isLoggedIn = Boolean(data.user)
+
 
 
   return (
@@ -35,9 +47,10 @@ export default async function RootLayout({
 
       )}>
         <Navbar isLoggedIn={isLoggedIn} signout={signout} />
-        <div className="min-h-screen">
+        <main className="min-h-screen">
           {children}
-        </div>
+        </main>
+        <Toaster />
         <Footer />
       </body>
     </html>

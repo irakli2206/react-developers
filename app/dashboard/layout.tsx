@@ -32,7 +32,7 @@ const DashboardLayout = async ({ children }: Props) => {
   return (
     <div className='min-h-screen h-screen flex w-full pt-[64px]'>
       <Sidebar />
-      <div className="p-8 lg:px-16 lg:py-10 w-full flex">
+      <div className="p-8 lg:px-16 lg:py-10 w-full flex relative">
         {children}
       </div>
     </div>

@@ -3,13 +3,13 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { BriefcaseBusiness, CircleCheck, UserRoundSearch } from 'lucide-react'
-import { AccountType } from '@/types/general'
+import { AccountTypeT } from '@/types/general'
 import classnames from 'classnames'
 import { FaCircleCheck } from "react-icons/fa6";
 
 type Props = {
-    accountType: AccountType | null,
-    setAccountType: (accountType: AccountType) => void
+    accountType: AccountTypeT | null,
+    setAccountType: (accountType: AccountTypeT) => void
     setWizardStep: (wizardStep: number) => void
 }
 

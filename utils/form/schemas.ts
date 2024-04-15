@@ -11,3 +11,7 @@ export const SigninSchema = z.object({
     email: z.string().min(1).email(),
     password: z.string().min(1)
 })
+
+export const PreferencesSchema = z.object({
+    available: z.string()
+})

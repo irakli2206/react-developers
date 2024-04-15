@@ -40,7 +40,6 @@ const Navbar = ({ isLoggedIn, signout }: Props) => {
     const pathname = usePathname()
     const supabase = createClient()
  
-    console.log(isLoggedIn)
     return (
         <>
             <header className="fixed w-full  z-50 top-0 flex h-16 items-center border-b border-border/40  backdrop-blur bg-background/60 px-4 md:px-6">
