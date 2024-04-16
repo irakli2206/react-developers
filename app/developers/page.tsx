@@ -2,7 +2,7 @@
 
 import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
-import { Check, Minus, Plus } from 'lucide-react'
+import { Check, Minus, Plus, Search } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import {
     Command,
@@ -15,9 +15,13 @@ import {
     CommandShortcut,
 } from "@/components/ui/command"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
+import DeveloperList from './_components/DeveloperList'
+import { Input } from '@/components/ui/input'
 
 
 const Developers = () => {
+    const [countryInput, setCountryInput] = useState("")
     const [isRolesExpanded, setIsRolesExpanded] = useState()
     const [countryOptions, setCountryOptions] = useState<string[]>([])
 
@@ -37,6 +41,11 @@ const Developers = () => {
 
     }, [])
 
+    const handleSelectCountry = (newCountryInput: string) => {
+        if (countryInput === newCountryInput) setCountryInput("")
+        else setCountryInput(newCountryInput)
+    }
+
     return (
         <div className='container py-32 min-h-screen '>
 
@@ -45,9 +54,10 @@ const Developers = () => {
                 <section className="flex flex-col w-1/4">
                     <Separator className='mb-6' />
                     <div className="role-levels flex flex-col gap-2">
-                        <div className="flex justify-between text-zinc-400">
+                        <div className="flex justify-between text-zinc-500">
                             <p className='text-sm font-medium'>Role levels</p>
-                            <Minus />
+                            <Minus width={20} className='cursor-pointer' />
+
                         </div>
                         <div className="flex mt-2 gap-2 items-center space-x-2">
 
@@ -85,16 +95,17 @@ const Developers = () => {
                     </div>
                     <Separator className='my-6' />
 
-                    <div className="flex justify-between text-zinc-400">
+                    <div className="flex justify-between  text-zinc-500">
                         <p className='text-sm font-medium'>Country</p>
-                        <Minus />
+                        <Minus width={20} className='cursor-pointer' />
+
                     </div>
                     <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
-                         
+
                         <Select  >
                             <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
                                 {/* <SelectValue placeholder={profile.country ? profile.country : "Select country"} /> */}
-                                <SelectValue placeholder={ "Select country"} />
+                                <SelectValue placeholder={countryInput || "Select country"} />
                             </SelectTrigger>
                             <SelectContent >
                                 <Command   >
@@ -104,12 +115,12 @@ const Developers = () => {
                                         <CommandGroup  >
                                             {countryOptions.map(c => {
                                                 // const isSelected = profile.country === c
-                                                const isSelected = true
+                                                const isSelected = countryInput === c
                                                 return (
                                                     <CommandItem
                                                         key={c}
                                                         value={c}
-                                                        // onSelect={(e) => handleFieldChange(e, "country")}
+                                                        onSelect={(e) => handleSelectCountry(e)}
                                                         className='justify-between'
                                                     >
 
@@ -132,8 +143,16 @@ const Developers = () => {
                         /> */}
                     </div>
                 </section>
-                <section className="flex flex-col w-3/4">
-
+                <section className="flex flex-col gap-4 w-3/4">
+                    <div className='flex-1 relative max-w-[300px]'>
+                        <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Search"
+                        // value={profile[name as keyof ProfileT] as string}
+                        // //@ts-ignore
+                        // onChange={(e) => setProfile(prevState => ({ ...prevState, [name]: e.target.value }))}
+                        />
+                        <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
+                    </div>
+                    <DeveloperList />
                 </section>
             </div>
         </div>
