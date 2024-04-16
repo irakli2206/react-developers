@@ -99,13 +99,13 @@ const Navbar = ({ isLoggedIn  }: Props) => {
                     <div className=" flex gap-8 items-center ml-auto text-sm">
                         <Link
                             href="/developers"
-                            className="text-zinc-700 transition-colors hover:text-foreground"
+                            className="text-zinc-700 font-medium transition-colors hover:text-foreground"
                         >
                             Developers
                         </Link>
                         <Link
                             href="/pricing"
-                            className="text-zinc-700 transition-colors hover:text-foreground"
+                            className="text-zinc-700 font-medium transition-colors hover:text-foreground"
                         >
                             Pricing
                         </Link>
