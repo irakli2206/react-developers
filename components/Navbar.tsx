@@ -25,20 +25,24 @@ import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { FaReact } from "react-icons/fa";
 import { ArrowRightIcon } from '@radix-ui/react-icons'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Banner from './ui/banner'
 import { createClient } from '@/utils/supabase/client'
 import { revalidatePath } from 'next/cache'
-import { signout } from '@/app/action'
 
 type Props = {
     isLoggedIn: boolean
-    signout: () => Promise<void>
 }
 
-const Navbar = ({ isLoggedIn, signout }: Props) => {
+const Navbar = ({ isLoggedIn  }: Props) => {
     const pathname = usePathname()
+    const router = useRouter()
     const supabase = createClient()
+
+    const handleSignout = async() => {
+        await supabase.auth.signOut()
+        router.refresh()
+    }
  
     return (
         <>
@@ -110,7 +114,7 @@ const Navbar = ({ isLoggedIn, signout }: Props) => {
                     {isLoggedIn ?
                         <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
                             <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline"
-                                onClick={() => signout()}
+                                onClick={() => handleSignout()}
                             >
                                 Sign out
                             </Button>
