@@ -40,7 +40,7 @@ const OurDevs = () => {
                         
                             {devData.map((dev, index) => (
                                 <CarouselItem key={index} className='flex justify-center basis-1/3'>
-                                    <DeveloperCard {...dev} />
+                                    <DeveloperCard {...dev} isDisabled={true} />
                                 </CarouselItem>
                             ))}
                         

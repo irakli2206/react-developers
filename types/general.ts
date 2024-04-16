@@ -21,5 +21,6 @@ export type ProfileT = {
     website_url: string;
     twitter_url: string;
     hourly_rate: number | null;
-    account_type: 'developer' | 'employer'
+    account_type: 'developer' | 'employer';
+    languages: string[] | null
 }

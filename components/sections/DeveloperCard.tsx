@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import classNames from "classnames"
 
 type Props = {
     title: string
@@ -27,11 +28,17 @@ type Props = {
     stack: string[]
     description: string
     terms: string[]
+    isDisabled: boolean
+    onCardClick?: () => void
 }
 
-const DeveloperCard = ({ title, rate, stack, description, terms }: Props) => {
+const DeveloperCard = ({ title, rate, stack, description, terms, isDisabled, onCardClick }: Props) => {
     return (
-        <Card className="w-full cursor-pointer hover:drop-shadow-md transition">
+        <Card
+            onClick={onCardClick}
+            className={classNames("w-full cursor-pointer hover:drop-shadow-md transition", {
+                "pointer-events-none": isDisabled
+            })}>
             <CardHeader className='flex flex-row gap-4 items-center pb-2'>
                 <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" />

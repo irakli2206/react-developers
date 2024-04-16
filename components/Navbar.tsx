@@ -69,13 +69,13 @@ const Navbar = ({ isLoggedIn  }: Props) => {
                                     <span className="sr-only">Acme Inc</span>
                                 </Link>
                                 <Link
-                                    href="developers"
+                                    href="/developers"
                                     className="text-muted-foreground hover:text-foreground"
                                 >
                                     Developers
                                 </Link>
                                 <Link
-                                    href="pricing"
+                                    href="/pricing"
                                     className="text-muted-foreground hover:text-foreground"
                                 >
                                     Pricing
@@ -98,13 +98,13 @@ const Navbar = ({ isLoggedIn  }: Props) => {
                     </nav>
                     <div className=" flex gap-8 items-center ml-auto text-sm">
                         <Link
-                            href="developers"
+                            href="/developers"
                             className="text-zinc-700 transition-colors hover:text-foreground"
                         >
                             Developers
                         </Link>
                         <Link
-                            href="pricing"
+                            href="/pricing"
                             className="text-zinc-700 transition-colors hover:text-foreground"
                         >
                             Pricing

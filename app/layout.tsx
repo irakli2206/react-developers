@@ -7,7 +7,6 @@ import { GeistMono } from 'geist/font/mono';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { createClient } from "@/utils/supabase/server";
-import { signout } from "./action";
 import {
   useQuery,
   useMutation,
@@ -46,7 +45,7 @@ export default async function RootLayout({
         "min-h-screen bg-background font-sans antialiased",
 
       )}>
-        <Navbar isLoggedIn={isLoggedIn} signout={signout} />
+        <Navbar isLoggedIn={isLoggedIn}  />
         <main className="min-h-screen">
           {children}
         </main>
