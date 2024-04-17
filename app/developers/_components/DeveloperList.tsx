@@ -11,26 +11,28 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
+import { ProfileT } from '@/types/general'
 
 
 type Props = {
     onCardClick: () => void
+    profilesData: ProfileT[]
 }
 
-const DeveloperList = ({ onCardClick }: Props) => {
+const DeveloperList = ({ onCardClick, profilesData }: Props) => {
 
     return (
         <div className='flex flex-col gap-4 w-full'>
-            {devData.map((dev) => {
+            {profilesData.map((dev) => {
 
                 return (
-                   
-                            <DeveloperCard
-                                {...dev}
-                                isDisabled={false}
-                                onCardClick={onCardClick}
-                            />
-                      
+
+                    <DeveloperCard
+                        {...dev}
+                        isDisabled={false}
+                        onCardClick={onCardClick}
+                    />
+
 
                 )
             })}

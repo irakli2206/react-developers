@@ -1,5 +1,6 @@
 'use server'
 
+import { ProfileT } from "@/types/general";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
@@ -27,7 +28,7 @@ export async function getProfileByID(id: string) {
 
     const { data, error } = await supabase.from('profiles').select('*').eq('id', id)
 
-    if (error) return "No profile found"
+    if (error) throw Error("No profile found")
 
     const formattedData = { ...data[0] }
 
@@ -36,5 +37,19 @@ export async function getProfileByID(id: string) {
     if (!formattedData.languages) formattedData.languages = []
 
     return formattedData
+}
+
+export async function getProfiles(limit?: number): Promise<ProfileT[]> {
+    const supabase = createClient()
+
+    const query = supabase.from('profiles').select('*')
+    if (limit) query.limit(limit)
+
+    const { data, error } = await query
+
+    if (error) throw Error("No data found")
+
+
+    return data
 }
 

@@ -75,15 +75,15 @@ const Developer = async ({ params }: Props) => {
                             </div>
                         </div>
                     </section>
-                    <section className='w-1/4 p-6 flex flex-col gap-4 rounded-xl ring-1 ring-gray-200 dark:ring-gray-800 shadow bg-white dark:bg-gray-900'>
+                    <section className='min-w-[340px] w-2/6 p-6 flex flex-col gap-4 rounded-xl ring-1 ring-gray-200 dark:ring-gray-800 shadow bg-white dark:bg-gray-900'>
                         <h2 className='text font-semibold'>Terms</h2>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center text-sm">
                             <p className='flex items-center gap-4 text-zinc-500'><CalendarCheck width={18} /> Available</p>
                             <span>
                                 {profile.available ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
                             </span>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center text-sm">
                             <p className='flex items-center gap-4 text-zinc-500'><Hourglass width={18} />Hourly rate</p>
                             <span>
                                 {profile.hourly_rate || "$20"}
@@ -91,29 +91,31 @@ const Developer = async ({ params }: Props) => {
                         </div>
                         <Separator />
                         <h2 className='text font-semibold'>Conditions</h2>
-                        <div className="flex justify-between items-center">
-                            <p className='flex items-center gap-4 text-zinc-500'><BriefcaseBusiness width={18} /> Employment</p>
-                            <span>
-                                {profile.employment ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
-                            </span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <p className='flex items-center gap-4 text-zinc-500'><Bird width={18} /> Freelance</p>
-                            <span>
-                                {profile.freelance ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
-                            </span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <p className='flex items-center gap-4 text-zinc-500'><Laptop width={18} /> Remote</p>
-                            <span>
-                                {profile.remote ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
-                            </span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <p className='flex items-center gap-4 text-zinc-500'><Building width={18} />On-site</p>
-                            <span>
-                                {profile.on_site ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
-                            </span>
+                        <div className="grid grid-cols-2 gap-4 gap-x-8">
+                            <div className="flex justify-between items-center text-sm ">
+                                <p className='flex items-center gap-4 text-zinc-500'><BriefcaseBusiness width={18} /> Employment</p>
+                                <span>
+                                    {profile.employment ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
+                                </span>
+                            </div>
+                            <div className="flex justify-between items-center text-sm">
+                                <p className='flex items-center gap-4 text-zinc-500'><Bird width={18} /> Freelance</p>
+                                <span>
+                                    {profile.freelance ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
+                                </span>
+                            </div>
+                            <div className="flex justify-between items-center text-sm">
+                                <p className='flex items-center gap-4 text-zinc-500'><Laptop width={18} /> Remote</p>
+                                <span>
+                                    {profile.remote ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
+                                </span>
+                            </div>
+                            <div className="flex justify-between items-center text-sm">
+                                <p className='flex items-center gap-4 text-zinc-500'><Building width={18} />On-site</p>
+                                <span>
+                                    {profile.on_site ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
+                                </span>
+                            </div>
                         </div>
                         <Separator />
                         <h2 className='text font-semibold'>Contacts</h2>

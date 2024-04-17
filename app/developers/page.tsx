@@ -30,9 +30,11 @@ import {
 } from "@/components/ui/sheet"
 import { Label } from '@/components/ui/label'
 import { useParams, useRouter } from 'next/navigation'
+import { ProfileT } from '@/types/general'
+import { getProfiles } from '../action'
 
 const Developers = () => {
-    const [isSheetOpen, setIsSheetOpen] = useState(false)
+    const [profiles, setProfiles] = useState<ProfileT[] | undefined>()
     const [countryInput, setCountryInput] = useState("")
     const [isRolesExpanded, setIsRolesExpanded] = useState(false)
     const [isCountryExpanded, setIsCountryExpanded] = useState(false)
@@ -52,9 +54,18 @@ const Developers = () => {
         }
     }
 
+    const handleGetProfiles = async () => {
+        try {
+            const profilesData = await getProfiles()
+            setProfiles(profilesData)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     useEffect(() => {
         getCountryOptions()
-
+        handleGetProfiles()
     }, [])
 
     const handleSelectCountry = (newCountryInput: string) => {
@@ -65,14 +76,9 @@ const Developers = () => {
 
     const handleCardClick = () => {
         console.log(params)
-        setIsSheetOpen(true)
         router.push('?user=sadasdasd')
     }
 
-    const handleSheetClose = () => {
-        setIsSheetOpen(close)
-        router.push('/developers')
-    }
 
     return (
         <div>
@@ -182,7 +188,11 @@ const Developers = () => {
                             />
                             <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
                         </div>
-                        <DeveloperList onCardClick={() => handleCardClick()} />
+                        {profiles ?
+                            <DeveloperList profilesData={profiles} onCardClick={() => handleCardClick()} />
+                            :
+                            null
+                        }
                     </section>
                 </div>
             </div>
