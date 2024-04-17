@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 const Pricing = () => {
+  
   return (
     <div className='py-36'>
       <div className="flex flex-col gap-12">
