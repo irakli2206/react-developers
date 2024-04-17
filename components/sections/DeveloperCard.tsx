@@ -32,7 +32,9 @@ type Props = ProfileT & {
 const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, isDisabled, onCardClick }: Props) => {
     console.log(id)
     return (
-        <Link href={`developers/${id}`}>
+        <Link href={`developers/${id}`} className={classNames("", {
+            "pointer-events-none": isDisabled
+        })}>
             <Card
                 onClick={onCardClick}
                 className={classNames("w-full cursor-pointer hover:drop-shadow-md transition", {

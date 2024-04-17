@@ -97,7 +97,7 @@ const Billing = async () => {
             <div
 
                 className={classNames('w-full ', {
-                    'opacity-30': profile.account_type === 'developer'
+                    'opacity-30 pointer-events-none select-none': profile.account_type === 'developer'
                 })}>
 
                 <div className="flex justify-between">

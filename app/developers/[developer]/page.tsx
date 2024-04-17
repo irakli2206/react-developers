@@ -28,13 +28,21 @@ const Developer = async ({ params }: Props) => {
             <div className='py-32 container relative'>
 
 
-                <div className=" items-center flex gap-12 mb-8">
-                    <Avatar className='w-auto h-24  '>
+                <div className=" items-center flex gap-8 mb-8">
+                    <Avatar className='w-auto h-20  '>
                         <AvatarImage className='object-cover' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEVAQBq7ET48cEAPk4f0pdKMr2tKOYuc7mpQvazyZ4xA&s' />
                     </Avatar>
                     <div className="flex flex-col gap-2 ">
                         <h1 className='text-3xl font-bold'>{profile.title}</h1>
-                        <p className='flex gap-2 items-center text-zinc-500  font-medium'><MapPin width={16} /> {profile.country} - 8 pm local time</p>
+
+                        <Link href='/pricing'
+                            className='w-full bg-zinc-100 border-dashed  border-zinc-300 text-zinc-400 border-2 rounded-md flex items-center
+                             justify-center gap-2 text-center px-2 py-1  hover:border-zinc-400 transition'
+                        >
+                            <Lock width={16} />
+                            <p className='text-sm'>Become an employer to view the developer's name</p>
+                        </Link>
+                        <p className='flex gap-2 items-center text-zinc-500 text-sm font-medium'><MapPin width={16} /> {profile.country} - 8 pm local time</p>
                     </div>
                 </div>
                 <div className='flex gap-8'>
@@ -61,19 +69,26 @@ const Developer = async ({ params }: Props) => {
                                 </div>
                             </div>
                         </div>
-                        <Separator className=' ' />
-                        <div className="flex flex-wrap items-center justify-between gap-2 ">
-                            <div className="flex flex-col gap-4">
-                                <h1 className='text font-bold'>Languages</h1>
-                                <div className="flex gap-2">
-                                    {profile.languages?.map(language => {
-                                        return (
-                                            < Badge key={language} variant="outline" className='rounded-md '>{language}</Badge>
-                                        )
-                                    })}
+                        {profile.languages?.length ?
+                            <>
+                                <Separator className=' ' />
+                                <div className="flex flex-wrap items-center justify-between gap-2 ">
+                                    <div className="flex flex-col gap-4">
+                                        <h1 className='text font-bold'>Languages</h1>
+                                        <div className="flex gap-2">
+                                            {profile.languages?.map(language => {
+                                                return (
+                                                    < Badge key={language} variant="outline" className='rounded-md '>{language}</Badge>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </>
+                            :
+                            null
+                        }
+
                     </section>
                     <section className='min-w-[340px] w-2/6 p-6 flex flex-col gap-4 rounded-xl ring-1 ring-gray-200 dark:ring-gray-800 shadow bg-white dark:bg-gray-900'>
                         <h2 className='text font-semibold'>Terms</h2>
@@ -121,7 +136,7 @@ const Developer = async ({ params }: Props) => {
                         <h2 className='text font-semibold'>Contacts</h2>
                         <Link href='/pricing'
                             className='w-full h-40 bg-zinc-100 border-dashed  border-zinc-300 text-zinc-400 border-2 rounded-md flex flex-col items-center
-                             justify-center gap-2 text-center p-2'
+                             justify-center gap-2 text-center p-2  hover:border-zinc-400 transition'
                         >
                             <Lock />
                             <p className='text-sm'>Become an employer to view this information</p>
