@@ -29,21 +29,24 @@ import { usePathname, useRouter } from 'next/navigation'
 import Banner from './ui/banner'
 import { createClient } from '@/utils/supabase/client'
 import { revalidatePath } from 'next/cache'
+import classNames from 'classnames'
 
 type Props = {
     isLoggedIn: boolean
 }
 
-const Navbar = ({ isLoggedIn  }: Props) => {
+const Navbar = ({ isLoggedIn }: Props) => {
     const pathname = usePathname()
     const router = useRouter()
     const supabase = createClient()
 
-    const handleSignout = async() => {
+    const handleSignout = async () => {
         await supabase.auth.signOut()
         router.refresh()
     }
- 
+
+    console.log(pathname)
+
     return (
         <>
             <header className="fixed w-full  z-50 top-0 flex h-16 items-center border-b border-border/40  backdrop-blur bg-background/60 px-4 md:px-6">
@@ -70,13 +73,17 @@ const Navbar = ({ isLoggedIn  }: Props) => {
                                 </Link>
                                 <Link
                                     href="/developers"
-                                    className="text-muted-foreground hover:text-foreground"
+                                    className={classNames("text-muted-foreground hover:text-foreground", {
+                                        "text-foreground": pathname.includes('developers')
+                                    })}
                                 >
                                     Developers
                                 </Link>
                                 <Link
                                     href="/pricing"
-                                    className="text-muted-foreground hover:text-foreground"
+                                    className={classNames("text-muted-foreground hover:text-foreground", {
+                                        "text-foreground": pathname.includes('pricing')
+                                    })}
                                 >
                                     Pricing
                                 </Link>
@@ -99,13 +106,17 @@ const Navbar = ({ isLoggedIn  }: Props) => {
                     <div className=" flex gap-8 items-center ml-auto text-sm">
                         <Link
                             href="/developers"
-                            className="text-zinc-700 font-medium transition-colors hover:text-foreground"
+                            className={classNames("text-zinc-700 font-medium transition-colors hover:text-foreground", {
+                                "!text-foreground !font-semibold ": pathname.includes('developers')
+                            })}
                         >
                             Developers
                         </Link>
                         <Link
                             href="/pricing"
-                            className="text-zinc-700 font-medium transition-colors hover:text-foreground"
+                            className={classNames("text-zinc-700 font-medium transition-colors hover:text-foreground", {
+                                "!text-foreground !font-semibold ": pathname.includes('pricing')
+                            })}
                         >
                             Pricing
                         </Link>

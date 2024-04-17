@@ -55,7 +55,7 @@ const Developer = async ({ params }: Props) => {
                                 <div className="flex gap-2">
                                     {profile.skills?.map(skill => {
                                         return (
-                                            < Badge key={skill} variant="default" className='rounded-md '>{skill}</Badge>
+                                            < Badge key={skill} variant="outline" className='rounded-md '>{skill}</Badge>
                                         )
                                     })}
                                 </div>
@@ -68,7 +68,7 @@ const Developer = async ({ params }: Props) => {
                                 <div className="flex gap-2">
                                     {profile.languages?.map(language => {
                                         return (
-                                            < Badge key={language} variant="default" className='rounded-md '>{language}</Badge>
+                                            < Badge key={language} variant="outline" className='rounded-md '>{language}</Badge>
                                         )
                                     })}
                                 </div>

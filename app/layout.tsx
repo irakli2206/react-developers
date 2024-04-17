@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Raleway } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"
 import { GeistSans } from 'geist/font/sans';
@@ -17,9 +17,10 @@ import {
 import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 
-const fontSans = FontSans({
+const raleway = Raleway({
   subsets: ["latin"],
-  variable: "--font-sans",
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic']
 })
 export const metadata: Metadata = {
   title: "React Developers",
@@ -40,7 +41,11 @@ export default async function RootLayout({
 
 
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="en" className={GeistSans.className}
+      // style={{
+      //   fontFamily: raleway.style.fontFamily
+      // }}
+    >
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
 
