@@ -31,7 +31,7 @@ const Pricing = () => {
           <PricingCard
             title='Employer'
             subtitle='Start hiring ReactJS talent'
-            cost='$137.00'
+            cost='$137.00/month'
             features={[
               "Full access to developer info",
               "Ability to use search filters",
