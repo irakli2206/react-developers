@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 const Pricing = () => {
-  
+
   return (
     <div className='py-36'>
       <div className="flex flex-col gap-12">
@@ -25,22 +25,28 @@ const Pricing = () => {
               "Free cookie delivery to your door",
               "Ok last one is a lie"
             ]}
-            button={<Button variant='outline' asChild className='rounded-full w-full'>
-              <Link href='signup'>Create Account</Link></Button>}
+            button={
+              <Button variant='outline' asChild className='rounded-full w-full'>
+                <Link href='signup'>Create Account</Link></Button>
+            }
           />
-
-          <PricingCard
-            title='Employer'
-            subtitle='Start hiring ReactJS talent'
-            cost='$137.00/month'
-            features={[
-              "Full access to developer info",
-              "Ability to use search filters",
-              "Greater prioritization of your feature requests",
-            ]}
-            button={<Button variant='default' asChild className='rounded-full w-full'>
-              <Link href='signup'>Subscribe</Link></Button>}
-          />
+          <form action='api/payment/create-checkout-session' method='post'>
+            <PricingCard
+              title='Employer'
+              subtitle='Start hiring ReactJS talent'
+              cost='$137.00/month'
+              features={[
+                "Full access to developer info",
+                "Ability to use search filters",
+                "Greater prioritization of your feature requests",
+              ]}
+              button={
+                <>
+                  <input type="hidden" name="lookup_key" value="premium" />
+                  <Button variant='default' type='submit' className='rounded-full w-full'>
+                    Subscribe </Button>
+                    </>}
+            /></form>
         </main>
       </div>
     </div >
