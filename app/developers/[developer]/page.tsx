@@ -101,7 +101,7 @@ const Developer = async ({ params }: Props) => {
                         <div className="flex justify-between items-center text-sm">
                             <p className='flex items-center gap-4 text-zinc-500'><Hourglass width={18} />Hourly rate</p>
                             <span>
-                                {profile.hourly_rate || "$20"}
+                                {profile.hourly_rate ? '$' + profile.hourly_rate : "N/A"}
                             </span>
                         </div>
                         <Separator />
@@ -132,8 +132,12 @@ const Developer = async ({ params }: Props) => {
                                 </span>
                             </div>
                         </div>
-                        <Separator />
-                        <h2 className='text font-semibold'>Contacts</h2>
+
+                        {(profile.website_url || profile.linkedin_url || profile.github_url || profile.gitlab_url || profile.twitter_url) && <>
+                            <Separator />
+                            <h2 className='text font-semibold'>Contacts</h2>
+                        </>}
+
                         {/* <Link href='/pricing'
                             className='w-full h-40 bg-zinc-100 border-dashed  border-zinc-300 text-zinc-400 border-2 rounded-md flex flex-col items-center
                              justify-center gap-2 text-center p-2  hover:border-zinc-400 transition'
