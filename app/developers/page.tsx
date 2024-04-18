@@ -3,7 +3,7 @@
 import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
 import { Check, Minus, Plus, Search } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import {
     Command,
     CommandEmpty,
@@ -31,7 +31,7 @@ import {
 import { Label } from '@/components/ui/label'
 import { useParams, useRouter } from 'next/navigation'
 import { ProfileT } from '@/types/general'
-import { getProfiles } from '../action'
+import { getFilteredProfiles, getProfileData, getProfiles } from '../action'
 import classNames from 'classnames'
 import {
     Tooltip,
@@ -39,17 +39,41 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import Loading from '../dashboard/loading'
 
 
 const Developers = () => {
+    const [userProfile, setUserProfile] = useState<ProfileT | undefined>()
     const [profiles, setProfiles] = useState<ProfileT[] | undefined>()
     const [countryInput, setCountryInput] = useState("")
+    const [selectedRoles, setSelectedRoles] = useState<string[]>([])
     const [isRolesExpanded, setIsRolesExpanded] = useState(false)
     const [isCountryExpanded, setIsCountryExpanded] = useState(false)
     const [countryOptions, setCountryOptions] = useState<string[]>([])
+    const [searchInput, setSearchInput] = useState('')
 
     const router = useRouter()
     const params = useParams()
+
+
+    useEffect(() => {
+        if (!isRolesExpanded) setSelectedRoles([])
+        if (!isCountryExpanded) setCountryInput("")
+    }, [isRolesExpanded, isCountryExpanded])
+
+    useEffect(() => {
+        getCountryOptions()
+        handleGetProfiles()
+        handleGetUserProfile()
+    }, [])
+
+    useEffect(() => {
+        const getFilteredData = async () => {
+            const filteredData = await getFilteredProfiles(countryInput, selectedRoles, searchInput)
+            setProfiles(filteredData)
+        }
+        getFilteredData()
+    }, [countryInput, selectedRoles, searchInput])
 
     const getCountryOptions = async () => {
         try {
@@ -71,10 +95,13 @@ const Developers = () => {
         }
     }
 
-    useEffect(() => {
-        getCountryOptions()
-        handleGetProfiles()
-    }, [])
+    const handleGetUserProfile = async () => {
+        const userProfileData = await getProfileData()
+        setUserProfile(userProfileData)
+    }
+
+
+
 
     const handleSelectCountry = (newCountryInput: string) => {
         if (countryInput === newCountryInput) setCountryInput("")
@@ -88,6 +115,10 @@ const Developers = () => {
     }
 
 
+    const isEmployer = useMemo(() => {
+        return userProfile?.account_type === 'employer'
+    }, [userProfile])
+
     return (
         <div>
 
@@ -97,103 +128,150 @@ const Developers = () => {
                     {/* Filters */}
                     <TooltipProvider>
                         <Tooltip>
-                            <TooltipTrigger  asChild>
-                                <section className={classNames("flex flex-col w-1/4", {
-                                    "opacity-50 [&>*]:pointer-events-none cursor-not-allowed": true
+                            <TooltipTrigger asChild>
+                                <section className={classNames("flex flex-col w-1/4 opacity-50 [&>*]:pointer-events-none cursor-not-allowed", {
+                                    "opacity-100 [&>*]:pointer-events-auto cursor-auto": isEmployer
                                 })}>
                                     <Separator className='mb-6' />
                                     <div className="role-levels flex flex-col gap-2">
-                                        <div className="flex justify-between text-zinc-500">
+                                        <div className="flex justify-between text-muted-foreground">
                                             <p className='text-sm font-medium'>Role levels</p>
-                                            <Minus width={20} className='cursor-pointer' />
-
-                                        </div>
-                                        <div className="flex mt-2 gap-2 items-center space-x-2">
-
-                                            <Checkbox id="junior"
-                                            />
-                                            <label
-                                                htmlFor="junior"
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                            <Button variant={'link'} asChild size='icon' className='text-muted-foreground'
+                                                onClick={() => {
+                                                    setIsRolesExpanded(!isRolesExpanded)
+                                                }}
                                             >
-                                                Junior
-                                            </label>
-                                        </div>
-                                        <div className="flex mt-2 gap-2 items-center space-x-2">
+                                                {isRolesExpanded ? <Minus className='cursor-pointer w-5 h-auto' /> : <Plus className='cursor-pointer w-5 h-auto' />}
+                                            </Button>
 
-                                            <Checkbox id="mid"
-                                            />
-                                            <label
-                                                htmlFor="mid"
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                Mid
-                                            </label>
                                         </div>
-                                        <div className="flex mt-2 gap-2 items-center space-x-2">
+                                        {
+                                            isRolesExpanded ?
+                                                <>
+                                                    <div className="flex mt-2 gap-2 items-center space-x-2">
 
-                                            <Checkbox id="senior"
-                                            />
-                                            <label
-                                                htmlFor="senior"
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                Senior
-                                            </label>
-                                        </div>
+                                                        <Checkbox id="junior"
+                                                            checked={selectedRoles.includes('junior')}
+                                                            onCheckedChange={(e) => {
+                                                                if (e === true) {
+                                                                    setSelectedRoles([...selectedRoles, 'junior'])
+                                                                } else setSelectedRoles([...selectedRoles].filter(role => role !== 'junior'))
+                                                            }}
+                                                        />
+                                                        <label
+                                                            htmlFor="junior"
+                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        >
+                                                            Junior
+                                                        </label>
+                                                    </div>
+                                                    <div className="flex mt-2 gap-2 items-center space-x-2">
+
+                                                        <Checkbox id="mid"
+                                                            checked={selectedRoles.includes('mid')}
+                                                            onCheckedChange={(e) => {
+                                                                if (e === true) {
+                                                                    setSelectedRoles([...selectedRoles, 'mid'])
+                                                                } else setSelectedRoles([...selectedRoles].filter(role => role !== 'mid'))
+                                                            }}
+                                                        />
+                                                        <label
+                                                            htmlFor="mid"
+                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        >
+                                                            Mid
+                                                        </label>
+                                                    </div>
+                                                    <div className="flex mt-2 gap-2 items-center space-x-2">
+
+                                                        <Checkbox id="senior"
+                                                            checked={selectedRoles.includes('senior')}
+                                                            onCheckedChange={(e) => {
+                                                                if (e === true) {
+                                                                    setSelectedRoles([...selectedRoles, 'senior'])
+                                                                } else setSelectedRoles([...selectedRoles].filter(role => role !== 'senior'))
+                                                            }}
+                                                        />
+                                                        <label
+                                                            htmlFor="senior"
+                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        >
+                                                            Senior
+                                                        </label>
+                                                    </div>
+                                                </>
+                                                :
+                                                null
+                                        }
+
+
                                     </div>
                                     <Separator className='my-6' />
 
-                                    <div className="flex justify-between  text-zinc-500">
+                                    <div className="flex justify-between  text-muted-foreground">
                                         <p className='text-sm font-medium'>Country</p>
-                                        <Minus width={20} className='cursor-pointer' />
+                                        <Button variant={'link'} asChild size='icon' className='text-muted-foreground'
+                                            onClick={() => {
+                                                setIsCountryExpanded(!isCountryExpanded)
+                                            }}
+                                        >
+                                            {isCountryExpanded ? <Minus className='cursor-pointer w-5 h-auto' /> : <Plus className='cursor-pointer w-5 h-auto' />}
+                                        </Button>
 
                                     </div>
-                                    <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                                    {
+                                        isCountryExpanded ?
+                                            <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
 
-                                        <Select  >
-                                            <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
-                                                {/* <SelectValue placeholder={profile.country ? profile.country : "Select country"} /> */}
-                                                <SelectValue placeholder={countryInput || "Select country"} />
-                                            </SelectTrigger>
-                                            <SelectContent >
-                                                <Command   >
-                                                    <CommandInput className='h-9' placeholder="Search" />
-                                                    <CommandList>
-                                                        <CommandEmpty  >No results found.</CommandEmpty>
-                                                        <CommandGroup  >
-                                                            {countryOptions.map(c => {
-                                                                // const isSelected = profile.country === c
-                                                                const isSelected = countryInput === c
-                                                                return (
-                                                                    <CommandItem
-                                                                        key={c}
-                                                                        value={c}
-                                                                        onSelect={(e) => handleSelectCountry(e)}
-                                                                        className='justify-between'
-                                                                    >
+                                                <Select  >
+                                                    <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
+                                                        {/* <SelectValue placeholder={profile.country ? profile.country : "Select country"} /> */}
+                                                        <SelectValue placeholder={countryInput || "Select country"} />
+                                                    </SelectTrigger>
+                                                    <SelectContent >
+                                                        <Command   >
+                                                            <CommandInput className='h-9' placeholder="Search"
 
-                                                                        <span>{c}</span>
-                                                                        {isSelected && <Check className="mr-2 h-4 w-4" />}
-                                                                    </CommandItem>
-                                                                )
-                                                            })}
+                                                            />
+                                                            <CommandList>
+                                                                <CommandEmpty  >No results found.</CommandEmpty>
+                                                                <CommandGroup  >
+                                                                    {countryOptions.map(c => {
+                                                                        // const isSelected = profile.country === c
+                                                                        const isSelected = countryInput === c
+                                                                        return (
+                                                                            <CommandItem
+                                                                                key={c}
+                                                                                value={c}
+                                                                                onSelect={(e) => handleSelectCountry(e)}
+                                                                                className='justify-between'
+                                                                            >
 
-                                                        </CommandGroup>
+                                                                                <span>{c}</span>
+                                                                                {isSelected && <Check className="mr-2 h-4 w-4" />}
+                                                                            </CommandItem>
+                                                                        )
+                                                                    })}
 
-                                                    </CommandList>
-                                                </Command>
+                                                                </CommandGroup>
 
-                                            </SelectContent>
-                                        </Select>
-                                        {/* <Input className='flex-1 h-9 drop-shadow-sm' type="text" placeholder="John Doe"
-                            value={profile.country}
-                            onChange={(e) => handleFieldChange(e.target.value, 'country')}
-                        /> */}
-                                    </div>
+                                                            </CommandList>
+                                                        </Command>
+
+                                                    </SelectContent>
+                                                </Select>
+                                                {/* <Input className='flex-1 h-9 drop-shadow-sm' type="text" placeholder="John Doe"
+value={profile.country}
+onChange={(e) => handleFieldChange(e.target.value, 'country')}
+/> */}
+                                            </div>
+                                            :
+                                            null
+                                    }
+
                                 </section>
                             </TooltipTrigger>
-                            <TooltipContent >
+                            <TooltipContent hidden={isEmployer} >
                                 <p>Become an employer to access search filters</p>
                             </TooltipContent>
                         </Tooltip>
@@ -201,16 +279,15 @@ const Developers = () => {
                     <section className="flex flex-col gap-4 w-3/4">
                         <div className='flex-1 relative max-w-[300px]'>
                             <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Search"
-                            // value={profile[name as keyof ProfileT] as string}
-                            // //@ts-ignore
-                            // onChange={(e) => setProfile(prevState => ({ ...prevState, [name]: e.target.value }))}
+                                value={searchInput}
+                                onChange={e => setSearchInput(e.target.value)}
                             />
                             <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
                         </div>
                         {profiles ?
                             <DeveloperList profilesData={profiles} onCardClick={() => handleCardClick()} />
                             :
-                            null
+                            <Loading />
                         }
                     </section>
                 </div>

@@ -3,9 +3,12 @@ import PricingCard from './_components/pricing-card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { BadgePlus } from 'lucide-react'
+import { getUser } from '../action'
 
-const Pricing = () => {
+const Pricing = async () => {
 
+  const user = await getUser()
+  const isLoggedIn = Boolean(user)
   return (
     <div className='py-36'>
       <div className="flex flex-col gap-12">
@@ -42,11 +45,19 @@ const Pricing = () => {
                 "Greater prioritization of your feature requests",
               ]}
               button={
-                <>
-                  <input type="hidden" name="lookup_key" value="prpl" />
-                  <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full'>
-                    Subscribe </Button>
-                </>}
+                isLoggedIn ?
+                  <>
+                    <input type="hidden" name="lookup_key" value="prpl" />
+                    <input type="hidden" name="user_id" value={user?.id} />
+
+                    <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full'>
+                      Subscribe </Button>
+                  </>
+                  :
+                  <Button id="checkout-and-portal-button" variant='default' asChild className='rounded-full w-full'>
+                    <Link href='signup'>Subscribe</Link>
+                  </Button>
+              }
             /></form>
         </main>
       </div>

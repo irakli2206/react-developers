@@ -3,15 +3,19 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { buffer } from 'micro'
 import Stripe from "stripe"
+import { createClient } from "@/utils/supabase/server";
+import { getProfileByID } from "@/app/action";
+import { stripe } from "@/lib/stripe";
 
-const YOUR_DOMAIN = 'http://localhost:3000';
-const stripe = require('stripe')('sk_test_51P6ZXCFtDuZ9TWJZjdaMzL1W77maw19YQFoSFygjcqR3VqTMIkKnaRr8Q0sKeEZ1uOVd6skIrlIZBmo3jj5BNj2500JmBR6bfG');
 const secret = 'whsec_4a233bc79fca3fa1043c952d6e5a835b004e99bdaf9cfd5b68ead656de1a7e57';
 
 
 export async function POST(
     req: Request,
 ) {
+
+    const supabase = createClient()
+
     const body = await req.text()
     const signature = headers().get("Stripe-Signature") as string
 
@@ -23,7 +27,7 @@ export async function POST(
             signature,
             secret
         )
-    } catch (error) {
+    } catch (error: any) {
         return new Response(`Webhook Error: ${error.message}`, { status: 400 })
     }
 
@@ -31,10 +35,21 @@ export async function POST(
 
     if (event.type === "checkout.session.completed") {
         // Retrieve the subscription details from Stripe.
-        const subscription = await stripe.subscriptions.retrieve(
+        const subscription: Stripe.Subscription = await stripe.subscriptions.retrieve(
             session.subscription as string
         )
+        const userId = subscription.metadata.user_id
+        const { data, error } = await supabase.from('profiles').update({
+            stripeSubscriptionId: subscription.id,
+            stripeCustomerId: subscription.customer as string,
+            stripePriceId: subscription.items.data[0].price.id,
+            stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+            account_type: 'employer'
+        }).eq('id', userId)
 
+        if (error) {
+            return new Response(`Supabase user subscription update error:${error.message}`, { status: 400 })
+        }
         console.log('SUBSCRIPTION DATA', subscription)
 
         // Update the user stripe into in our database.
@@ -55,25 +70,25 @@ export async function POST(
         // })
     }
 
-    if (event.type === "invoice.payment_succeeded") {
-        // Retrieve the subscription details from Stripe.
-        const subscription = await stripe.subscriptions.retrieve(
-            session.subscription as string
-        )
+    // if (event.type === "invoice.payment_succeeded") {
+    //     // Retrieve the subscription details from Stripe.
+    //     const subscription = await stripe.subscriptions.retrieve(
+    //         session.subscription as string
+    //     )
 
-        // Update the price id and set the new period end.
-        // await db.user.update({
-        //     where: {
-        //         stripeSubscriptionId: subscription.id,
-        //     },
-        //     data: {
-        //         stripePriceId: subscription.items.data[0].price.id,
-        //         stripeCurrentPeriodEnd: new Date(
-        //             subscription.current_period_end * 1000
-        //         ),
-        //     },
-        // })
-    }
+    //     // Update the price id and set the new period end.
+    //     // await db.user.update({
+    //     //     where: {
+    //     //         stripeSubscriptionId: subscription.id,
+    //     //     },
+    //     //     data: {
+    //     //         stripePriceId: subscription.items.data[0].price.id,
+    //     //         stripeCurrentPeriodEnd: new Date(
+    //     //             subscription.current_period_end * 1000
+    //     //         ),
+    //     //     },
+    //     // })
+    // }
 
     return new Response(null, { status: 200 })
 }

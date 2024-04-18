@@ -15,7 +15,7 @@ const PricingCard = ({ title, subtitle, cost, features, button }: Props) => {
   return (
     <Card className='flex-1 px-6 py-4 flex flex-col h-[470px] max-w-[400px]'>
       <CardHeader>
-        <h1 className='text-3xl font-semibold'>{title}</h1>
+        <h1 className='text-3xl font-medium'>{title}</h1>
         <p className='text-muted-foreground'>{subtitle}</p>
       </CardHeader>
       <CardContent>

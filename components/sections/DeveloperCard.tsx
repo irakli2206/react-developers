@@ -23,14 +23,16 @@ import { Badge } from "@/components/ui/badge"
 import classNames from "classnames"
 import Link from "next/link"
 import { ProfileT } from "@/types/general"
+import { CircleCheck, CircleCheckBig } from "lucide-react"
 
 type Props = ProfileT & {
     isDisabled: boolean
     onCardClick?: () => void
 }
 
-const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, isDisabled, onCardClick }: Props) => {
-    console.log(id)
+const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, employment, freelance, country, role_levels, available, isDisabled, onCardClick }: Props) => {
+    const terms = [on_site && 'On-site', remote && 'Remote', employment && 'Employment', freelance && 'Freelance'].filter(e => e !== false) as string[]
+
     return (
         <Link href={`developers/${id}`} className={classNames("", {
             "pointer-events-none": isDisabled
@@ -45,20 +47,21 @@ const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, i
                         <AvatarImage src="https://github.com/shadcn.png" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <div className="flex flex-col gap-1">
-                        <p className='text-xs text-zinc-500 font-semibold'>United States {hourly_rate && `- $${hourly_rate}/hour`}</p>
+                    <div className="flex flex-col gap-1 justify-between w-full">
+                        <p className='text-xs text-zinc-500 font-semibold'>{country} {hourly_rate && `- $${hourly_rate}/hour`}</p>
                         <h2 className='font-semibold text-lg'>{title}</h2>
                     </div>
+                    {available && <div className="text-green-500 self-start flex items-center gap-1">Available <CircleCheck width={18} className='fill-green-200 text-green-500' /></div>}
                 </CardHeader>
                 <CardContent>
                     <div className='flex gap-1 mb-4'>
-                        {skills ? skills.map(skill => <Badge key={skill} variant="default" className='rounded-md'>{skill}</Badge>) : null}
+                        {skills ? skills.map(skill => <Badge key={skill}  variant="default" className='rounded-md pointer-events-none'>{skill}</Badge>) : null}
                     </div>
 
                     <p className='text-zinc-500 text-sm'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse facere rem, totam non asperiores ipsam quis quisquam quae ex neque, doloribus eum perferendis a. Pariatur.</p>
                 </CardContent>
                 <CardFooter className="flex gap-1">
-                    {/* {terms.map(term => <Badge key={term} variant="outline" className='rounded-md '>{term}</Badge>)} */}
+                    {terms.map(term => <Badge key={term} variant="outline" className='rounded-md '>{term}</Badge>)}
                 </CardFooter>
             </Card>
         </Link>

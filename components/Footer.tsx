@@ -7,11 +7,16 @@ const Footer = () => {
     return (
         <footer className='w-full border-t'>
             <div className='container  border-zinc-200 py-16 '>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-6">
                     <p className='text-sm font-semibold'>React Developers</p>
-                    <ul className='flex flex-col gap-2'>
+                    <ul className='flex flex-col gap-3'>
                         <li>
-                            <Button asChild variant='link' className='p-0 font-light'>
+                            <Button asChild variant='link' className='p-0 font-light h-fit'>
+                                <Link href='developers'>Developers</Link>
+                            </Button>
+                        </li>
+                        <li>
+                            <Button asChild variant='link' className='p-0 font-light h-fit'>
                                 <Link href='pricing'>Pricing</Link>
                             </Button>
                         </li>
@@ -19,7 +24,7 @@ const Footer = () => {
                 </div>
 
             </div>
-            <Separator  />
+            <Separator />
             <div className="py-4 container  border-zinc-200 flex justify-between">
                 <p className='font-light  text-zinc-500 text-sm'>Copyright © 2024. All rights reserved.</p>
 

@@ -27,7 +27,7 @@ const OurDevs = () => {
         <section className='pt-24'>
             <main className='w-full flex flex-col '>
                 <div className="flex justify-between">
-                    <h2 className='scroll-m-20 text-3xl font-bold  tracking-tight mb-4'>Our developers</h2>
+                    <h2 className='scroll-m-20 text-3xl font-semibold  tracking-tight mb-4'>Our developers</h2>
                     <Button size='sm' variant='outline' className='rounded-full drop-shadow-sm hover:drop-shadow-none' asChild>
                         <Link href='developers' ><UsersRound size='16px' className='mr-2' /> View all</Link>
                     </Button>

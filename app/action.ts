@@ -5,15 +5,21 @@ import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
 
+export async function getUser() {
+    const supabase = createClient()
+    const { data, error } = await supabase.auth.getUser()
+    return data.user
+}
+
 export async function getProfileData() {
     const supabase = createClient()
 
     const { data, error } = await supabase.auth.getUser()
-    const { data: profile, error: profileError } = await supabase.from('profiles').select('*').eq('id', data.user?.id)
+    const { data: profile, error: profileError } = await supabase.from('profiles').select('*').eq('id', data.user?.id).maybeSingle()
 
-    if (profileError) return "No profile found"
+    if (profileError) throw Error("No profile found")
 
-    const formattedData = { ...profile[0] }
+    const formattedData: ProfileT = { ...profile }
 
     if (!formattedData.skills) formattedData.skills = []
     if (!formattedData.role_levels) formattedData.role_levels = []
@@ -26,11 +32,11 @@ export async function getProfileData() {
 export async function getProfileByID(id: string) {
     const supabase = createClient()
 
-    const { data, error } = await supabase.from('profiles').select('*').eq('id', id)
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', id).maybeSingle()
 
     if (error) throw Error("No profile found")
 
-    const formattedData = { ...data[0] }
+    const formattedData: ProfileT = { ...data }
 
     if (!formattedData.skills) formattedData.skills = []
     if (!formattedData.role_levels) formattedData.role_levels = []
@@ -53,3 +59,16 @@ export async function getProfiles(limit?: number): Promise<ProfileT[]> {
     return data
 }
 
+
+export async function getFilteredProfiles(country?: string, role_levels?: string[], searchString?: string) {
+    const supabase = createClient()
+    let query = supabase.from('profiles').select()
+    if (searchString) query = query.textSearch('title', searchString, {config: 'english', type: 'websearch'})
+    // if (role_levels) query = query.contains('role_levels', role_levels)
+    // if (country) query = query.eq('country', country)
+
+    const { data, error } = await query
+    if (error) throw Error(error.message)
+
+    return data
+}

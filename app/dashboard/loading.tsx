@@ -6,8 +6,8 @@ const Loading = () => {
   
 
   return (
-    <div className='w-full h-full flex justify-center items-center'>
-      <div className="animate-spin text-zinc-600">
+    <div className='w-full h-full py-24 flex justify-center items-center'>
+      <div className="animate-spin text-muted-foreground">
       <LoaderCircle size={64} />
       </div>
     </div>

@@ -45,7 +45,6 @@ const Navbar = ({ isLoggedIn }: Props) => {
         router.refresh()
     }
 
-    console.log(pathname)
 
     return (
         <>
