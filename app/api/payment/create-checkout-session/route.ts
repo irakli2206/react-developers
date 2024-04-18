@@ -4,12 +4,14 @@ const YOUR_DOMAIN = 'http://localhost:3000';
 const stripe = require('stripe')('sk_test_51P6ZXCFtDuZ9TWJZjdaMzL1W77maw19YQFoSFygjcqR3VqTMIkKnaRr8Q0sKeEZ1uOVd6skIrlIZBmo3jj5BNj2500JmBR6bfG');
 
 export async function POST(
-    req: NextApiRequest,
+    req: Request,
     res: NextApiResponse
 ) {
+    let formData = await req.formData()
+    console.log('FORMDATA', formData.get('lookup_key'))
     // return Response.json({ message: 'Hellos from Next.js!' })
     const prices = await stripe.prices.list({
-        lookup_keys: [req.body.lookup_key],
+        lookup_keys: [formData.get('lookup_key')],
         expand: ['data.product'],
     });
     const session = await stripe.checkout.sessions.create({
@@ -23,7 +25,7 @@ export async function POST(
             },
         ],
         mode: 'subscription',
-        success_url: `${YOUR_DOMAIN}/?success=true&session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${YOUR_DOMAIN}/payment-result?success=true&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${YOUR_DOMAIN}?canceled=true`,
     });
 

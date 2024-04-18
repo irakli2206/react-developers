@@ -2,6 +2,7 @@ import React from 'react'
 import PricingCard from './_components/pricing-card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { BadgePlus } from 'lucide-react'
 
 const Pricing = () => {
 
@@ -42,10 +43,10 @@ const Pricing = () => {
               ]}
               button={
                 <>
-                  <input type="hidden" name="lookup_key" value="premium" />
-                  <Button variant='default' type='submit' className='rounded-full w-full'>
+                  <input type="hidden" name="lookup_key" value="prpl" />
+                  <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full'>
                     Subscribe </Button>
-                    </>}
+                </>}
             /></form>
         </main>
       </div>

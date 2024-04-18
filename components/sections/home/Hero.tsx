@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '../../ui/button'
 import { CirclePlus, UserRoundPlus } from 'lucide-react'
+import Link from 'next/link'
 
 const Hero = () => {
     return (
@@ -17,7 +18,9 @@ const Hero = () => {
 
                 <div className='flex mt-10 gap-6 w-fit m-auto'>
                     <Button className='rounded-full drop-shadow-sm hover:drop-shadow-none'  variant='outline'><CirclePlus  size='20px' className='mr-2 text-zinc-800' />Add your profile</Button>
-                    <Button className='rounded-full drop-shadow-sm' ><UserRoundPlus size='20px' className='mr-2' />Start hiring</Button>
+                    <Button className='rounded-full drop-shadow-sm' asChild >
+                        <Link href='pricing' ><UserRoundPlus size='20px' className='mr-2' /> Start Hiring</Link>
+                    </Button>
                 </div>
             </main>
         </section>

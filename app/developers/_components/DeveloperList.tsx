@@ -28,6 +28,7 @@ const DeveloperList = ({ onCardClick, profilesData }: Props) => {
                 return (
 
                     <DeveloperCard
+                        key={dev.id}
                         {...dev}
                         isDisabled={false}
                         onCardClick={onCardClick}

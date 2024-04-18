@@ -4,7 +4,7 @@ import { getProfileByID } from '@/app/action';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import { ProfileT } from '@/types/general';
-import { Bird, BriefcaseBusiness, Building, CalendarCheck, CircleCheck, CircleX, Hourglass, Laptop, Lock, MapPin } from 'lucide-react';
+import { ArrowUpRight, Bird, BriefcaseBusiness, Building, CalendarCheck, CircleCheck, CircleX, Copy, Hourglass, Laptop, Lock, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';
@@ -42,7 +42,7 @@ const Developer = async ({ params }: Props) => {
                             <Lock width={16} />
                             <p className='text-sm'>Become an employer to view the developer's name</p>
                         </Link>
-                        <p className='flex gap-2 items-center text-zinc-500 text-sm font-medium'><MapPin width={16} /> {profile.country} - 8 pm local time</p>
+                        <p className='flex gap-2 items-center text-muted-foreground text-sm font-medium'><MapPin width={16} /> {profile.country} - 8 pm local time</p>
                     </div>
                 </div>
                 <div className='flex gap-8'>
@@ -134,13 +134,46 @@ const Developer = async ({ params }: Props) => {
                         </div>
                         <Separator />
                         <h2 className='text font-semibold'>Contacts</h2>
-                        <Link href='/pricing'
+                        {/* <Link href='/pricing'
                             className='w-full h-40 bg-zinc-100 border-dashed  border-zinc-300 text-zinc-400 border-2 rounded-md flex flex-col items-center
                              justify-center gap-2 text-center p-2  hover:border-zinc-400 transition'
                         >
                             <Lock />
                             <p className='text-sm'>Become an employer to view this information</p>
-                        </Link>
+                        </Link> */}
+                        {/* <button onClick={() => navigator.clipboard.writeText("i.begoidze@gmail.com")} className="flex justify-between text-muted-foreground py-2 group">
+                            <p className=''>i.begoidze@gmail.com</p>
+                            <Copy width={18} className='relative ' />
+                        </button> */}
+                        <div className="flex flex-col divide-y text-muted-foreground divide-zinc-200 ">
+                            {profile.website_url &&
+                                <Link href='' target='_blank' className="flex justify-between py-2 group">
+                                    <p className=''>Website</p>
+                                    <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
+                                </Link>
+                            }
+                            {profile.linkedin_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
+                                <p className=''>LinkedIn</p>
+                                <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
+                            </Link>}
+                            {profile.github_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
+                                <p className=''>Github</p>
+                                <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
+                            </Link>}
+                            {profile.gitlab_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
+                                <p className=''>Gitlab</p>
+                                <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
+                            </Link>}
+                            {profile.twitter_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
+                                <p className=''>Twitter</p>
+                                <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
+                            </Link>}
+
+
+
+
+
+                        </div>
                     </section>
 
 
