@@ -12,17 +12,20 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { ProfileT } from '@/types/general'
+import { Profile } from '@/types/database.types'
 
 
 type Props = {
     onCardClick: () => void
-    profilesData: ProfileT[]
+    profilesData: Profile[]
+    isEmployer: boolean
 }
 
-const DeveloperList = ({ onCardClick, profilesData }: Props) => {
+const DeveloperList = ({ onCardClick, profilesData, isEmployer }: Props) => {
 
     return (
-        <div className='flex flex-col gap-4 w-full'>
+        <div className='flex flex-col gap-4 w-full '>
+            
             {profilesData.map((dev) => {
 
                 return (

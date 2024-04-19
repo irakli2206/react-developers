@@ -24,17 +24,17 @@ import classNames from "classnames"
 import Link from "next/link"
 import { ProfileT } from "@/types/general"
 import { CircleCheck, CircleCheckBig } from "lucide-react"
+import { Profile } from "@/types/database.types"
 
-type Props = ProfileT & {
+type Props = Profile & {
     isDisabled: boolean
     onCardClick?: () => void
 }
 
 const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, employment, freelance, country, role_levels, available, isDisabled, onCardClick }: Props) => {
-    const terms = [on_site && 'On-site', remote && 'Remote', employment && 'Employment', freelance && 'Freelance'].filter(e => e !== false) as string[]
-
+    const terms = [on_site && 'On-site', remote && 'Remote', employment && 'Employment', freelance && 'Freelance'].filter(e => Boolean(e) !== false) as string[]
     return (
-        <Link href={`developers/${id}`} className={classNames("", {
+        <Link href={`developers/${id}`} className={classNames("z-0", {
             "pointer-events-none": isDisabled
         })}>
             <Card

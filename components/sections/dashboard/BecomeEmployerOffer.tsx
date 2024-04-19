@@ -8,24 +8,33 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 
-const BecomeEmployerOffer = () => {
+type Props = {
+    accountType: 'employer' | 'developer'
+}
+
+const BecomeEmployerOffer = ({ accountType }: Props) => {
     return (
-        <Card>
-            <CardHeader className="p-2 pt-0 md:p-4">
-                <CardTitle>Start Hiring</CardTitle>
-                <CardDescription>
-                    Unlock all features and get unlimited access to our developer database.
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="p-2 pt-0 md:p-4 md:pt-0 gap-2 flex flex-col">
-                <Button size="sm" variant='outline' className="w-full">
-                    Book call
-                </Button>
-                <Button size="sm" className="w-full">
-                    Upgrade
-                </Button>
-            </CardContent>
-        </Card>
+        <>
+            {
+                accountType === 'developer' && <Card>
+                    <CardHeader className="p-2 pt-0 md:p-4">
+                        <CardTitle>Start Hiring</CardTitle>
+                        <CardDescription>
+                            Unlock all features and get unlimited access to our developer database.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-2 pt-0 md:p-4 md:pt-0 gap-2 flex flex-col">
+                        <Button size="sm" variant='outline' className="w-full">
+                            Book call
+                        </Button>
+                        <Button size="sm" className="w-full">
+                            Upgrade
+                        </Button>
+                    </CardContent>
+                </Card>
+            }
+        </>
+
 
     )
 }

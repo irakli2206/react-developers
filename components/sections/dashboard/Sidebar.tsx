@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from "next/link"
 import {
     Bell,
@@ -17,10 +17,21 @@ import { Badge } from "@/components/ui/badge"
 import BecomeEmployerOffer from "@/components/sections/dashboard/BecomeEmployerOffer"
 import { redirect, usePathname } from "next/navigation"
 import classNames from 'classnames'
+import { Profile, Tables } from '@/types/database.types'
+import { getProfileData } from '@/app/action'
 
 
 const Sidebar = () => {
+    const [profile, setProfile] = useState<Profile | null>()
     const path = usePathname()
+
+    useEffect(() => {
+        const getProfile = async () => {
+            const profileData = await getProfileData()
+            setProfile(profileData)
+        }
+        getProfile()
+    }, [])
 
     const tabs = [
         {
@@ -72,7 +83,10 @@ const Sidebar = () => {
                     </nav>
                 </div>
                 <div className="mt-auto p-4">
-                    <BecomeEmployerOffer />
+                    {
+                        profile?.account_type === 'developer' && <BecomeEmployerOffer accountType={profile.account_type} />
+                    }
+
                 </div>
 
             </div>

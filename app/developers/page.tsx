@@ -40,11 +40,12 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import Loading from '../dashboard/loading'
+import { Profile } from '@/types/database.types'
 
 
 const Developers = () => {
-    const [userProfile, setUserProfile] = useState<ProfileT | undefined>()
-    const [profiles, setProfiles] = useState<ProfileT[] | undefined>()
+    const [userProfile, setUserProfile] = useState<Profile | undefined>()
+    const [profiles, setProfiles] = useState<Profile[] | undefined>()
     const [countryInput, setCountryInput] = useState("")
     const [selectedRoles, setSelectedRoles] = useState<string[]>([])
     const [isRolesExpanded, setIsRolesExpanded] = useState(false)
@@ -128,7 +129,9 @@ const Developers = () => {
     return (
         <div>
 
-            <div className='container py-32 min-h-screen '>
+            <div className='container py-32 min-h-screen'>
+
+                
 
                 <div className="flex gap-4 ">
                     {/* Filters */}
@@ -283,18 +286,29 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                         </Tooltip>
                     </TooltipProvider>
                     <section className="flex flex-col gap-4 w-3/4">
-                        <form action={handleFilter} className="flex gap-2 items-center">
-                            <div className='flex-1 relative max-w-[300px]'>
-                                <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Mid React Developer"
-                                    value={searchInput}
-                                    onChange={e => setSearchInput(e.target.value)}
-                                />
-                                <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
-                            </div>
-                            <Button size='sm' className='h' type='submit'>Search</Button>
-                        </form>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <form action={handleFilter} className={classNames("flex gap-2 w-fit items-center opacity-50 [&>*]:pointer-events-none cursor-not-allowed", {
+                                        "opacity-100 [&>*]:pointer-events-auto cursor-auto": isEmployer
+                                    })}>
+                                        <div className='flex-1 relative max-w-[300px]'>
+                                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Mid React Developer"
+                                                value={searchInput}
+                                                onChange={e => setSearchInput(e.target.value)}
+                                            />
+                                            <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
+                                        </div>
+                                        <Button size='sm' className='h' type='submit'>Search</Button>
+                                    </form>
+                                </TooltipTrigger>
+                                <TooltipContent hidden={isEmployer}>
+                                    <p>Become an employer to access search filters</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
                         {profiles ?
-                            <DeveloperList profilesData={profiles} onCardClick={() => handleCardClick()} />
+                            <DeveloperList isEmployer={userProfile?.account_type === 'employer'} profilesData={profiles} onCardClick={() => handleCardClick()} />
                             :
                             <Loading />
                         }
