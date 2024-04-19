@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Deco from '@/public/hero-deco.png'
 
 const Hero = () => {
-    return (
+    return ( 
         <section className='pt-8 lg:pt-12 w-full flex justify-center items-center '>
             <main className=' flex align-center w-full justify-between'>
                 <div className='w-full flex-1 grow-[3] px-4 md:px-12 text-center lg:text-start relative z-50'>
