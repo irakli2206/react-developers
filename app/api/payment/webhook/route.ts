@@ -32,7 +32,7 @@ export async function POST(
     }
 
     const session = event.data.object as Stripe.Checkout.Session
-
+    console.log('EVENT TYPE', event.type)
     if (event.type === "checkout.session.completed") {
         // Retrieve the subscription details from Stripe.
         const subscription: Stripe.Subscription = await stripe.subscriptions.retrieve(
@@ -68,6 +68,22 @@ export async function POST(
         //         ),
         //     },
         // })
+    }
+
+    if (event.type === 'customer.subscription.deleted') {
+        console.log('REACHED')
+        console.log('SUBSCRIPTION CANCEL DATA', session)
+
+         
+
+        const userId = session.metadata?.user_id
+        const { data, error } = await supabase.from('profiles').update({
+            account_type: 'developer'
+        }).eq('id', userId)
+
+        if (error) {
+            return new Response(`Supabase user subscription update error:${error.message}`, { status: 400 })
+        }
     }
 
     // if (event.type === "invoice.payment_succeeded") {
