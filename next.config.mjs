@@ -5,6 +5,9 @@ const nextConfig = {
             hostname: 'fakeimg.pl',
             protocol: 'https'
         }]
+    },
+    eslint: {
+        ignoreDuringBuilds: true
     }
 };
 

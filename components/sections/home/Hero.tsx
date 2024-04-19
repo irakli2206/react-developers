@@ -25,7 +25,7 @@ const Hero = () => {
 
                     <div className='flex mt-10 gap-6 w-fit mx-auto lg:ml-0'>
                         <Button size='lg' className='rounded-full drop-shadow-sm hover:drop-shadow-none' variant='outline'><CirclePlus size='20px' className='mr-2 text-zinc-800' />Add your profile</Button>
-                        <Button size='lg' className='rounded-full drop-shadow-sm ' asChild >
+                        <Button size='lg' className='rounded-full drop-shadow-sm' asChild >
                             <Link href='pricing' ><UserRoundPlus size='20px' className='mr-2' /> Start Hiring</Link>
                         </Button>
                     </div>
