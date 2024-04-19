@@ -2,7 +2,7 @@ import React from 'react'
 import PricingCard from './_components/pricing-card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { BadgePlus } from 'lucide-react'
+import { BadgePlus, Flame } from 'lucide-react'
 import { getUser } from '../action'
 
 const Pricing = async () => {
@@ -30,7 +30,7 @@ const Pricing = async () => {
               "Ok last one is a lie"
             ]}
             button={
-              <Button variant='outline' asChild className='rounded-full w-full'>
+              <Button variant='outline' asChild className='rounded-full w-full shadow-sm'>
                 <Link href='signup'>Create Account</Link></Button>
             }
           />
@@ -50,12 +50,12 @@ const Pricing = async () => {
                     <input type="hidden" name="lookup_key" value="prpl" />
                     <input type="hidden" name="user_id" value={user?.id} />
 
-                    <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full'>
-                      Subscribe </Button>
+                    <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full shadow-sm'>
+                     Subscribe </Button>
                   </>
                   :
-                  <Button id="checkout-and-portal-button" variant='default' asChild className='rounded-full w-full'>
-                    <Link href='signup'>Subscribe</Link>
+                  <Button id="checkout-and-portal-button" variant='default' asChild className='rounded-full w-full shadow-sm'>
+                    <Link href='signup'>  Subscribe</Link>
                   </Button>
               }
             /></form>

@@ -68,10 +68,19 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "pulse-slow": {
+          '50%': {opacity: '0.85'},
+        },
+        "light-flicker": {
+          '0%, 100%': {transform: 'scale(1, 1) translate(0%)'},
+          '50%': {transform: 'scale(2, 1) translate(0%)'},
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-slow": "pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "light-flicker": "light-flicker 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
