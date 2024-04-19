@@ -67,13 +67,19 @@ const Developers = () => {
         handleGetUserProfile()
     }, [])
 
+    const getFilteredData = async () => {
+        const filteredData = await getFilteredProfiles(countryInput, selectedRoles, searchInput)
+        setProfiles(filteredData)
+    }
+
     useEffect(() => {
-        const getFilteredData = async () => {
-            const filteredData = await getFilteredProfiles(countryInput, selectedRoles, searchInput)
-            setProfiles(filteredData)
-        }
+
         getFilteredData()
-    }, [countryInput, selectedRoles, searchInput])
+    }, [countryInput, selectedRoles])
+
+    const handleFilter = async () => {
+        await getFilteredData()
+    }
 
     const getCountryOptions = async () => {
         try {
@@ -277,13 +283,16 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                         </Tooltip>
                     </TooltipProvider>
                     <section className="flex flex-col gap-4 w-3/4">
-                        <div className='flex-1 relative max-w-[300px]'>
-                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Search"
-                                value={searchInput}
-                                onChange={e => setSearchInput(e.target.value)}
-                            />
-                            <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
-                        </div>
+                        <form action={handleFilter} className="flex gap-2 items-center">
+                            <div className='flex-1 relative max-w-[300px]'>
+                                <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Mid React Developer"
+                                    value={searchInput}
+                                    onChange={e => setSearchInput(e.target.value)}
+                                />
+                                <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
+                            </div>
+                            <Button size='sm' className='h' type='submit'>Search</Button>
+                        </form>
                         {profiles ?
                             <DeveloperList profilesData={profiles} onCardClick={() => handleCardClick()} />
                             :

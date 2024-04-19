@@ -61,11 +61,13 @@ export async function getProfiles(limit?: number): Promise<ProfileT[]> {
 
 
 export async function getFilteredProfiles(country?: string, role_levels?: string[], searchString?: string) {
+
     const supabase = createClient()
     let query = supabase.from('profiles').select()
-    if (searchString) query = query.textSearch('title', searchString, {config: 'english', type: 'websearch'})
-    // if (role_levels) query = query.contains('role_levels', role_levels)
-    // if (country) query = query.eq('country', country)
+    console.log(searchString)
+    if (searchString) query = query.ilike('title', `%${searchString}%`)
+    if (role_levels) query = query.contains('role_levels', role_levels)
+    if (country) query = query.eq('country', country)
 
     const { data, error } = await query
     if (error) throw Error(error.message)
