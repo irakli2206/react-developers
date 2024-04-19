@@ -24,7 +24,7 @@ const OurDevs = () => {
     )
 
     return (
-        <section className='pt-24'>
+        <section className='sm:px-12  md:px-16  lg:px-24'>
             <main className='w-full flex flex-col '>
                 <div className="flex justify-between">
                     <h2 className='scroll-m-20 text-2xl font-medium  tracking-tight mb-4'>Our developers</h2>
@@ -42,13 +42,13 @@ const OurDevs = () => {
                     <CarouselContent>
 
                         {devData.map((dev, index) => (
-                            <CarouselItem key={index} className='flex justify-center basis-1/3'>
+                            <CarouselItem key={index} className='flex justify-center md:basis-1/2 lg:basis-1/3'>
                                 <DeveloperCard {...dev} isDisabled={true} />
                             </CarouselItem>
                         ))}
 
                     </CarouselContent>
-                    <div className='absolute pointer-events-none top-0 w-full h-full z-50 from-white via-transparent to-white bg-gradient-to-r' ></div>
+                    <div className='hidden md:block absolute pointer-events-none top-0 w-full h-full z-50 from-white via-transparent to-white bg-gradient-to-r' ></div>
 
                     <CarouselPrevious />
                     <CarouselNext />
