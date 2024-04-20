@@ -24,5 +24,5 @@ export async function POST(
         return_url: returnUrl,
     });
 
-    res.redirect(303, portalSession.url);
+    return Response.redirect(portalSession.url, 303)
 }

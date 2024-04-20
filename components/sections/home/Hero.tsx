@@ -4,17 +4,45 @@ import { CirclePlus, UserRoundPlus } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Deco from '@/public/hero-deco.png'
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 const Hero = () => {
-    return ( 
+    return (
         <section className='pt-8 lg:pt-12 w-full flex justify-center items-center '>
             <main className=' flex align-center w-full justify-between'>
                 <div className='w-full flex-1 grow-[3] px-4 md:px-12 text-center lg:text-start relative z-50'>
-                    <div className="mx-auto lg:ml-0 rounded-full bg-zinc-50 ring-1 px-4 py-1 text-sm  ring-zinc-200 text-zinc-700 w-fit  mb-6 cursor-pointer hover:ring-zinc-300 transition 
+                    <Dialog>
+                        <DialogTrigger>
+                            <div className="mx-auto lg:ml-0 rounded-full bg-zinc-50 ring-1 px-4 py-1 text-sm  ring-zinc-200 text-zinc-700 w-fit  mb-6 cursor-pointer hover:ring-zinc-300 transition 
                     shadow-[inset_0px_0px_6px_-4px_rgba(0,0,0,0)] hover:shadow-[inset_0px_0px_6px_-4px_rgba(0,0,0,0.5)]">
-                        <div>Early access: give yourself an unfair advantage. <div className="font-semibold text-zinc-700 inline cursor-pointer relative"><span className="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">→</span></div></div>
-                    </div>
+                                <div>Early access: developer and employer privileges. <div className="font-semibold text-zinc-700 inline cursor-pointer relative"><span className="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">→</span></div></div>
+                            </div>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Attention developers and employers!</DialogTitle>
+                                <DialogDescription className='pt-2 flex flex-col gap-2'>
+                                    <p><strong>Developers</strong> - Join now and get an advantage when being filtered by employers</p>
 
+                                     <p><strong>Employers</strong> - Become an employer at a whopping 25% discount</p>
+                                    
+                                </DialogDescription>
+                            </DialogHeader>
+                            <DialogFooter className='mt-4'>
+                                <Button asChild >
+                                    <Link href='/pricing'>Check Pricing</Link>
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
                     <h1 className='scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl '>
                         Premier platform linking React developers and employers.
                     </h1>

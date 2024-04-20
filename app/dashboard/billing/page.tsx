@@ -31,58 +31,77 @@ import {
 } from "@/components/ui/card"
 import { getProfileData } from '@/app/action'
 import classNames from 'classnames'
+import { getInvoiceList } from './action'
+import { capitalize, formatPrice } from '@/utils/util'
+import Link from 'next/link'
 
-const invoices = [
+const invoicesDummy = [
     {
         invoice: "INV001",
         paymentStatus: "Paid",
         totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
+        product: "Laptop",
     },
     {
         invoice: "INV002",
         paymentStatus: "Pending",
         totalAmount: "$150.00",
-        paymentMethod: "PayPal",
+        product: "Headphones",
     },
     {
         invoice: "INV003",
         paymentStatus: "Unpaid",
         totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
+        product: "Smartphone",
     },
     {
         invoice: "INV004",
         paymentStatus: "Paid",
         totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
+        product: "Tablet",
     },
     {
         invoice: "INV005",
         paymentStatus: "Paid",
         totalAmount: "$550.00",
-        paymentMethod: "PayPal",
+        product: "Camera",
     },
     {
         invoice: "INV006",
         paymentStatus: "Pending",
         totalAmount: "$200.00",
-        paymentMethod: "Bank Transfer",
+        product: "Smartwatch",
     },
     {
         invoice: "INV007",
         paymentStatus: "Unpaid",
         totalAmount: "$300.00",
-        paymentMethod: "Credit Card",
+        product: "Printer",
     },
-]
+];
 
 const Billing = async () => {
     const profile = await getProfileData()
+    let invoices
+    let invoicesTotal: number
+
+    const isPageLocked = profile.account_type === 'developer'
+
+    if (!isPageLocked) {
+        invoices = await getInvoiceList(profile.stripe_customer_id as string)
+
+    }
+
+    if (invoices) {
+        invoicesTotal = 0
+        invoices.forEach(e => {
+            invoicesTotal += e.amount_due / 100
+        })
+    }
 
     return (
         <>
-            {profile.account_type === 'developer' && <Card className="max-w-[400px] absolute z-50 left-1/2 drop-shadow-md -translate-x-1/2 top-1/4">
+            {isPageLocked && <Card className="max-w-[400px] absolute z-50 left-1/2 drop-shadow-md -translate-x-1/2 top-1/4">
                 <CardHeader>
                     <CardTitle>Hey, you're just a developer!</CardTitle>
                     <CardDescription>To access billing, buy our subscription first. Questions? Schedule a call!</CardDescription>
@@ -97,7 +116,7 @@ const Billing = async () => {
             <div
 
                 className={classNames('w-full ', {
-                    'opacity-30 pointer-events-none select-none': profile.account_type === 'developer'
+                    'opacity-30 pointer-events-none select-none': isPageLocked
                 })}>
 
                 <div className="flex justify-between">
@@ -105,7 +124,11 @@ const Billing = async () => {
                         <h3 className="text-base font-semibold leading-7 text-gray-900">Billing</h3>
                         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Information about your payment history</p>
                     </div>
-                    {/* <Button onClick={handleSave} type='submit' size='sm' className='rounded-full mt-auto  '>Save changes</Button> */}
+                    <form action="/api/payment/create-portal-session" method='post' className='mt-auto'>
+                        <Button type='submit' size='sm' className='rounded-full ' >
+                            Manage subscription
+                        </Button>
+                    </form>
                 </div>
                 <div className="mt-4 border-t border-gray-200">
 
@@ -117,24 +140,37 @@ const Billing = async () => {
                             <TableRow>
                                 <TableHead className="w-[100px]">Invoice</TableHead>
                                 <TableHead>Status</TableHead>
-                                <TableHead>Method</TableHead>
+                                <TableHead>Product</TableHead>
                                 <TableHead className="text-right">Amount</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {invoices.map((invoice) => (
+                            {isPageLocked ? invoicesDummy.map((invoice) => (
                                 <TableRow key={invoice.invoice}>
                                     <TableCell className="font-medium">{invoice.invoice}</TableCell>
                                     <TableCell>{invoice.paymentStatus}</TableCell>
-                                    <TableCell>{invoice.paymentMethod}</TableCell>
+                                    <TableCell>{invoice.product}</TableCell>
                                     <TableCell className="text-right">{invoice.totalAmount}</TableCell>
                                 </TableRow>
-                            ))}
+                            )) :
+                                invoices.map((invoice) => {
+
+                                    return (
+                                        <TableRow key={invoice.id}>
+                                            <TableCell className="font-medium">{invoice.id}</TableCell>
+                                            <TableCell>{capitalize(invoice.status as string)}</TableCell>
+                                            <TableCell>{invoice.lines.data[0].description}</TableCell>
+                                            <TableCell className="text-right">{`$${(invoice.amount_due / 100).toFixed(2)}`}</TableCell>
+                                        </TableRow>
+                                    )
+                                })
+                            }
+
                         </TableBody>
                         <TableFooter>
                             <TableRow>
                                 <TableCell colSpan={3}>Total</TableCell>
-                                <TableCell className="text-right">$2,500.00</TableCell>
+                                <TableCell className="text-right">{isPageLocked ? "$2,500.00" : formatPrice(invoicesTotal)}</TableCell>
                             </TableRow>
                         </TableFooter>
                     </Table>
