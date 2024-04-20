@@ -98,6 +98,7 @@ export async function POST(
             stripe_customer_id: null,
             stripe_price_id: null,
             stripe_current_period_end: null,
+            stripe_subscription_cancelled: null
         }).eq('stripe_subscription_id', session.id)
 
         if (error) {
