@@ -71,40 +71,58 @@ export async function POST(
         // })
     }
 
+    if (event.type === 'customer.subscription.updated') {
+        console.log('REACHED')
+        console.log('SUBSCRIPTION CANCEL DATA', session)
+
+        let subscription = session as unknown as Stripe.Subscription
+
+        const { data, error } = await supabase.from('profiles').update({
+            stripe_subscription_cancelled: subscription.cancel_at_period_end
+        }).eq('stripe_subscription_id', session.id)
+
+        if (error) {
+            return new Response(`Supabase user subscription delete error:${error.message}`, { status: 400 })
+        }
+    }
+
     if (event.type === 'customer.subscription.deleted') {
         console.log('REACHED')
         console.log('SUBSCRIPTION CANCEL DATA', session)
 
 
 
-        const userId = session.metadata?.user_id
-        const { data, error } = await supabase.from('profiles').update({
-            account_type: 'developer'
-        }).eq('id', userId)
-
-        if (error) {
-            return new Response(`Supabase user subscription delete error:${error.message}`, { status: 400 })
-        }
-    }
-    if (event.type === 'customer.deleted') {
-        console.log('REACHED')
-        console.log('CUSTOMER DELETE DATA', session)
         const { data, error } = await supabase.from('profiles').update({
             account_type: 'developer',
             stripe_subscription_id: null,
             stripe_customer_id: null,
             stripe_price_id: null,
             stripe_current_period_end: null,
-
-        }).eq('stripe_customer_id', session.customer) 
-
-        console.log('RETURNED DATA', data)
-
+        }).eq('stripe_subscription_id', session.id)
 
         if (error) {
-            return new Response(`Supabase user custom delete error:${error.message}`, { status: 400 })
+            return new Response(`Supabase user subscription delete error:${error.message}`, { status: 400 })
         }
     }
+    // if (event.type === 'customer.deleted') {
+    //     console.log('REACHED')
+    //     console.log('CUSTOMER DELETE DATA', session)
+    //     const { data, error } = await supabase.from('profiles').update({
+    //         account_type: 'developer',
+    //         stripe_subscription_id: null,
+    //         stripe_customer_id: null,
+    //         stripe_price_id: null,
+    //         stripe_current_period_end: null,
+
+    //     }).eq('stripe_customer_id', session.customer)
+
+    //     console.log('RETURNED DATA', data)
+
+
+    //     if (error) {
+    //         return new Response(`Supabase user custom delete error:${error.message}`, { status: 400 })
+    //     }
+    // }
 
     // if (event.type === "invoice.payment_succeeded") {
     //     // Retrieve the subscription details from Stripe.
