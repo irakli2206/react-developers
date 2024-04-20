@@ -7,9 +7,14 @@ import { getProfileData, getUser } from '../action'
 
 const Pricing = async () => {
   const user = await getUser()
-  const profile = await getProfileData()
+  let profile
+
+  if (user) {
+    profile = await getProfileData()
+  }
+
   const isLoggedIn = Boolean(user)
-  const isDeveloper = profile.account_type === 'developer'
+  const isDeveloper = profile?.account_type === 'developer'
   return (
     <div className='py-36'>
       <div className="flex flex-col gap-12">
@@ -35,7 +40,7 @@ const Pricing = async () => {
                 <Link href='signup'>Create Account</Link></Button>
             }
           />
-          
+
           <form action={isDeveloper ? 'api/payment/create-checkout-session' : 'api/payment/create-portal-session'} method='post'>
             <PricingCard
               title='Employer'

@@ -32,8 +32,8 @@ const Hero = () => {
                                 <DialogDescription className='pt-2 flex flex-col gap-2'>
                                     <p><strong>Developers</strong> - Join now and get an advantage when being filtered by employers</p>
 
-                                     <p><strong>Employers</strong> - Become an employer at a whopping 25% discount</p>
-                                    
+                                    <p><strong>Employers</strong> - Become an employer at a whopping 25% discount</p>
+
                                 </DialogDescription>
                             </DialogHeader>
                             <DialogFooter className='mt-4'>
@@ -52,7 +52,11 @@ const Hero = () => {
                     </p>
 
                     <div className='flex mt-10 gap-6 w-fit mx-auto lg:ml-0'>
-                        <Button size='lg' className='rounded-full drop-shadow-sm hover:drop-shadow-none' variant='outline'><CirclePlus size='20px' className='mr-2 text-zinc-800' />Add your profile</Button>
+                        <Button size='lg' className='rounded-full drop-shadow-sm hover:drop-shadow-none' variant='outline' asChild>
+                            <Link href='signup'>
+                                <CirclePlus size='20px' className='mr-2 text-zinc-800' />Add your profile
+                            </Link>
+                        </Button>
                         <Button size='lg' className='rounded-full drop-shadow-sm' asChild >
                             <Link href='pricing' ><UserRoundPlus size='20px' className='mr-2' /> Start Hiring</Link>
                         </Button>
