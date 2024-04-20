@@ -1,8 +1,7 @@
 import { getProfileData } from "@/app/action";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const YOUR_DOMAIN = 'http://localhost:3000/dashboard';
-const stripe = require('stripe')('sk_test_51P6ZXCFtDuZ9TWJZjdaMzL1W77maw19YQFoSFygjcqR3VqTMIkKnaRr8Q0sKeEZ1uOVd6skIrlIZBmo3jj5BNj2500JmBR6bfG');
+ const stripe = require('stripe')('sk_test_51P6ZXCFtDuZ9TWJZjdaMzL1W77maw19YQFoSFygjcqR3VqTMIkKnaRr8Q0sKeEZ1uOVd6skIrlIZBmo3jj5BNj2500JmBR6bfG');
 
 export async function POST(
     req: Request,
@@ -17,7 +16,7 @@ export async function POST(
 
     // This is the url to which the customer will be redirected when they are done
     // managing their billing with the portal.
-    const returnUrl = YOUR_DOMAIN;
+    const returnUrl = process.env.NEXT_PUBLIC_URL;
 
     const portalSession = await stripe.billingPortal.sessions.create({
         customer: user.stripe_customer_id,

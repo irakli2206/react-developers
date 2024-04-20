@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { stripe } from '@/lib/stripe'
 import { getProfileData } from "@/app/action";
 
-const YOUR_DOMAIN = 'http://localhost:3000';
+ 
 
 
 export async function POST(
@@ -38,8 +38,8 @@ export async function POST(
             }
         },
         mode: 'subscription',
-        success_url: `${YOUR_DOMAIN}/payment-result?success=true&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+        success_url: `${process.env.NEXT_PUBLIC_URL}/payment-result?success=true&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_URL}?canceled=true`,
     });
 
     return Response.redirect(session.url!);

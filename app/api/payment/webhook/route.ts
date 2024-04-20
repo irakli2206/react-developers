@@ -89,15 +89,17 @@ export async function POST(
     if (event.type === 'customer.deleted') {
         console.log('REACHED')
         console.log('CUSTOMER DELETE DATA', session)
-        const userId = session.metadata?.user_id
         const { data, error } = await supabase.from('profiles').update({
             account_type: 'developer',
-            stripe_subscription_id: '',
-            stripe_customer_id: '',
-            stripe_price_id: '',
-            stripe_current_period_end: '',
+            stripe_subscription_id: null,
+            stripe_customer_id: null,
+            stripe_price_id: null,
+            stripe_current_period_end: null,
 
-        }).eq('id', userId)
+        }).eq('stripe_customer_id', session.customer) 
+
+        console.log('RETURNED DATA', data)
+
 
         if (error) {
             return new Response(`Supabase user custom delete error:${error.message}`, { status: 400 })

@@ -12,12 +12,12 @@ const Footer = () => {
                     <ul className='flex flex-col gap-3'>
                         <li>
                             <Button asChild variant='link' className='p-0 font-light h-fit'>
-                                <Link href='developers'>Developers</Link>
+                                <Link href='/developers'>Developers</Link>
                             </Button>
                         </li>
                         <li>
                             <Button asChild variant='link' className='p-0 font-light h-fit'>
-                                <Link href='pricing'>Pricing</Link>
+                                <Link href='/pricing'>Pricing</Link>
                             </Button>
                         </li>
                     </ul>

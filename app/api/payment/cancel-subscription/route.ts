@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { stripe } from '@/lib/stripe'
 
-const YOUR_DOMAIN = 'http://localhost:3000';
 
 
 export async function POST(
