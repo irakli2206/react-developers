@@ -7,6 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import Link from 'next/link'
 
 type Props = {
     accountType: 'employer' | 'developer'
@@ -24,11 +25,16 @@ const BecomeEmployerOffer = ({ accountType }: Props) => {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="p-2 pt-0 md:p-4 md:pt-0 gap-2 flex flex-col">
-                        <Button size="sm" variant='outline' className="w-full">
-                            Book call
+                        <Button size="sm" variant='outline' className="w-full" asChild>
+                            <Link href='https://calendly.com/iraklibego1/45min' target='_blank'>
+                                Book call
+                            </Link>
                         </Button>
-                        <Button size="sm" className="w-full">
-                            Upgrade
+                        <Button size="sm" className="w-full" asChild>
+                            <Link href='/pricing'>
+                                Upgrade
+
+                            </Link>
                         </Button>
                     </CardContent>
                 </Card>

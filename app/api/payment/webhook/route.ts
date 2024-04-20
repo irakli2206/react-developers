@@ -6,6 +6,7 @@ import Stripe from "stripe"
 import { createClient } from "@/utils/supabase/server";
 import { getProfileByID } from "@/app/action";
 import { stripe } from "@/lib/stripe";
+import { Profile } from "@/types/database.types";
 
 const secret = 'whsec_4a233bc79fca3fa1043c952d6e5a835b004e99bdaf9cfd5b68ead656de1a7e57';
 
@@ -39,11 +40,11 @@ export async function POST(
             session.subscription as string
         )
         const userId = subscription.metadata.user_id
-        const { data, error } = await supabase.from('profiles').update({
-            stripeSubscriptionId: subscription.id,
-            stripeCustomerId: subscription.customer as string,
-            stripePriceId: subscription.items.data[0].price.id,
-            stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+        const { data, error }: { data: Profile | null, error: any } = await supabase.from('profiles').update({
+            stripe_subscription_id: subscription.id,
+            stripe_customer_id: subscription.customer as string,
+            stripe_price_id: subscription.items.data[0].price.id,
+            stripe_current_period_end: new Date(subscription.current_period_end * 1000),
             account_type: 'employer'
         }).eq('id', userId)
 
@@ -74,7 +75,7 @@ export async function POST(
         console.log('REACHED')
         console.log('SUBSCRIPTION CANCEL DATA', session)
 
-         
+
 
         const userId = session.metadata?.user_id
         const { data, error } = await supabase.from('profiles').update({
@@ -82,7 +83,24 @@ export async function POST(
         }).eq('id', userId)
 
         if (error) {
-            return new Response(`Supabase user subscription update error:${error.message}`, { status: 400 })
+            return new Response(`Supabase user subscription delete error:${error.message}`, { status: 400 })
+        }
+    }
+    if (event.type === 'customer.deleted') {
+        console.log('REACHED')
+        console.log('CUSTOMER DELETE DATA', session)
+        const userId = session.metadata?.user_id
+        const { data, error } = await supabase.from('profiles').update({
+            account_type: 'developer',
+            stripe_subscription_id: null,
+            stripe_customer_id: null,
+            stripe_price_id: null,
+            stripe_current_period_end: null,
+
+        }).eq('id', userId)
+
+        if (error) {
+            return new Response(`Supabase user custom delete error:${error.message}`, { status: 400 })
         }
     }
 

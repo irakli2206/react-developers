@@ -3,12 +3,13 @@ import PricingCard from './_components/pricing-card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { BadgePlus, Flame } from 'lucide-react'
-import { getUser } from '../action'
+import { getProfileData, getUser } from '../action'
 
 const Pricing = async () => {
-
   const user = await getUser()
+  const profile = await getProfileData()
   const isLoggedIn = Boolean(user)
+  const isDeveloper = profile.account_type === 'developer'
   return (
     <div className='py-36'>
       <div className="flex flex-col gap-12">
@@ -34,7 +35,8 @@ const Pricing = async () => {
                 <Link href='signup'>Create Account</Link></Button>
             }
           />
-          <form action='api/payment/create-checkout-session' method='post'>
+          
+          <form action={isDeveloper ? 'api/payment/create-checkout-session' : 'api/payment/create-portal-session'} method='post'>
             <PricingCard
               title='Employer'
               subtitle='Start hiring ReactJS talent'
@@ -47,12 +49,22 @@ const Pricing = async () => {
               button={
                 isLoggedIn ?
                   <>
-                    <input type="hidden" name="lookup_key" value="prpl" />
-                    <input type="hidden" name="user_id" value={user?.id} />
+                    {isDeveloper ?
+                      <>
+                        <input type="hidden" name="lookup_key" value="prpl" />
+                        <input type="hidden" name="user_id" value={user?.id} />
 
-                    <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full shadow-sm'>
-                     Subscribe </Button>
+                        <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full shadow-sm'>
+                          Subscribe </Button>
+                      </>
+                      :
+                      <>
+                        <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full shadow-sm'>
+                          Unsubscribe </Button>
+                      </>
+                    }
                   </>
+
                   :
                   <Button id="checkout-and-portal-button" variant='default' asChild className='rounded-full w-full shadow-sm'>
                     <Link href='signup'>  Subscribe</Link>

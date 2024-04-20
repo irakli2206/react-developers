@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {stripe} from '@/lib/stripe'
+import { stripe } from '@/lib/stripe'
+import { getProfileData } from "@/app/action";
 
 const YOUR_DOMAIN = 'http://localhost:3000';
 
@@ -8,15 +9,17 @@ export async function POST(
     req: Request,
     res: NextApiResponse
 ) {
+    const userProfile = await getProfileData()
     let formData = await req.formData()
-    let userId = formData.get('user_id')
+    let userId = formData.get('user_id') as string
     console.log('FORMDATA', formData.get('user_id'))
     // return Response.json({ message: 'Hellos from Next.js!' })
     const prices = await stripe.prices.list({
-        lookup_keys: [formData.get('lookup_key')],
+        lookup_keys: [formData.get('lookup_key') as string],
         expand: ['data.product'],
     });
     const session = await stripe.checkout.sessions.create({
+        customer: userProfile.stripe_customer_id || undefined,
         billing_address_collection: 'auto',
         line_items: [
             {
@@ -31,7 +34,7 @@ export async function POST(
         // },
         subscription_data: {
             metadata: {
-                "user_id": userId, 
+                "user_id": userId,
             }
         },
         mode: 'subscription',
