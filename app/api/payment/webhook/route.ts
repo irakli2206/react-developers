@@ -92,10 +92,10 @@ export async function POST(
         const userId = session.metadata?.user_id
         const { data, error } = await supabase.from('profiles').update({
             account_type: 'developer',
-            stripe_subscription_id: null,
-            stripe_customer_id: null,
-            stripe_price_id: null,
-            stripe_current_period_end: null,
+            stripe_subscription_id: '',
+            stripe_customer_id: '',
+            stripe_price_id: '',
+            stripe_current_period_end: '',
 
         }).eq('id', userId)
 

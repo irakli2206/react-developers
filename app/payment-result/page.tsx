@@ -71,7 +71,7 @@ const PaymentResult = async ({ searchParams }: Props) => {
                                 <Link href={invoice?.invoice_pdf as string} target='_blank' className='flex gap-2 items-center'><ArrowDownToLine width={16} /> Download Invoice</Link>
                             </Button>
                             <Button variant='default' className='w-full '>
-                                <Link href={invoice?.invoice_pdf as string} target='_blank' className='flex gap-2 items-center'>Visit Dashboard <ArrowRight width={16} /></Link>
+                                <Link href={'/developers'} target='_blank' className='flex gap-2 items-center'>Browse Developers  </Link>
                             </Button>
                         </footer>
                         {/* <div className="product Box-root">
@@ -95,18 +95,18 @@ const PaymentResult = async ({ searchParams }: Props) => {
                     <div className="bg-zinc-50 shadow p-4 max-w-[400px] mx-auto rounded-lg ">
                         <header className='flex flex-col items-center gap-2 text-center'>
                             <div className="bg-red-100 w-fit p-2 rounded-full mb-2">
-                            <CircleAlert className='text-red-100 fill-red-500 w-8 h-8' />
+                                <CircleAlert className='text-red-100 fill-red-500 w-8 h-8' />
                             </div>
                             <p className='  font-light text-muted-foreground'>An error occurred!</p>
                             <h1 className='font-medium text-xl'>Employer Subscription Plan</h1>
                         </header>
-                        
-                         
+
+
                         <Separator className='my-6' />
                         <footer className='flex gap-2 justify-between'>
-      
+
                             <Button variant='default' className='w-full ' asChild>
-                                <Link href='/pricing'  className='flex gap-2 items-center'>Try Again</Link>
+                                <Link href='/pricing' className='flex gap-2 items-center'>Try Again</Link>
                             </Button>
                         </footer>
                         {/* <div className="product Box-root">

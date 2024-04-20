@@ -83,7 +83,7 @@ const invoicesDummy = [
 const Billing = async () => {
     const profile = await getProfileData()
     let invoices
-    let invoicesTotal: number
+    let invoicesTotal= 0
 
     const isPageLocked = profile.account_type === 'developer'
 
@@ -93,7 +93,6 @@ const Billing = async () => {
     }
 
     if (invoices) {
-        invoicesTotal = 0
         invoices.forEach(e => {
             invoicesTotal += e.amount_due / 100
         })
@@ -153,7 +152,7 @@ const Billing = async () => {
                                     <TableCell className="text-right">{invoice.totalAmount}</TableCell>
                                 </TableRow>
                             )) :
-                                invoices.map((invoice) => {
+                                invoices?.map((invoice) => {
 
                                     return (
                                         <TableRow key={invoice.id}>

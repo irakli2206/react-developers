@@ -1,6 +1,7 @@
 
+
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { getProfileByID } from '@/app/action';
+import { getProfileByID, getProfileData } from '@/app/action';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import { ArrowUpRight, Bird, BriefcaseBusiness, Building, CalendarCheck, CircleCheck, CircleX, Copy, Hourglass, Laptop, Lock, MapPin } from 'lucide-react';
@@ -15,8 +16,14 @@ type Props = {
 }
 
 const Developer = async ({ params }: Props) => {
-    const profile: Profile = await getProfileByID(params.developer);
-    console.log('avatar', profile.avatar)
+    const loggedUser = await getProfileData()
+    let isEmployer = false
+    const profile = await getProfileByID(params.developer);
+
+    if (loggedUser) {
+        isEmployer = loggedUser.account_type === 'employer'
+    }
+
     return (
         <>
             {/* <div className="w-full h-72 absolute top-0 left-0 opacity-50">
@@ -31,19 +38,27 @@ const Developer = async ({ params }: Props) => {
                 <div className=" items-center flex gap-8 mb-8">
                     <Avatar className='w-auto h-20  '>
                         <AvatarImage className='object-cover' src={profile.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
-                            
+
                         />
                     </Avatar>
                     <div className="flex flex-col gap-2 ">
                         <h1 className='text-3xl font-bold'>{profile.title}</h1>
 
-                        <Link href='/pricing'
-                            className='w-full bg-zinc-100 border-dashed  border-zinc-300 text-zinc-400 border-2 rounded-md flex items-center
-                             justify-center gap-2 text-center px-2 py-1  hover:border-zinc-400 transition'
-                        >
-                            <Lock width={16} />
-                            <p className='text-sm'>Become an employer to view the developer's name</p>
-                        </Link>
+                        {isEmployer ?
+                            <p className=''>Name: {profile.name}</p>
+                            :
+                            <Link href='/pricing'
+                                className='w-full bg-zinc-100 border-dashed  border-zinc-300 text-zinc-400 border-2 rounded-md flex items-center
+                                          justify-center gap-2 text-center px-2 py-1  hover:border-zinc-400 transition'
+                            >
+                                <Lock width={16} />
+                                <p className='text-sm'>Become an employer to view the developer's name</p>
+                            </Link>
+
+
+                        }
+
+
                         <p className='flex gap-2 items-center text-muted-foreground text-sm font-medium'><MapPin width={16} /> {profile.country} - 8 pm local time</p>
                     </div>
                 </div>
@@ -139,47 +154,51 @@ const Developer = async ({ params }: Props) => {
                             <Separator />
                             <h2 className='text font-semibold'>Contacts</h2>
                         </>}
-
-                        {/* <Link href='/pricing'
-                            className='w-full h-40 bg-zinc-100 border-dashed  border-zinc-300 text-zinc-400 border-2 rounded-md flex flex-col items-center
-                             justify-center gap-2 text-center p-2  hover:border-zinc-400 transition'
-                        >
-                            <Lock />
-                            <p className='text-sm'>Become an employer to view this information</p>
-                        </Link> */}
-                        {/* <button onClick={() => navigator.clipboard.writeText("i.begoidze@gmail.com")} className="flex justify-between text-muted-foreground py-2 group">
-                            <p className=''>i.begoidze@gmail.com</p>
-                            <Copy width={18} className='relative ' />
-                        </button> */}
-                        <div className="flex flex-col divide-y text-muted-foreground divide-zinc-200 ">
-                            {profile.website_url &&
-                                <Link href='' target='_blank' className="flex justify-between py-2 group">
-                                    <p className=''>Website</p>
+                        {isEmployer ?
+                            <div className="flex flex-col divide-y text-muted-foreground divide-zinc-200 ">
+                                {profile.website_url &&
+                                    <Link href='' target='_blank' className="flex justify-between py-2 group">
+                                        <p className=''>Website</p>
+                                        <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
+                                    </Link>
+                                }
+                                {profile.linkedin_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
+                                    <p className=''>LinkedIn</p>
                                     <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
+                                </Link>}
+                                {profile.github_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
+                                    <p className=''>Github</p>
+                                    <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
+                                </Link>}
+                                {profile.gitlab_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
+                                    <p className=''>Gitlab</p>
+                                    <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
+                                </Link>}
+                                {profile.twitter_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
+                                    <p className=''>Twitter</p>
+                                    <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
+                                </Link>}
+
+                            </div>
+                            :
+                            <>
+                                <Link href='/pricing'
+                                    className='w-full h-40 bg-zinc-100 border-dashed  border-zinc-300 text-zinc-400 border-2 rounded-md flex flex-col items-center
+                             justify-center gap-2 text-center p-2  hover:border-zinc-400 transition'
+                                >
+                                    <Lock />
+                                    <p className='text-sm'>Become an employer to view this information</p>
                                 </Link>
-                            }
-                            {profile.linkedin_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
-                                <p className=''>LinkedIn</p>
-                                <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
-                            </Link>}
-                            {profile.github_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
-                                <p className=''>Github</p>
-                                <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
-                            </Link>}
-                            {profile.gitlab_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
-                                <p className=''>Gitlab</p>
-                                <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
-                            </Link>}
-                            {profile.twitter_url && <Link href='' target='_blank' className="flex justify-between py-2 group">
-                                <p className=''>Twitter</p>
-                                <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
-                            </Link>}
+                                {/* <button onClick={() => navigator.clipboard.writeText("i.begoidze@gmail.com")} className="flex justify-between text-muted-foreground py-2 group">
+                                    <p className=''>i.begoidze@gmail.com</p>
+                                    <Copy width={18} className='relative ' />
+                                </button> */}
+                            </>
+
+                        }
 
 
 
-
-
-                        </div>
                     </section>
 
 

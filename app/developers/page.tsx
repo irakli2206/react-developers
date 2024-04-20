@@ -131,15 +131,15 @@ const Developers = () => {
 
             <div className='container py-32 min-h-screen'>
 
-                
+
 
                 <div className="flex gap-4 ">
                     {/* Filters */}
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <section className={classNames("flex flex-col w-1/4 opacity-50 [&>*]:pointer-events-none cursor-not-allowed", {
-                                    "opacity-100 [&>*]:pointer-events-auto cursor-auto": isEmployer
+                                <section className={classNames("flex flex-col w-1/4 ", {
+                                    "opacity-50 [&>*]:pointer-events-none cursor-not-allowed": !isEmployer
                                 })}>
                                     <Separator className='mb-6' />
                                     <div className="role-levels flex flex-col gap-2">
@@ -289,8 +289,8 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <form action={handleFilter} className={classNames("flex gap-2 w-fit items-center opacity-50 [&>*]:pointer-events-none cursor-not-allowed", {
-                                        "opacity-100 [&>*]:pointer-events-auto cursor-auto": isEmployer
+                                    <form action={handleFilter} className={classNames("flex gap-2 w-fit items-center ", {
+                                        "opacity-50 [&>*]:pointer-events-none cursor-not-allowed": !isEmployer
                                     })}>
                                         <div className='flex-1 relative max-w-[300px]'>
                                             <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Mid React Developer"
@@ -308,7 +308,7 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                             </Tooltip>
                         </TooltipProvider>
                         {profiles ?
-                            <DeveloperList isEmployer={userProfile?.account_type === 'employer'} profilesData={profiles} onCardClick={() => handleCardClick()} />
+                            <DeveloperList isEmployer={isEmployer} profilesData={profiles} onCardClick={() => handleCardClick()} />
                             :
                             <Loading />
                         }
