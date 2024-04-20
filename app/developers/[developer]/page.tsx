@@ -3,20 +3,20 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { getProfileByID } from '@/app/action';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { ProfileT } from '@/types/general';
 import { ArrowUpRight, Bird, BriefcaseBusiness, Building, CalendarCheck, CircleCheck, CircleX, Copy, Hourglass, Laptop, Lock, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+import { Profile } from '@/types/database.types';
 
 type Props = {
     params: { developer: string }
 }
 
 const Developer = async ({ params }: Props) => {
-    const profile: ProfileT = await getProfileByID(params.developer);
-
+    const profile: Profile = await getProfileByID(params.developer);
+    console.log('avatar', profile.avatar)
     return (
         <>
             {/* <div className="w-full h-72 absolute top-0 left-0 opacity-50">
@@ -30,7 +30,9 @@ const Developer = async ({ params }: Props) => {
 
                 <div className=" items-center flex gap-8 mb-8">
                     <Avatar className='w-auto h-20  '>
-                        <AvatarImage className='object-cover' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEVAQBq7ET48cEAPk4f0pdKMr2tKOYuc7mpQvazyZ4xA&s' />
+                        <AvatarImage className='object-cover' src={profile.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
+                            
+                        />
                     </Avatar>
                     <div className="flex flex-col gap-2 ">
                         <h1 className='text-3xl font-bold'>{profile.title}</h1>

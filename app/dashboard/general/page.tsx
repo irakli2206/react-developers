@@ -41,6 +41,7 @@ const General = () => {
     const [loading, setLoading] = useState(true)
     const { toast } = useToast()
 
+    const [avatar, setAvatar] = useState<File | undefined>()
     const [profile, setProfile] = useState<any>({})
 
     const [countryOptions, setCountryOptions] = useState<string[]>([])
@@ -74,8 +75,8 @@ const General = () => {
 
     }, [])
 
-
-    const handleFieldChange = (value: string, fieldName: keyof typeof profile) => {
+    console.log(profile)
+    const handleFieldChange = (value: string | File, fieldName: keyof typeof profile) => {
         const isFieldArray = Array.isArray(profile[fieldName])
         if (isFieldArray) {
             let uniques = [...profile[fieldName]]
@@ -97,7 +98,22 @@ const General = () => {
 
     const handleSave = async () => {
         try {
-            const { error, status } = await supabase.from('profiles').update(profile).eq('id', profile.id)
+            const {data: imageUpload, error: imageUploadError} = await supabase.storage.from('avatars').upload(`public/${profile.id}`, avatar as File, {
+                upsert: true,
+            })
+            console.log('imageupload', imageUpload)
+
+            if(imageUploadError) return toast({
+                title: "Error",
+                description: imageUploadError.message,
+                duration: 3000,
+                variant: 'destructive'
+            })
+
+            const { error, status } = await supabase.from('profiles').update({
+                ...profile,
+                avatar: "https://ctvgjowlmxhioryyhtkv.supabase.co/storage/v1/object/public/avatars/public/" + imageUpload.path
+            }).eq('id', profile.id)
             toast({
                 title: "Success",
                 description: "Your profile details have been updated",
@@ -243,6 +259,20 @@ const General = () => {
 
                             </SelectContent>
                         </Select>
+                    </div>
+                    <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                        <div className='flex flex-col gap-1 flex-1 text-sm'>
+                            <dt className="  font-medium leading-6 text-gray-900">Avatar</dt>
+                            <dd className="  text-zinc-500 ">Small image to identify you easier</dd>
+                        </div>
+                        <Input className='flex-1  drop-shadow-sm' accept='image/*' type="file" placeholder="Senior React Developer"
+
+                            onChange={(e) => {
+                                console.log(e.target.files?.length)
+                                e.target.files?.length ? setAvatar(e.target.files[0]) : setAvatar(undefined)
+                               
+                            }}
+                        />
                     </div>
                     {/* <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
                             <div className='flex flex-col gap-1 flex-1 text-sm'>
