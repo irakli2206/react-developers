@@ -11,7 +11,6 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { ProfileT } from '@/types/general'
 import { Profile } from '@/types/database.types'
 
 

@@ -129,7 +129,7 @@ const Navbar = ({ isLoggedIn }: Props) => {
                                 Sign out
                             </Button>
                             <Button size='sm' className='rounded-full group drop-shadow-sm hover:drop-shadow-none p-0' >
-                                <Link href="/dashboard" className='flex items-center px-3'>Dashboard <ArrowRight size='16px' className='ml-1' /></Link>
+                                <Link href="/dashboard" className='flex items-center px-3 h-full'>Dashboard <ArrowRight size='16px' className='ml-1' /></Link>
 
                             </Button>
 

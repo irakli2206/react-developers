@@ -10,7 +10,8 @@ import {
     ShoppingCart,
     Users,
     Link as LinkIcon,
-    ReceiptText
+    ReceiptText,
+    Bookmark
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
@@ -19,6 +20,7 @@ import { redirect, usePathname } from "next/navigation"
 import classNames from 'classnames'
 import { Profile, Tables } from '@/types/database.types'
 import { getProfileData } from '@/app/action'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 
 const Sidebar = () => {
@@ -57,6 +59,14 @@ const Sidebar = () => {
             href: 'billing',
             isActive: path === '/dashboard/billing',
             icon: <ReceiptText className="h-4 w-4" />
+        },
+        {
+            title: 'Bookmarks',
+            href: 'bookmarks',
+            isActive: path === '/dashboard/bookmarks',
+            icon: <Bookmark className="h-4 w-4" />,
+            disabled: true,
+            tooltipContent: 'Coming soon'
         }
     ]
 
@@ -66,17 +76,30 @@ const Sidebar = () => {
 
                 <div className="flex-1">
                     <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-                        {tabs.map(({ isActive, href, icon, title }) => (
-                            <Link
-                                key={title}
-                                href={href}
-                                className={classNames("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary", {
-                                    'bg-muted': isActive
-                                })}
-                            >
-                                {icon}
-                                {title}
-                            </Link>
+                        {tabs.map(({ isActive, href, icon, title, tooltipContent, disabled }) => (
+                            <TooltipProvider key={title}>
+                                <Tooltip>
+                                    <TooltipTrigger className={classNames('', {
+                                        'cursor-not-allowed': disabled
+                                    })}>
+                                        <Link
+                                            
+                                            href={href}
+                                            className={classNames("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary", {
+                                                'bg-muted': isActive,
+                                                'opacity-50 pointer-events-none': disabled
+                                            })}
+                                        >
+                                            {icon}
+                                            {title}
+                                        </Link>
+                                    </TooltipTrigger>
+                                    <TooltipContent hidden={!tooltipContent} side='bottom'>
+                                        {tooltipContent}
+                                    </TooltipContent> 
+
+                                </Tooltip>
+                            </TooltipProvider>
                         ))}
 
 

@@ -15,6 +15,8 @@ export async function getProfileData() {
     const supabase = createClient()
 
     const { data, error } = await supabase.auth.getUser()
+
+
     const { data: profile, error: profileError } = await supabase.from('profiles').select('*').eq('id', data.user?.id).maybeSingle()
 
     if (profileError) throw Error("No profile found")
@@ -42,7 +44,6 @@ export async function getProfileByID(id: string) {
 
     const formattedData: Profile = { ...data }
 
-    console.log('AVATAR IS', avatar)
 
     if (!formattedData.skills) formattedData.skills = []
     if (!formattedData.role_levels) formattedData.role_levels = []
@@ -51,10 +52,11 @@ export async function getProfileByID(id: string) {
     return formattedData
 }
 
-export async function getProfiles(limit?: number): Promise<Profile[]> {
+export async function getProfiles(limit?: number, availableOnly?: boolean): Promise<Profile[]> {
     const supabase = createClient()
 
     const query = supabase.from('profiles').select('*')
+    if(availableOnly) query.eq('available', availableOnly)
     if (limit) query.limit(limit)
 
     const { data, error } = await query
@@ -71,6 +73,7 @@ export async function getFilteredProfiles(country?: string, role_levels?: string
     const supabase = createClient()
     let query = supabase.from('profiles').select()
     console.log(searchString)
+    query.eq('available', true)
     if (searchString) query = query.ilike('title', `%${searchString}%`)
     if (role_levels) query = query.contains('role_levels', role_levels)
     if (country) query = query.eq('country', country)

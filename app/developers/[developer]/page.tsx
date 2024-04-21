@@ -16,14 +16,19 @@ type Props = {
 }
 
 const Developer = async ({ params }: Props) => {
-    const loggedUser = await getProfileData()
+    let loggedUser
+    try {
+        loggedUser = await getProfileData()
+    } catch (e) {
+        console.log(e)
+    }
     let isEmployer = false
     const profile = await getProfileByID(params.developer);
 
     if (loggedUser) {
         isEmployer = loggedUser.account_type === 'employer'
     }
-
+    console.log(profile.avatar)
     return (
         <>
             {/* <div className="w-full h-72 absolute top-0 left-0 opacity-50">
@@ -45,7 +50,7 @@ const Developer = async ({ params }: Props) => {
                         <h1 className='text-3xl font-bold'>{profile.title}</h1>
 
                         {isEmployer ?
-                            <p className=''>Name: {profile.name}</p>
+                            <p className=' text-xl font-medium'>  {profile.name} </p>
                             :
                             <Link href='/pricing'
                                 className='w-full bg-zinc-100 border-dashed  border-zinc-300 text-zinc-400 border-2 rounded-md flex items-center
@@ -59,7 +64,7 @@ const Developer = async ({ params }: Props) => {
                         }
 
 
-                        <p className='flex gap-2 items-center text-muted-foreground text-sm font-medium'><MapPin width={16} /> {profile.country} - 8 pm local time</p>
+                        <p className='flex gap-2 items-center text-muted-foreground text-sm '><MapPin width={16} /> {profile.country} - 8 pm local time</p>
                     </div>
                 </div>
                 <div className='flex gap-8'>

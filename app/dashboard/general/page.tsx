@@ -76,7 +76,8 @@ const General = () => {
     }, [])
 
     console.log(profile)
-    const handleFieldChange = (value: string | File, fieldName: keyof typeof profile) => {
+    const handleFieldChange = (value: string | File | null, fieldName: keyof typeof profile) => {
+        if(value === "") value = null
         const isFieldArray = Array.isArray(profile[fieldName])
         if (isFieldArray) {
             let uniques = [...profile[fieldName]]
@@ -98,12 +99,12 @@ const General = () => {
 
     const handleSave = async () => {
         try {
-            const {data: imageUpload, error: imageUploadError} = await supabase.storage.from('avatars').upload(`public/${profile.id}`, avatar as File, {
+            const { data: imageUpload, error: imageUploadError } = await supabase.storage.from('avatars').upload(`public/${profile.id}`, avatar as File, {
                 upsert: true,
             })
             console.log('imageupload', imageUpload)
 
-            if(imageUploadError) return toast({
+            if (imageUploadError) return toast({
                 title: "Error",
                 description: imageUploadError.message,
                 duration: 3000,
@@ -112,7 +113,7 @@ const General = () => {
 
             const { error, status } = await supabase.from('profiles').update({
                 ...profile,
-                avatar: "https://ctvgjowlmxhioryyhtkv.supabase.co/storage/v1/object/public/avatars/public/" + imageUpload.path
+                avatar: "https://ctvgjowlmxhioryyhtkv.supabase.co/storage/v1/object/public/avatars/" + imageUpload.path
             }).eq('id', profile.id)
             toast({
                 title: "Success",
@@ -175,6 +176,16 @@ const General = () => {
                         <Input className='flex-1 h-9 drop-shadow-sm' type="number" placeholder="25"
                             value={profile.hourly_rate}
                             onChange={(e) => handleFieldChange(e.target.value, 'hourly_rate')}
+                        />
+                    </div>
+                    <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                        <div className='flex flex-col gap-1 flex-1 text-sm'>
+                            <dt className="  font-medium leading-6 text-gray-900">Experience</dt>
+                            <dd className="  text-zinc-500 ">Years of experience you have (can be decimals like 1.5)</dd>
+                        </div>
+                        <Input className='flex-1 h-9 drop-shadow-sm' type="number" placeholder="2.5"
+                            value={profile.experience_years}
+                            onChange={(e) => handleFieldChange(e.target.value, 'experience_years')}
                         />
                     </div>
                     <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
@@ -270,7 +281,7 @@ const General = () => {
                             onChange={(e) => {
                                 console.log(e.target.files?.length)
                                 e.target.files?.length ? setAvatar(e.target.files[0]) : setAvatar(undefined)
-                               
+
                             }}
                         />
                     </div>

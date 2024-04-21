@@ -30,7 +30,6 @@ import {
 } from "@/components/ui/sheet"
 import { Label } from '@/components/ui/label'
 import { useParams, useRouter } from 'next/navigation'
-import { ProfileT } from '@/types/general'
 import { getFilteredProfiles, getProfileData, getProfiles } from '../action'
 import classNames from 'classnames'
 import {
@@ -57,15 +56,25 @@ const Developers = () => {
     const params = useParams()
 
 
+    const handleGetUserProfile = async () => {
+        try {
+            const userProfileData = await getProfileData()
+            if (userProfile) setUserProfile(userProfileData)
+        } catch (e) {
+            console.log(e)
+        }
+
+    }
+
     useEffect(() => {
         if (!isRolesExpanded) setSelectedRoles([])
         if (!isCountryExpanded) setCountryInput("")
     }, [isRolesExpanded, isCountryExpanded])
 
     useEffect(() => {
+        handleGetUserProfile()
         getCountryOptions()
         handleGetProfiles()
-        handleGetUserProfile()
     }, [])
 
     const getFilteredData = async () => {
@@ -95,17 +104,14 @@ const Developers = () => {
 
     const handleGetProfiles = async () => {
         try {
-            const profilesData = await getProfiles()
+            const profilesData = await getProfiles(undefined, true)
             setProfiles(profilesData)
         } catch (e) {
             console.log(e)
         }
     }
 
-    const handleGetUserProfile = async () => {
-        const userProfileData = await getProfileData()
-        setUserProfile(userProfileData)
-    }
+
 
 
 
@@ -138,7 +144,7 @@ const Developers = () => {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <section className={classNames("flex flex-col w-1/4 ", {
+                                <section className={classNames("flex flex-col h-fit w-1/4 ", {
                                     "opacity-50 [&>*]:pointer-events-none cursor-not-allowed": !isEmployer
                                 })}>
                                     <Separator className='mb-6' />
