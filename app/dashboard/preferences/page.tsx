@@ -61,7 +61,7 @@ const Preferences = () => {
 
             <div className="mt-4 border-y  border-gray-200">
                 <dl className=" grid grid-cols-1 lg:grid-cols-2 gap-x-16  ">
-                    <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                    <div className="px-4 py-4 flex items-center sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Available</dt>
                             <dd className="  text-zinc-500 ">Are you open to take job offers?</dd>
@@ -73,7 +73,7 @@ const Preferences = () => {
                             onClick={() => setProfile(prevState => ({ ...prevState, available: !prevState.available }))}
                         />
                     </div>
-                    <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                    <div className="px-4 py-4 flex items-center sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Freelance contracts</dt>
                             <dd className="  text-zinc-500 ">Are you open to freelance contracts?</dd>
@@ -84,7 +84,7 @@ const Preferences = () => {
                             onClick={() => setProfile(prevState => ({ ...prevState, freelance: !prevState.freelance }))}
                         />
                     </div>
-                    <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                    <div className="px-4 py-4 flex items-center sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Employment</dt>
                             <dd className="  text-zinc-500 ">Are you open to employment?</dd>
@@ -95,7 +95,7 @@ const Preferences = () => {
                         />
                     </div>
 
-                    <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                    <div className="px-4 py-4 flex items-center sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Remote</dt>
                             <dd className="  text-zinc-500 ">Are you open to work remotely?</dd>
@@ -105,7 +105,7 @@ const Preferences = () => {
                             onClick={() => setProfile(prevState => ({ ...prevState, remote: !prevState.remote }))}
                         />
                     </div>
-                    <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                    <div className="px-4 py-4 flex items-center sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">On site</dt>
                             <dd className="  text-zinc-500 ">Are you open to work on site?</dd>
@@ -121,7 +121,7 @@ const Preferences = () => {
             </div>
             <div>
                 <dl>
-                    <div className=" py-5 flex flex-col gap-6">
+                    <div className=" py-4 flex flex-col gap-6">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Role level</dt>
                             <dd className="  text-zinc-500 ">Select seniority levels suitable to you</dd>

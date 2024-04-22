@@ -295,7 +295,7 @@ const General = () => {
                             <dt className="  font-medium leading-6 text-gray-900">Bio</dt>
                             <dd className="  text-zinc-500 ">A few words about you</dd>
                         </div>
-                        <Textarea className='flex-1 drop-shadow-sm' placeholder="Tell us about yourself"
+                        <Textarea  className='flex-1 drop-shadow-sm' placeholder="Tell us about yourself"
                             value={profile.bio || ""}
                             onChange={(e) => handleFieldChange(e.target.value, 'bio')}
                         />

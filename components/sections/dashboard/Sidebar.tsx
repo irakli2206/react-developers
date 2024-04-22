@@ -22,7 +22,28 @@ import { Profile, Tables } from '@/types/database.types'
 import { getProfileData } from '@/app/action'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { ResizablePanel } from '@/components/ui/resizable'
+import * as ResizablePrimitive from "react-resizable-panels"
 
+type Props = React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> & {
+    children: React.ReactNode
+    withHandle: boolean
+}
+
+const ResizablePanelWrapper = ({ children, withHandle, ...props }: Props) => {
+
+    return (
+        <>
+            <ResizablePanel {...props} className=" bg-muted/40 hidden md:block">
+                {children}
+            </ResizablePanel>
+
+            <div className='min-w-[100px] md:hidden'>
+                {children}
+            </div>
+        </>
+
+    )
+}
 
 const Sidebar = () => {
     const [profile, setProfile] = useState<Profile | null>()
@@ -72,11 +93,11 @@ const Sidebar = () => {
     ]
 
     return (
-        <ResizablePanel minSize={5} maxSize={20}  className=" bg-muted/40 ">
+        <ResizablePanel minSize={5} defaultSize={15} maxSize={20} className=" bg-muted/40 ">
             <div className="flex h-full max-h-screen flex-col pt-4">
 
                 <div className="flex-1">
-                    <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+                    <nav className="grid items-start px-2 text-[0px] sm:text-sm font-medium lg:px-4">
                         {tabs.map(({ isActive, href, icon, title, tooltipContent, disabled }) => (
                             <TooltipProvider key={title}>
                                 <Tooltip>
@@ -84,10 +105,10 @@ const Sidebar = () => {
                                         'cursor-not-allowed': disabled
                                     })}>
                                         <Link
-                                            
+
                                             href={href}
-                                            className={classNames("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-blue-500", {
-                                                'bg-blue-100/70 !text-blue-600': isActive,
+                                            className={classNames("flex  items-center gap-3 rounded-md px-3 py-2 text-black transition-all hover:text-primary", {
+                                                'bg-blue-100/60 !text-primary': isActive,
                                                 'opacity-50 pointer-events-none': disabled
                                             })}
                                         >
@@ -97,7 +118,7 @@ const Sidebar = () => {
                                     </TooltipTrigger>
                                     <TooltipContent hidden={!tooltipContent} side='bottom'>
                                         {tooltipContent}
-                                    </TooltipContent> 
+                                    </TooltipContent>
 
                                 </Tooltip>
                             </TooltipProvider>
