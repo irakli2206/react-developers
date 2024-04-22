@@ -38,7 +38,7 @@ const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, e
         })}>
             <Card
                 onClick={onCardClick}
-                className={classNames("w-full cursor-pointer  hover:!shadow-none  transition", {
+                className={classNames("w-full cursor-pointer shadow-none  hover:!shadow  transition", {
                     "pointer-events-none": isDisabled
                 })}>
                 <CardHeader className='flex flex-row gap-4 items-center pb-2'>

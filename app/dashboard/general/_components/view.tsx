@@ -32,27 +32,31 @@ import {
 import { skills } from '@/data/data'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useToast } from '@/components/ui/use-toast'
-import { getCountryList, getProfileData } from '@/app/action'
+import { clearCache, getCountryList, getProfileData } from '@/app/action'
 import Loading from '../../loading'
 import { Profile } from '@/types/database.types'
+import { revalidatePath } from 'next/cache'
 
 type Props = {
     profileData: Profile,
     countryOptionsData: string[]
 }
 
+
+ 
+
 const supabase = createClient()
 
-const GeneralView = ({profileData, countryOptionsData}: Props) => {
+const GeneralView = ({ profileData, countryOptionsData }: Props) => {
     const [loading, setLoading] = useState(true)
     const { toast } = useToast()
 
     const [avatar, setAvatar] = useState<File | undefined>()
     const [profile, setProfile] = useState<any>(profileData)
 
- 
 
- 
+
+
 
     console.log(profile)
     const handleFieldChange = (value: string | File | null, fieldName: keyof typeof profile) => {
@@ -99,6 +103,9 @@ const GeneralView = ({profileData, countryOptionsData}: Props) => {
                 description: "Your profile details have been updated",
                 duration: 3000,
             })
+
+            clearCache('/dashboard/general')
+
         } catch (e) {
             toast({
                 title: "Oops",

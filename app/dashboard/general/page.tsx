@@ -38,19 +38,14 @@ import GeneralView from './_components/view'
 const supabase = createClient()
 
 const General = async () => {
-
  
     const profile = await getProfileData()
     const countryOptions = await getCountryList()
 
-
-
-    console.log(profile)
-
-
+  
     return (
         <Suspense fallback={<Loading />}>
-            <GeneralView profileData={profile} countryOptionsData={countryOptions} />
+            <GeneralView profileData={profile} countryOptionsData={countryOptions}  />
         </Suspense>
     )
 }

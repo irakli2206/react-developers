@@ -72,7 +72,7 @@ const Pricing = async () => {
 
                   :
                   <Button id="checkout-and-portal-button" variant='default' asChild className='rounded-full w-full shadow-sm'>
-                    <Link href='signup'>  Subscribe</Link>
+                    <Link href='signup?ask_auth=true'>  Subscribe</Link>
                   </Button>
               }
             /></form>

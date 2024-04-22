@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react'
 import Link from "next/link"
 import {
     Bell,
@@ -23,21 +23,40 @@ import { getProfileData } from '@/app/action'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { ResizablePanel } from '@/components/ui/resizable'
 import * as ResizablePrimitive from "react-resizable-panels"
+import { PanelOnCollapse, PanelOnExpand, PanelOnResize } from 'react-resizable-panels'
 
-type Props = React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> & {
-    children: React.ReactNode
-    withHandle: boolean
+
+
+type ResizablePanelWrapperProps = {
+    children: ReactNode
+    className?: string | undefined;
+    collapsedSize?: number | undefined;
+    collapsible?: boolean | undefined;
+    defaultSize?: number | undefined;
+    id?: string | undefined;
+    maxSize?: number | undefined;
+    minSize?: number | undefined;
+    onCollapse?: PanelOnCollapse | undefined;
+    onExpand?: PanelOnExpand | undefined;
+    onResize?: PanelOnResize | undefined;
+    order?: number | undefined;
+    style?: object | undefined;
+    tagName?: keyof HTMLElementTagNameMap | undefined;
 }
 
-const ResizablePanelWrapper = ({ children, withHandle, ...props }: Props) => {
+const ResizablePanelWrapper = ({
+    children,
+    className,
+    ...props
+}: ResizablePanelWrapperProps) => {
 
     return (
         <>
-            <ResizablePanel {...props} className=" bg-muted/40 hidden md:block">
+            <ResizablePanel minSize={5} onResize={(e) => { }} defaultSize={20} maxSize={25} className="hidden sm:block bg-muted/40 ">
                 {children}
             </ResizablePanel>
 
-            <div className='min-w-[100px] md:hidden'>
+            <div className='min-w-[100px] sm:hidden bg-muted/40'>
                 {children}
             </div>
         </>
@@ -92,9 +111,16 @@ const Sidebar = () => {
         }
     ]
 
+
+    const sidebarRef = useRef<ResizablePrimitive.ImperativePanelHandle>(null);
+
+    useEffect(() => {
+        console.log(sidebarRef)
+    }, [])
+
     return (
-        <ResizablePanel minSize={5} defaultSize={15} maxSize={20} className=" bg-muted/40 ">
-            <div className="flex h-full max-h-screen flex-col pt-4">
+        <ResizablePanelWrapper>
+            <div className="flex w-full h-full max-h-screen flex-col pt-4">
 
                 <div className="flex-1">
                     <nav className="grid items-start px-2 text-[0px] sm:text-sm font-medium lg:px-4">
@@ -107,7 +133,7 @@ const Sidebar = () => {
                                         <Link
 
                                             href={href}
-                                            className={classNames("flex  items-center gap-3 rounded-md px-3 py-2 text-zinc-600 transition-all hover:text-primary", {
+                                            className={classNames("flex justify-center gap-0 md:justify-start md:gap-3  items-center  rounded-md px-3 py-2 text-zinc-600 transition-all hover:text-primary", {
                                                 'bg-blue-100/60 !text-primary': isActive,
                                                 'opacity-50 pointer-events-none': disabled
                                             })}
@@ -135,7 +161,7 @@ const Sidebar = () => {
                 </div>
 
             </div>
-        </ResizablePanel>
+        </ResizablePanelWrapper>
     )
 }
 

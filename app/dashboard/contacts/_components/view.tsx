@@ -9,7 +9,7 @@ import { CiGlobe } from "react-icons/ci";
 import { Globe, Linkedin, Save } from 'lucide-react';
 import { ProfileT } from '@/types/general';
 import { useToast } from '@/components/ui/use-toast'
-import { getProfileData } from '@/app/action'
+import { clearCache, getProfileData } from '@/app/action'
 import Loading from '../loading'
 import { createClient } from '@/utils/supabase/client'
 import { Profile } from '@/types/database.types'
@@ -63,6 +63,7 @@ const ContactsView = ({profileData}: Props) => {
                 description: "Your profile details have been updated",
                 duration: 3000,
             })
+            clearCache('/dashboard/contacts')
         } catch (e) {
             toast({
                 title: "Oops",

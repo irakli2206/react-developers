@@ -69,12 +69,15 @@ const Signin = () => {
                         <div className="grid gap-2">
                             <div className="flex items-center">
                                 <Label htmlFor="password">Password</Label>
-                                <Link
-                                    href="/forgot-password"
-                                    className="ml-auto inline-block text-sm underline"
-                                >
-                                    Forgot your password?
-                                </Link>
+                                <Button variant='link' asChild className='p-0 h-fit'>
+                                    <Link
+                                        href="/forgot-password"
+                                        className="ml-auto text-sm "
+                                    >
+                                        Forgot your password?
+                                    </Link>
+                                </Button>
+
                             </div>
                             <Input id="password" type="password" name="password" />
                             {fieldErrors.password && <p className='text-xs text-destructive'>{fieldErrors.password[0]}</p>}
@@ -86,27 +89,62 @@ const Signin = () => {
                             Sign in with Google
                         </Button>
                     </form>
-                    <div className="mt-4 text-center text-sm">
+                    <div className=" text-center text-sm">
                         Don't have an account?{" "}
-                        <Link href="/signup" className="underline">
-                            Sign up
-                        </Link>
+                        <Button variant='link' className='p-0 h-fit' asChild>
+                            <Link href="/signup" >
+                                Sign up
+                            </Link>
+                        </Button>
                     </div>
                 </div>
             </div>
-            <div className="hidden bg-muted lg:block flex-1 ">
-                <div className="h-full w-full bg-gradient-to-b from-blue-100/80 to-red-50">
+            <div className="hidden lg:flex flex-col justify-center gap-16 flex-1 bg-gradient-to-b from-blue-100/80 via-red-50 to-white overflow-hidden rounded-tl-[7.5%]">
+                <div className="flex flex-col gap-4 min-w-[300px] w-3/4 mx-auto pt-16">
+                    <p className='font-semibold text-xl'>Thanks to ReactDevelopers, we've spared ourselves hours of sorting through numerous unqualified or below-par candidates.</p>
+                    <p className="text-gray-500 font-medium ">- Sneed's Feed and Seed</p>
+                </div>
+
+                <div className="relative w-full h-full  ">
+                    <Image
+                        src="/stripe-2.png"
+                        alt=""
+                        // sizes="(max-width: 1200px) 100vw, 80vw"
+                        height={500}
+                        width={1200}
+                        quality={100}
+                        priority
+                        className="absolute  rounded-xl right-0 top-0 drop-shadow-lg translate-x-[12%]"
+                    />
 
                 </div>
-                {/* <Image
-                    src="/cosmos.png"
-                    alt="Image"
-                    width="1920"
-                    height="1080"
-                    // fill={true}
-                    className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-                /> */}
+
+
             </div>
+  
+            {/* <div className="hidden lg:flex flex-col justify-center gap-16 flex-1 bg-gradient-to-b from-gray-100/80 to-white  overflow-hidden ">
+
+                <div className="flex flex-col gap-4 min-w-[300px] w-3/4 mx-auto pt-16">
+                    <p className='font-semibold text-xl'>Thanks to ReactDevelopers, we've spared ourselves hours of sorting through numerous unqualified or below-par candidates.</p>
+                    <p className="text-gray-500 font-medium ">- Sneed's Feed and Seed</p>
+                </div>
+
+                <div className="relative w-full h-full  ">
+                    <Image
+                        src="/stripe-2.png"
+                        alt=""
+                        // sizes="(max-width: 1200px) 100vw, 80vw"
+                        height={500}
+                        width={1200}
+                        quality={100}
+                        priority
+                        className="absolute  rounded-xl right-0 top-0 drop-shadow-lg translate-x-[12%]"
+                    />
+
+                </div>
+
+
+            </div> */}
         </div>
     )
 }

@@ -95,5 +95,10 @@ export async function getCountryList() {
 export async function signout(){
     const supabase = createClient()
     await supabase.auth.signOut()
-    revalidatePath('/')
+    // revalidatePath('/')
+}
+
+
+export async function clearCache(path: string){
+    revalidatePath(path)
 }

@@ -54,7 +54,7 @@ const Hero = () => {
                     <div className='flex mt-10 gap-6 w-fit mx-auto lg:ml-0'>
                         <Button size='lg' className='rounded-full drop-shadow-sm hover:drop-shadow-none' variant='outline' asChild>
                             <Link href='signup'>
-                                <CirclePlus size='20px' className='mr-2 text-zinc-600 fill-zinc-200' />Add your profile
+                                <CirclePlus size='20px' className='mr-2 text-gray-500 fill-gray-100' />Add your profile
                             </Link>
                         </Button>
                         <Button size='lg' className='rounded-full drop-shadow-sm ' asChild >

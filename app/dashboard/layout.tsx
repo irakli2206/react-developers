@@ -35,7 +35,7 @@ const DashboardLayout = async ({ children }: Props) => {
       <ResizablePanelGroup direction='horizontal'>
         <Sidebar />
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={85}>
+        <ResizablePanel defaultSize={80}>
           <div className="p-8 lg:px-16 lg:py-10 h-full w-full flex relative">
             {children}
           </div>

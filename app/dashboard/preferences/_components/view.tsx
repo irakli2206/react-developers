@@ -6,24 +6,24 @@ import { Switch } from "@/components/ui/switch"
 import { Separator } from '@/components/ui/separator'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
-import { getProfileData } from '@/app/action'
+import { clearCache, getProfileData } from '@/app/action'
 import { createClient } from '@/utils/supabase/client'
 import { useToast } from '@/components/ui/use-toast'
 import { Profile } from '@/types/database.types'
 
- 
+
 const supabase = createClient()
 
 type Props = {
     profileData: Profile
 }
 
-const PreferencesView = ({profileData}: Props) => {
+const PreferencesView = ({ profileData }: Props) => {
     const [profile, setProfile] = useState<Profile>(profileData)
 
     const { toast } = useToast()
 
- 
+
 
     const handleSave = async () => {
         try {
@@ -33,6 +33,7 @@ const PreferencesView = ({profileData}: Props) => {
                 description: "Your profile details have been updated",
                 duration: 3000,
             })
+            clearCache('/dashboard/preferences')
         } catch (e) {
             toast({
                 title: "Oops",
@@ -106,7 +107,7 @@ const PreferencesView = ({profileData}: Props) => {
                             <dd className="  text-zinc-500 ">Are you open to work on site?</dd>
                         </div>
                         <Switch
-                            
+
                             checked={profile.on_site}
                             onClick={() => setProfile(prevState => ({ ...prevState, on_site: !prevState.on_site }))}
                         />

@@ -2,7 +2,7 @@
 
 import ChooseType from '@/components/sections/signup/ChooseType'
 import { AccountTypeT } from '@/types/general'
-import { BriefcaseBusiness, UserRoundSearch } from 'lucide-react'
+import { BriefcaseBusiness, Info, UserRoundSearch } from 'lucide-react'
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import {
@@ -18,7 +18,7 @@ import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { FaGoogle } from "react-icons/fa";
 import Image from "next/image"
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useFormState, useFormStatus } from 'react-dom'
 import { signup } from './action'
 import { z } from 'zod'
@@ -42,6 +42,8 @@ const Signup = () => {
     const [state, signupAction] = useFormState(signup, initialState)
     const { pending } = useFormStatus();
     const router = useRouter()
+    const params = useSearchParams()
+    const isAskAuthVisible = params.get('ask_auth')
 
     console.log('state', state.validationData)
     const fieldErrors = state.validationData.fieldErrors
@@ -50,6 +52,18 @@ const Signup = () => {
         <div className="w-full flex  min-h-full">
             <div className="flex items-center justify-center pb-24 flex-1">
                 <div className="mx-auto grid w-[350px] gap-6">
+                    {isAskAuthVisible === 'true' &&
+                        <div className='border border-blue-200 p-4 bg-blue-50 rounded-lg flex gap-4'>
+                            <div>
+                                <Info width={20} className='text-blue-500 fill-blue-100' />
+                            </div> 
+                            <div className="flex flex-col">
+                                <p className="font-medium mb-1">Please sign up first</p>
+                                <p className="text-sm">We're thrilled that you're interested in becoming an employer! To proceed, kindly sign in or create an account.</p>
+                            </div>
+                        </div>}
+
+
                     <div className="grid gap-2 text-center">
                         <h1 className="text-3xl font-bold ">Sign up</h1>
                         <p className="text-balance text-muted-foreground">
@@ -94,12 +108,7 @@ const Signup = () => {
                         <div className="grid gap-1">
                             <div className="flex items-center">
                                 <Label htmlFor="password" className='mb-1'>Password</Label>
-                                <Link
-                                    href="/forgot-password"
-                                    className="ml-auto inline-block text-sm underline"
-                                >
-                                    Forgot your password?
-                                </Link>
+
                             </div>
                             <Input id="password" type="password" name="password" />
                             {fieldErrors?.password && <p className='text-xs text-destructive'>{fieldErrors.password[0]}</p>}
@@ -110,26 +119,41 @@ const Signup = () => {
                             Sign up
                         </Button>
                         <Button variant="outline" className="w-full">
-                            Sign in with Google
+                            Sign up with Google
                         </Button>
                     </form>
                     <div className="mt-4 text-center text-sm">
                         Already have an account?{" "}
-                        <Link href="signin" className="underline">
-                            Sign in
-                        </Link>
+
+                        <Button variant='link' className='p-0 h-fit' asChild>
+                            <Link href="/signin" >
+                                Sign in
+                            </Link>
+                        </Button>
                     </div>
                 </div>
             </div>
-            <div className="hidden bg-muted lg:block flex-1 ">
-                <Image
-                    src="/cosmos.png"
-                    alt="Image"
-                    width="1920"
-                    height="1080"
-                    // fill={true}
-                    className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-                />
+            <div className="hidden lg:flex flex-col justify-center gap-16 flex-1 bg-gradient-to-b from-blue-100/80 via-red-50 to-white overflow-hidden rounded-tl-[7.5%]">
+                <div className="flex flex-col gap-4 min-w-[300px] w-3/4 mx-auto pt-16">
+                    <p className='font-semibold text-xl'>Thanks to ReactDevelopers, we've spared ourselves hours of sorting through numerous unqualified or below-par candidates.</p>
+                    <p className="text-gray-500 font-medium ">- Sneed's Feed and Seed</p>
+                </div>
+
+                <div className="relative w-full h-full  ">
+                    <Image
+                        src="/stripe-2.png"
+                        alt=""
+                        // sizes="(max-width: 1200px) 100vw, 80vw"
+                        height={500}
+                        width={1200}
+                        quality={100}
+                        priority
+                        className="absolute  rounded-xl right-0 top-0 drop-shadow-lg translate-x-[12%]"
+                    />
+
+                </div>
+
+
             </div>
         </div>
     )
