@@ -2,7 +2,7 @@
 
 import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
-import { Check, Minus, Plus, Search } from 'lucide-react'
+import { Check, Minus, Plus, Search, UserSearch } from 'lucide-react'
 import React, { useEffect, useMemo, useState } from 'react'
 import {
     Command,
@@ -59,7 +59,7 @@ const Developers = () => {
     const handleGetUserProfile = async () => {
         try {
             const userProfileData = await getProfileData()
-             setUserProfile(userProfileData)
+            setUserProfile(userProfileData)
         } catch (e) {
             console.log(e)
         }
@@ -153,7 +153,7 @@ const Developers = () => {
                                                     setIsRolesExpanded(!isRolesExpanded)
                                                 }}
                                             >
-                                                {isRolesExpanded ? <Minus className='cursor-pointer w-2 h-auto' /> : <Plus className='cursor-pointer w-2 h-2' />}
+                                                {isRolesExpanded ? <Minus className='cursor-pointer !w-5 h-auto' /> : <Plus className='cursor-pointer !w-5 h-auto' />}
                                             </Button>
 
                                         </div>
@@ -227,7 +227,7 @@ const Developers = () => {
                                                 setIsCountryExpanded(!isCountryExpanded)
                                             }}
                                         >
-                                            {isCountryExpanded ? <Minus className='cursor-pointer w-5 h-auto' /> : <Plus className='cursor-pointer w-5 h-auto' />}
+                                            {isCountryExpanded ? <Minus className='cursor-pointer !w-5 h-auto' /> : <Plus className='cursor-pointer !w-5 h-auto' />}
                                         </Button>
 
                                     </div>
@@ -295,14 +295,14 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                                     <form action={handleFilter} className={classNames("flex gap-2 w-fit items-center opacity-100 [&>*]:pointer-events-auto cursor-allowed", {
                                         "!opacity-50 [&>*]:!pointer-events-none cursor-not-allowed": !isEmployer
                                     })}>
-                                        <div className='flex-1 relative max-w-[300px]'>
-                                            <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Mid React Developer"
+                                        <div className='flex-1 flex relative max-w-[300px]'>
+                                            <Input className='pl-10  drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Mid React Developer"
                                                 value={searchInput}
                                                 onChange={e => setSearchInput(e.target.value)}
                                             />
                                             <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
                                         </div>
-                                        <Button size='sm' className='h' type='submit'>Search</Button>
+                                        <Button type='submit'> Search</Button>
                                     </form>
                                 </TooltipTrigger>
                                 <TooltipContent hidden={isEmployer}>
