@@ -129,19 +129,19 @@ const Navbar = ({ isLoggedIn }: Props) => {
                             >
                                 Sign out
                             </Button>
-                            <Button  className='rounded-full group drop-shadow-sm hover:drop-shadow-none p-0' >
-                                <Link href="/dashboard" className='flex items-center px-3 h-full'>Dashboard <ArrowRight size='16px' className='ml-1' /></Link>
+                            <Button asChild className='rounded-full group drop-shadow-sm hover:drop-shadow-none ' >
+                                <Link href="/dashboard" className='flex items-center '>Dashboard <ArrowRight size='16px' className='ml-1' /></Link>
 
                             </Button>
 
                         </div>
                         :
                         <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
-                            <Button asChild  className='rounded-full group drop-shadow-sm hover:drop-shadow-none' variant="outline">
-                                <Link href="/signin">Sign in</Link>
+                            <Button asChild  className='rounded-full group drop-shadow-sm hover:drop-shadow-none ' variant="outline">
+                                <Link href="/signin" className=''>Sign in</Link>
                             </Button>
-                            <Button   className='rounded-full group drop-shadow-sm hover:drop-shadow-none p-0' >
-                                <Link href="/signup" className='flex items-center px-3'>Sign up <ArrowRight size='16px' className='ml-1' /></Link>
+                            <Button asChild className='rounded-full group drop-shadow-sm hover:drop-shadow-none  ' >
+                                <Link href="/signup" className='flex items-center '>Sign up <ArrowRight size='16px' className='ml-1' /></Link>
 
                             </Button>
 
