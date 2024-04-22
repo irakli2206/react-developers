@@ -16,7 +16,7 @@ export async function POST(
 
     // This is the url to which the customer will be redirected when they are done
     // managing their billing with the portal.
-    const returnUrl = process.env.NEXT_PUBLIC_URL;
+    const returnUrl = `${process.env.NEXT_PUBLIC_URL}/dashboard/billing`;
 
     const portalSession = await stripe.billingPortal.sessions.create({
         customer: user.stripe_customer_id,

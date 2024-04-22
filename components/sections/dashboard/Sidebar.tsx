@@ -21,6 +21,7 @@ import classNames from 'classnames'
 import { Profile, Tables } from '@/types/database.types'
 import { getProfileData } from '@/app/action'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { ResizablePanel } from '@/components/ui/resizable'
 
 
 const Sidebar = () => {
@@ -71,7 +72,7 @@ const Sidebar = () => {
     ]
 
     return (
-        <div className="  border-r bg-muted/40 w-1/6 min-w-[250px]  max-w-xs">
+        <ResizablePanel minSize={5} maxSize={20}  className=" bg-muted/40 ">
             <div className="flex h-full max-h-screen flex-col pt-4">
 
                 <div className="flex-1">
@@ -113,7 +114,7 @@ const Sidebar = () => {
                 </div>
 
             </div>
-        </div>
+        </ResizablePanel>
     )
 }
 

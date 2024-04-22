@@ -49,7 +49,7 @@ const Navbar = ({ isLoggedIn }: Props) => {
 
     return (
         <>
-            <header className="fixed w-full  z-[51] top-0 flex h-16 items-center border-b border-border/40  backdrop-blur bg-background/60 px-4 md:px-6">
+            <header className="fixed w-full  z-[51] top-0 flex h-14 items-center border-b border-border/40  backdrop-blur bg-background/60 px-4 md:px-6">
                 <div className="container flex">
                     <Sheet>
                         <SheetTrigger asChild>

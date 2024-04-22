@@ -24,7 +24,7 @@ const PricingCard = ({ title, subtitle, cost, features, button }: Props) => {
           {features.map(feature => {
             return (
               <p key={feature} className='flex gap-2 text-sm text-muted-foreground items-center'>
-                <CheckCircle2 className='text-green-400 fill-green-100' width={18} />
+                <CheckCircle2 className='text-blue-400 fill-blue-100' width={18} />
                 {feature}
               </p>
             )

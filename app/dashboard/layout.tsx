@@ -16,6 +16,7 @@ import BecomeEmployerOffer from "@/components/sections/dashboard/BecomeEmployerO
 import { redirect } from "next/navigation"
 import Sidebar from '@/components/sections/dashboard/Sidebar'
 import { createClient } from '@/utils/supabase/server'
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
 
 
 type Props = {
@@ -24,17 +25,22 @@ type Props = {
 
 const DashboardLayout = async ({ children }: Props) => {
   const supabase = createClient()
-  const {data, error} = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser()
   const isLoggedIn = Boolean(data.user)
 
-  if(!isLoggedIn) redirect('/signin')
+  if (!isLoggedIn) redirect('/signin')
 
   return (
-    <div className='min-h-screen h-screen flex w-full pt-[64px]'>
-      <Sidebar />
-      <div className="p-8 lg:px-16 lg:py-10 w-full flex relative">
-        {children}
-      </div>
+    <div className='min-h-screen h-screen flex w-full pt-[56px]'>
+      <ResizablePanelGroup direction='horizontal'>
+        <Sidebar />
+        <ResizableHandle withHandle />
+        <ResizablePanel >
+          <div className="p-8 lg:px-16 lg:py-10 w-full flex relative">
+            {children}
+          </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </div>
   )
 }

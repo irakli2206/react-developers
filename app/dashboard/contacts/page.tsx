@@ -75,7 +75,7 @@ const Contacts = () => {
 
     if (!profile) return <Loading />
 
-  
+
     return (
         <div className='w-full'>
             <div className="flex justify-between">
@@ -84,7 +84,6 @@ const Contacts = () => {
                     <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Make it easier for talent experts to get in touch with you</p>
                 </div>
                 <Button size='sm' className='rounded-full mt-auto' onClick={handleSave}>
-                    {/* <Save size='16px' className='mr-2' />  */}
                     Save changes</Button>
             </div>
             <div className="mt-4 border-t border-gray-200">
@@ -93,7 +92,7 @@ const Contacts = () => {
                     {contactsData.map(({ icon, label, name }) => {
 
                         return (
-                            <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                            <div key={name} className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
                                 <div className='flex flex-col gap-1 flex-1 text-sm'>
                                     <dt className="  font-medium leading-6 text-gray-900">{label}</dt>
                                 </div>

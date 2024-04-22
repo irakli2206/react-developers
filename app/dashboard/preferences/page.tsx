@@ -111,8 +111,9 @@ const Preferences = () => {
                             <dd className="  text-zinc-500 ">Are you open to work on site?</dd>
                         </div>
                         <Switch
+                            
                             checked={profile.on_site}
-                            onClick={() => setProfile(prevState => ({ ...prevState, available: !prevState.on_site }))}
+                            onClick={() => setProfile(prevState => ({ ...prevState, on_site: !prevState.on_site }))}
                         />
                     </div>
 

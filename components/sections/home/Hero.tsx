@@ -57,7 +57,7 @@ const Hero = () => {
                                 <CirclePlus size='20px' className='mr-2 text-zinc-600 fill-zinc-200' />Add your profile
                             </Link>
                         </Button>
-                        <Button size='lg' className='rounded-full drop-shadow-sm' asChild >
+                        <Button size='lg' className='rounded-full drop-shadow-sm ' asChild >
                             <Link href='pricing' ><UserRoundPlus size='20px' className='mr-2' />Start Hiring</Link>
                         </Button>
                     </div>

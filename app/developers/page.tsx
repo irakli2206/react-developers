@@ -153,7 +153,7 @@ const Developers = () => {
                                                     setIsRolesExpanded(!isRolesExpanded)
                                                 }}
                                             >
-                                                {isRolesExpanded ? <Minus className='cursor-pointer w-5 h-auto' /> : <Plus className='cursor-pointer w-5 h-auto' />}
+                                                {isRolesExpanded ? <Minus className='cursor-pointer w-2 h-auto' /> : <Plus className='cursor-pointer w-2 h-2' />}
                                             </Button>
 
                                         </div>
