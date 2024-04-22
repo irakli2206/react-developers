@@ -106,16 +106,16 @@ const Navbar = ({ isLoggedIn }: Props) => {
                     <div className=" flex gap-8 items-center ml-auto text-sm">
                         <Link
                             href="/developers"
-                            className={classNames("text-zinc-700 font-medium transition-colors hover:text-foreground", {
-                                "!text-foreground !font-semibold ": pathname.includes('developers')
+                            className={classNames("text-zinc-700 font-medium transition-colors hover:text-blue-500", {
+                                "!text-blue-600 !font-semibold ": pathname.includes('developers')
                             })}
                         >
                             Developers
                         </Link>
                         <Link
                             href="/pricing"
-                            className={classNames("text-zinc-700 font-medium transition-colors hover:text-foreground", {
-                                "!text-foreground !font-semibold ": pathname.includes('pricing')
+                            className={classNames("text-zinc-700 font-medium transition-colors hover:text-blue-500", {
+                                "!text-blue-600 !font-semibold ": pathname.includes('pricing')
                             })}
                         >
                             Pricing

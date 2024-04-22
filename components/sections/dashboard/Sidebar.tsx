@@ -85,8 +85,8 @@ const Sidebar = () => {
                                         <Link
                                             
                                             href={href}
-                                            className={classNames("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary", {
-                                                'bg-muted': isActive,
+                                            className={classNames("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-blue-500", {
+                                                'bg-blue-100/70 !text-blue-600': isActive,
                                                 'opacity-50 pointer-events-none': disabled
                                             })}
                                         >

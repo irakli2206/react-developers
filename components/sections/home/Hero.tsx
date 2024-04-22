@@ -21,9 +21,9 @@ const Hero = () => {
                 <div className='w-full flex-1 grow-[3] px-4 md:px-12 text-center lg:text-start relative z-50'>
                     <Dialog>
                         <DialogTrigger>
-                            <div className="mx-auto lg:ml-0 rounded-full bg-zinc-50 ring-1 px-4 py-1 text-sm  ring-zinc-200 text-zinc-700 w-fit  mb-6 cursor-pointer hover:ring-zinc-300 transition 
-                    shadow-[inset_0px_0px_6px_-4px_rgba(0,0,0,0)] hover:shadow-[inset_0px_0px_6px_-4px_rgba(0,0,0,0.5)]">
-                                <div>Early access: developer and employer privileges. <div className="font-semibold text-zinc-700 inline cursor-pointer relative"><span className="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">→</span></div></div>
+                            <div className="mx-auto lg:ml-0 rounded-full bg-blue-50 ring-1 px-4 py-1 text-sm  ring-blue-200 text-blue-700 w-fit  mb-6 cursor-pointer hover:ring-blue-300 transition 
+                    shadow-[inset_0px_0px_6px_-4px_rgba(37,99,235,0)] hover:shadow-[inset_0px_0px_8px_-4px_rgba(37,99,235,0.5)]">
+                                <div>Early access: developer and employer privileges. <div className="font-semibold text-blue-700 inline cursor-pointer relative"><span className="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">→</span></div></div>
                             </div>
                         </DialogTrigger>
                         <DialogContent>
@@ -54,11 +54,11 @@ const Hero = () => {
                     <div className='flex mt-10 gap-6 w-fit mx-auto lg:ml-0'>
                         <Button size='lg' className='rounded-full drop-shadow-sm hover:drop-shadow-none' variant='outline' asChild>
                             <Link href='signup'>
-                                <CirclePlus size='20px' className='mr-2 text-zinc-800' />Add your profile
+                                <CirclePlus size='20px' className='mr-2 text-zinc-600 fill-zinc-200' />Add your profile
                             </Link>
                         </Button>
                         <Button size='lg' className='rounded-full drop-shadow-sm' asChild >
-                            <Link href='pricing' ><UserRoundPlus size='20px' className='mr-2' /> Start Hiring</Link>
+                            <Link href='pricing' ><UserRoundPlus size='20px' className='mr-2' />Start Hiring</Link>
                         </Button>
                     </div>
                 </div>

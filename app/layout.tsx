@@ -42,9 +42,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={GeistSans.className}
-      style={{
-        fontFamily: raleway.style.fontFamily
-      }}
+      // style={{
+      //   fontFamily: raleway.style.fontFamily
+      // }}
     >
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
