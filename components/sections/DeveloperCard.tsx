@@ -43,7 +43,7 @@ const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, e
                 })}>
                 <CardHeader className='flex flex-row gap-4 items-center pb-2'>
                     <Avatar>
-                        <AvatarImage src={avatar as string} />
+                        <AvatarImage src={avatar as string} className=" object-cover" />
                         <AvatarImage src="https://github.com/shadcn.png" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>

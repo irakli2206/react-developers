@@ -30,6 +30,7 @@ import Banner from './ui/banner'
 import { createClient } from '@/utils/supabase/client'
 import { revalidatePath } from 'next/cache'
 import classNames from 'classnames'
+import { signout } from '@/app/action'
 
 type Props = {
     isLoggedIn: boolean
@@ -41,8 +42,8 @@ const Navbar = ({ isLoggedIn }: Props) => {
     const supabase = createClient()
 
     const handleSignout = async () => {
-        await supabase.auth.signOut()
-        router.refresh()
+        await signout()
+        window.location.reload()
     }
 
 

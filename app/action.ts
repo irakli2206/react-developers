@@ -16,21 +16,22 @@ export async function getProfileData() {
 
     const { data, error } = await supabase.auth.getUser()
 
-
     const { data: profile, error: profileError } = await supabase.from('profiles').select('*').eq('id', data.user?.id).maybeSingle()
+
 
     if (profileError) throw Error("No profile found")
 
     const formattedData: Profile = {
-        ...profile,  
+        ...profile,
     }
 
     if (!formattedData.skills) formattedData.skills = []
     if (!formattedData.role_levels) formattedData.role_levels = []
     if (!formattedData.languages) formattedData.languages = []
-
+    console.log('formatted', formattedData)
     return formattedData
 }
+
 
 
 export async function getProfileByID(id: string) {
@@ -56,7 +57,7 @@ export async function getProfiles(limit?: number, availableOnly?: boolean): Prom
     const supabase = createClient()
 
     const query = supabase.from('profiles').select('*')
-    if(availableOnly) query.eq('available', availableOnly)
+    if (availableOnly) query.eq('available', availableOnly)
     if (limit) query.limit(limit)
 
     const { data, error } = await query
@@ -82,4 +83,17 @@ export async function getFilteredProfiles(country?: string, role_levels?: string
     if (error) throw Error(error.message)
 
     return data
+}
+
+export async function getCountryList() {
+    const countries = await fetch("https://restcountries.com/v3.1/all?fields=name", {cache: 'force-cache'})
+    const countriesData = await countries.json()
+    const countryNames = countriesData.map((c: any) => c.name.common).sort((a: any, b: any) => a - b)
+    return countryNames
+}
+
+export async function signout(){
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    revalidatePath('/')
 }

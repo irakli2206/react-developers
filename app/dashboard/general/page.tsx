@@ -33,7 +33,7 @@ import { skills } from '@/data/data'
 import Loading from '../loading'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useToast } from '@/components/ui/use-toast'
-import { getProfileData } from '@/app/action'
+import { getCountryList, getProfileData } from '@/app/action'
 
 const supabase = createClient()
 
@@ -60,9 +60,7 @@ const General = () => {
 
     const getCountryOptions = async () => {
         try {
-            const countries = await fetch("https://restcountries.com/v3.1/all?fields=name")
-            const countriesData = await countries.json()
-            const countryNames = countriesData.map((c: any) => c.name.common).sort((a: any, b: any) => a - b)
+            const countryNames = await getCountryList()
             setCountryOptions(countryNames)
         } catch (e) {
             console.log(e)

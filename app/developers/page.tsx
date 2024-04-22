@@ -59,7 +59,7 @@ const Developers = () => {
     const handleGetUserProfile = async () => {
         try {
             const userProfileData = await getProfileData()
-            if (userProfile) setUserProfile(userProfileData)
+             setUserProfile(userProfileData)
         } catch (e) {
             console.log(e)
         }
@@ -127,10 +127,7 @@ const Developers = () => {
         router.push('?user=sadasdasd')
     }
 
-
-    const isEmployer = useMemo(() => {
-        return userProfile?.account_type === 'employer'
-    }, [userProfile])
+    const isEmployer = userProfile?.account_type === 'employer'
 
     return (
         <div>
@@ -144,8 +141,8 @@ const Developers = () => {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <section className={classNames("flex flex-col h-fit w-1/4 ", {
-                                    "opacity-50 [&>*]:pointer-events-none cursor-not-allowed": !isEmployer
+                                <section className={classNames("flex flex-col h-fit w-1/4 opacity-100 [&>*]:pointer-events-auto !cursor-allowed", {
+                                    "!opacity-50 [&>*]:!pointer-events-none cursor-not-allowed": !isEmployer
                                 })}>
                                     <Separator className='mb-6' />
                                     <div className="role-levels flex flex-col gap-2">
@@ -295,8 +292,8 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <form action={handleFilter} className={classNames("flex gap-2 w-fit items-center ", {
-                                        "opacity-50 [&>*]:pointer-events-none cursor-not-allowed": !isEmployer
+                                    <form action={handleFilter} className={classNames("flex gap-2 w-fit items-center opacity-100 [&>*]:pointer-events-auto cursor-allowed", {
+                                        "!opacity-50 [&>*]:!pointer-events-none cursor-not-allowed": !isEmployer
                                     })}>
                                         <div className='flex-1 relative max-w-[300px]'>
                                             <Input className='pl-10 h-9 drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Mid React Developer"
