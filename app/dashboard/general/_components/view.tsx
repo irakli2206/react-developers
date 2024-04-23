@@ -104,7 +104,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                 duration: 3000,
             })
 
-            clearCache('/dashboard/general')
+            clearCache('/')
 
         } catch (e) {
             toast({
@@ -153,7 +153,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     </div>
                     <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
-                            <dt className="  font-medium leading-6 text-gray-900">Hourly rate</dt>
+                            <dt className="  font-medium leading-6 text-gray-900">Hourly rate ($)</dt>
                             <dd className="  text-zinc-500 ">What you expect as your hourly compensation</dd>
                         </div>
                         <Input className='flex-1 h-9 drop-shadow-sm' type="number" placeholder="25"

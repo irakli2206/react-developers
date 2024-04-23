@@ -63,7 +63,7 @@ const ContactsView = ({profileData}: Props) => {
                 description: "Your profile details have been updated",
                 duration: 3000,
             })
-            clearCache('/dashboard/contacts')
+            clearCache('/')
         } catch (e) {
             toast({
                 title: "Oops",

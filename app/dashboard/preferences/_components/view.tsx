@@ -33,7 +33,7 @@ const PreferencesView = ({ profileData }: Props) => {
                 description: "Your profile details have been updated",
                 duration: 3000,
             })
-            clearCache('/dashboard/preferences')
+            clearCache('/')
         } catch (e) {
             toast({
                 title: "Oops",

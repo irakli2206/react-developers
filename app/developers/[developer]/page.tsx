@@ -10,6 +10,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Profile } from '@/types/database.types';
+import moment from 'moment'
 
 type Props = {
     params: { developer: string }
@@ -28,7 +29,24 @@ const Developer = async ({ params }: Props) => {
     if (loggedUser) {
         isEmployer = loggedUser.account_type === 'employer'
     }
-    console.log(profile.avatar)
+
+
+    console.log(profile.created_at)
+
+    const nowHere = new Date()
+    const nowHereOffset = -nowHere.getTimezoneOffset()
+
+    const userTimestamp = new Date(profile.created_at)
+    const userOffset = -userTimestamp.getTimezoneOffset()
+
+    const offsetGap = nowHereOffset - userOffset
+
+    const currentTime = moment()
+    const adjustedTime = currentTime.clone().add(offsetGap, 'minutes')
+
+    const formattedAdjustedTime = adjustedTime.format('H:mm A')
+
+
     return (
         <>
             {/* <div className="w-full h-72 absolute top-0 left-0 opacity-50">
@@ -64,7 +82,7 @@ const Developer = async ({ params }: Props) => {
                         }
 
 
-                        <p className='flex gap-2 items-center text-muted-foreground text-sm '><MapPin width={16} /> {profile.country} - 8 pm local time</p>
+                        <p className='flex gap-2 items-center text-muted-foreground text-sm '><MapPin width={16} /> {profile.country} - {formattedAdjustedTime} local time</p>
                     </div>
                 </div>
                 <div className='flex gap-8'>
@@ -75,7 +93,7 @@ const Developer = async ({ params }: Props) => {
                         <div className="flex flex-wrap items-center justify-between gap-2 ">
                             <div className="flex flex-col gap-2">
                                 <h1 className='text font-bold'>Bio</h1>
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi, praesentium libero expedita veritatis est accusantium eveniet totam. Modi, aliquid ad. Velit, pariatur molestias? Aspernatur voluptatibus facere sequi eius quibusdam ipsum?</p>
+                                <p>{profile.bio}</p>
                             </div>
                         </div>
                         <Separator className=' ' />
