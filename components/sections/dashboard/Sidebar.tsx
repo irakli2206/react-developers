@@ -42,6 +42,7 @@ type ResizablePanelWrapperProps = {
     order?: number | undefined;
     style?: object | undefined;
     tagName?: keyof HTMLElementTagNameMap | undefined;
+    defaultLayout: any
 }
 
 const ResizablePanelWrapper = ({
@@ -49,14 +50,21 @@ const ResizablePanelWrapper = ({
     className,
     ...props
 }: ResizablePanelWrapperProps) => {
-
     return (
         <>
-            <ResizablePanel minSize={5} onResize={(e) => { }} defaultSize={20} maxSize={25} className="hidden sm:block bg-muted/40 ">
+            <ResizablePanel minSize={15} onResize={(e) => { }} defaultSize={17.5} maxSize={20} className="hidden xl:block bg-muted/40 ">
                 {children}
             </ResizablePanel>
 
-            <div className='min-w-[100px] sm:hidden bg-muted/40'>
+            {/* <ResizablePanel minSize={15} onResize={(e) => { }} defaultSize={15} maxSize={17.5} className="hidden lg:block xl:hidden bg-muted/40 ">
+                {children}
+            </ResizablePanel>
+
+            <ResizablePanel minSize={20} onResize={(e) => { }} defaultSize={20} maxSize={25} className="hidden md:block lg:hidden bg-muted/40 ">
+                {children}
+            </ResizablePanel> */}
+
+            <div className='w-[60px] md:w-1/5 block xl:hidden bg-muted/40 border-r'>
                 {children}
             </div>
         </>
@@ -64,7 +72,9 @@ const ResizablePanelWrapper = ({
     )
 }
 
-const Sidebar = () => {
+ 
+
+const Sidebar = ( ) => {
     const [profile, setProfile] = useState<Profile | null>()
     const path = usePathname()
 
@@ -112,18 +122,13 @@ const Sidebar = () => {
     ]
 
 
-    const sidebarRef = useRef<ResizablePrimitive.ImperativePanelHandle>(null);
-
-    useEffect(() => {
-        console.log(sidebarRef)
-    }, [])
 
     return (
         <ResizablePanelWrapper>
             <div className="flex w-full h-full max-h-screen flex-col pt-4">
 
                 <div className="flex-1">
-                    <nav className="grid items-start px-2 text-[0px] sm:text-sm font-medium lg:px-4">
+                    <nav className="grid items-start px-2 text-[0px] md:text-sm font-medium lg:px-4">
                         {tabs.map(({ isActive, href, icon, title, tooltipContent, disabled }) => (
                             <TooltipProvider key={title}>
                                 <Tooltip>
@@ -153,7 +158,7 @@ const Sidebar = () => {
 
                     </nav>
                 </div>
-                <div className="mt-auto p-4">
+                <div className="mt-auto p-2 lg:p-4 hidden md:block">
                     {
                         profile?.account_type === 'developer' && <BecomeEmployerOffer accountType={profile.account_type} />
                     }

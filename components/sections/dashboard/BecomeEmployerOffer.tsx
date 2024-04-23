@@ -17,14 +17,14 @@ const BecomeEmployerOffer = ({ accountType }: Props) => {
     return (
         <>
             {
-                accountType === 'developer' && <Card>
-                    <CardHeader className="p-2 pt-0 md:p-4">
+                accountType === 'developer' && <Card className='hidden md:block rounded-md lg:rounded-xl'>
+                    <CardHeader className=" p-4">
                         <CardTitle>Start Hiring</CardTitle>
                         <CardDescription>
                             Unlock all features and get unlimited access to our developer database.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="p-2 pt-0 md:p-4 md:pt-0 gap-2 flex flex-col">
+                    <CardContent className="p-2 pt-0 lg:p-4 md:pt-0 gap-2 flex flex-col">
                         <Button size="sm" variant='outline' className="w-full" asChild>
                             <Link href='https://calendly.com/iraklibego1/45min' target='_blank'>
                                 Book call
