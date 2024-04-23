@@ -27,17 +27,15 @@ import { Profile } from "@/types/database.types"
 
 type Props = Profile & {
     isDisabled: boolean
-    onCardClick?: () => void
 }
 
-const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, employment, freelance, country, role_levels, available, isDisabled, avatar, onCardClick }: Props) => {
+const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, employment, freelance, country, role_levels, available, isDisabled, avatar }: Props) => {
     const terms = [on_site && 'On-site', remote && 'Remote', employment && 'Employment', freelance && 'Freelance'].filter(e => Boolean(e) !== false) as string[]
     return (
         <Link href={`developers/${id}`} className={classNames("z-0", {
             "pointer-events-none": isDisabled
         })}>
             <Card
-                onClick={onCardClick}
                 className={classNames("w-full cursor-pointer shadow-none  hover:!shadow  transition", {
                     "pointer-events-none": isDisabled
                 })}>

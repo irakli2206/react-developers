@@ -16,6 +16,7 @@ import {
 } from '@tanstack/react-query'
 import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
+import { getUser } from "./action";
 
 const raleway = Inter({
   subsets: ["latin"],
@@ -32,11 +33,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createClient()
   const queryClient = new QueryClient()
 
-  const { data, error } = await supabase.auth.getUser()
-  const isLoggedIn = Boolean(data.user)
+  const user = await getUser()
+  const isLoggedIn = Boolean(user)
 
 
 

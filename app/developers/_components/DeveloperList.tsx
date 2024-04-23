@@ -15,12 +15,11 @@ import { Profile } from '@/types/database.types'
 
 
 type Props = {
-    onCardClick: () => void
     profilesData: Profile[]
     isEmployer: boolean
 }
 
-const DeveloperList = ({ onCardClick, profilesData, isEmployer }: Props) => {
+const DeveloperList = ({  profilesData, isEmployer }: Props) => {
 
     return (
         <div className='flex flex-col gap-4 w-full '>
@@ -33,7 +32,6 @@ const DeveloperList = ({ onCardClick, profilesData, isEmployer }: Props) => {
                         key={dev.id}
                         {...dev}
                         isDisabled={false}
-                        onCardClick={onCardClick}
                     />
 
 

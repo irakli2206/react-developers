@@ -54,7 +54,6 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
     const [selectedRoles, setSelectedRoles] = useState<string[]>([])
     const [isRolesExpanded, setIsRolesExpanded] = useState(false)
     const [isCountryExpanded, setIsCountryExpanded] = useState(false)
-    const [countryOptions, setCountryOptions] = useState<string[]>([])
     const [searchInput, setSearchInput] = useState('')
 
     const router = useRouter()
@@ -87,11 +86,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
         else setCountryInput(newCountryInput)
     }
 
-
-    const handleCardClick = () => {
-        console.log(params)
-        router.push('?user=sadasdasd')
-    }
+ 
 
 
     return (
@@ -213,7 +208,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                                                             <CommandList>
                                                                 <CommandEmpty  >No results found.</CommandEmpty>
                                                                 <CommandGroup  >
-                                                                    {countryOptions.map(c => {
+                                                                    {countriesData.map(c => {
                                                                         // const isSelected = profile.country === c
                                                                         const isSelected = countryInput === c
                                                                         return (
@@ -275,7 +270,7 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
-                        <DeveloperList isEmployer={isEmployer} profilesData={profiles} onCardClick={() => handleCardClick()} />
+                        <DeveloperList isEmployer={isEmployer} profilesData={profiles}  />
                     </section>
                 </div>
             </div>
