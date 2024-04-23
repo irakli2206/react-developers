@@ -92,15 +92,19 @@ const BillingView = async ({ invoices, invoicesTotal, isPageLocked }: Props) => 
 
     return (
         <>
-            {isPageLocked && <Card className="max-w-[400px] absolute z-50 left-1/2 drop-shadow-md -translate-x-1/2 top-1/4">
+            {isPageLocked && <Card className="max-w-[400px] absolute z-50 left-1/2  -translate-x-1/2 top-1/4">
                 <CardHeader>
                     <CardTitle>Hey, you're just a developer!</CardTitle>
                     <CardDescription>To access billing, buy our subscription first. Questions? Schedule a call!</CardDescription>
                 </CardHeader>
 
                 <CardFooter className="flex gap-4 justify-end">
-                    <Button variant="outline">Book call</Button>
-                    <Button>Subscribe</Button>
+                    <Button variant="outline" asChild>
+                        <Link href='https://calendly.com/iraklibego1/45min' target='_blank'>Book call</Link>
+                    </Button>
+                    <Button asChild>
+                        <Link href='/pricing'>Subscribe</Link>
+                    </Button>
                 </CardFooter>
             </Card>}
 
