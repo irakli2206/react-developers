@@ -35,7 +35,6 @@ import { useToast } from '@/components/ui/use-toast'
 import { getCountryList, getProfileData } from '@/app/action'
 import GeneralView from './_components/view'
 
-const supabase = createClient()
 
 const General = async () => {
  
