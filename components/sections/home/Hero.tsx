@@ -64,7 +64,7 @@ const Hero = () => {
                 </div>
                 <div className='relative z-10 hidden lg:inline-block flex-1 h-[450px] xl:h-[450px] -top-12 -right-4 rounded-xl grow-[2] xl:grow-[3]'>
                     <div className="absolute right-0 w-full h-[calc(100%+10px)] bg-gradient-to-r from-transparent to-[80%] to-white z-50 "></div>
-                    <Image src={Deco} placeholder='blur' fill className='object-cover object-left drop-shadow-sm border border-zinc-200 rounded-lg absolute  ' alt='' />
+                    <Image src={Deco} placeholder='blur' fill className='object-cover object-left-top drop-shadow-sm border border-zinc-200 rounded-lg absolute  ' alt='' />
                 </div>
             </main>
         </section>
