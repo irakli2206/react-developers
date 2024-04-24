@@ -22,7 +22,9 @@ import { createClient } from '@/utils/supabase/server'
 import { z } from 'zod'
 import { SigninSchema, SignupSchema } from '@/utils/form/schemas'
 import { useFormState, useFormStatus } from 'react-dom'
-import { signin } from '../action'
+import { googleSignin, sendResetPassword, signin } from '../action'
+import { toast } from 'sonner'
+import { useToast } from '@/components/ui/use-toast'
 
 
 export type ValidationDataT = z.inferFlattenedErrors<
@@ -38,11 +40,42 @@ const initialState: { validationData: ValidationDataT } = {
 }
 
 const SigninView = () => {
+    const { toast } = useToast()
+
+    const [email, setEmail] = useState("")
+
     const [state, signinAction] = useFormState(signin, initialState)
     const { pending } = useFormStatus();
 
-    console.log(state.validationData)
     const fieldErrors = state.validationData.fieldErrors
+
+    const handleForgotPassword = async () => {
+        if (!email) {
+            return toast({
+                title: "Enter your email first",
+                description: 'To receive a password reset email, fill the above input field with your email.',
+                duration: 5000,
+                variant: 'default'
+            })
+        }
+        try {
+            await sendResetPassword(email)
+            return toast({
+                title: "An email has been sent",
+                description: 'Please follow the password reset instructions in your email to update your password',
+                duration: 5000,
+                variant: 'default'
+            })
+        } catch (e: any) {
+            return toast({
+                title: "Error",
+                description: e,
+                duration: 5000,
+                variant: 'destructive'
+            })
+        }
+
+    }
 
 
     return (
@@ -55,40 +88,43 @@ const SigninView = () => {
                             Enter your email below to login to your account
                         </p>
                     </div>
-                    <form action={signinAction} className="grid gap-4">
-                        <div className="grid gap-2">
-                            <Label htmlFor="email">Email</Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                name="email"
-                                placeholder="m@example.com"
-                            />
-                            {fieldErrors.email && <p className='text-xs text-destructive'>{fieldErrors.email[0]}</p>}
-                        </div>
-                        <div className="grid gap-2">
-                            <div className="flex items-center">
-                                <Label htmlFor="password">Password</Label>
-                                <Button variant='link' asChild className='p-0 h-fit'>
-                                    <Link
-                                        href="/forgot-password"
-                                        className="ml-auto text-sm "
-                                    >
-                                        Forgot your password?
-                                    </Link>
-                                </Button>
-
+                    <>
+                        <form action={signinAction} className="grid gap-4">
+                            <div className="grid gap-1">
+                                <Label htmlFor="email" className='mb-1'>Email</Label>
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    placeholder="m@example.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                {fieldErrors.email && <p className='text-xs text-destructive'>{fieldErrors.email[0]}</p>}
                             </div>
-                            <Input id="password" type="password" name="password" />
-                            {fieldErrors.password && <p className='text-xs text-destructive'>{fieldErrors.password[0]}</p>}
-                        </div>
-                        <Button type="submit" className="w-full" disabled={pending} aria-disabled={pending}>
-                            Sign in
-                        </Button>
-                        <Button variant="outline" className="w-full">
+                            <div className="grid gap-1">
+                                <div className="flex items-end mb-1">
+                                    <Label htmlFor="password" >Password</Label>
+                                    <Button type='reset' onClick={() => handleForgotPassword()} variant='link' className='p-0 h-fit ml-auto text-sm -mb-1'>
+
+                                        Forgot your password?
+
+                                    </Button>
+
+                                </div>
+                                <Input id="password" type="password" name="password" />
+                                {fieldErrors.password && <p className='text-xs text-destructive'>{fieldErrors.password[0]}</p>}
+                            </div>
+                            <Button type="submit" className="w-full" disabled={pending} aria-disabled={pending}>
+                                Sign in
+                            </Button>
+
+                        </form>
+                        {/* <Button variant="outline" onClick={() => googleSignin()} className="w-full -mt-2">
                             Sign in with Google
-                        </Button>
-                    </form>
+                        </Button> */}
+                    </>
+
+
                     <div className=" text-center text-sm">
                         Don't have an account?{" "}
                         <Button variant='link' className='p-0 h-fit' asChild>

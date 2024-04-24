@@ -117,9 +117,9 @@ const SignupView = () => {
                         >
                             Sign up
                         </Button>
-                        <Button variant="outline" className="w-full">
+                        {/* <Button variant="outline" className="w-full">
                             Sign up with Google
-                        </Button>
+                        </Button> */}
                     </form>
                     <div className="mt-4 text-center text-sm">
                         Already have an account?{" "}
