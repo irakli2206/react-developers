@@ -7,23 +7,11 @@ import { createClient } from '@/utils/supabase/server'
 import { z } from 'zod'
 import { SigninSchema } from '@/utils/form/schemas'
 import { ValidationDataT } from './page'
+import { SigninFormValues } from './_components/view'
 
-export async function signin(prevState: { validationData: ValidationDataT }, formData: FormData) {
+export async function signin({ email, password }: SigninFormValues) {
   const supabase = createClient()
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const parsedForm = SigninSchema.safeParse({
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  })
-
-  if (!parsedForm.success) {
-    console.log(parsedForm.error)
-    return { validationData: parsedForm.error.flatten() }
-  }
-
-  let { email, password } = parsedForm.data
 
   const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
@@ -31,12 +19,12 @@ export async function signin(prevState: { validationData: ValidationDataT }, for
   })
 
   if (error) {
-    console.log(error)
-    redirect('/error')
+    return { error: error.message }
   }
 
   revalidatePath('/', 'layout')
   redirect('/dashboard')
+
 }
 
 export async function googleSignin() {

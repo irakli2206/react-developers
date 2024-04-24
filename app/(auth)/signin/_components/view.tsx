@@ -25,31 +25,52 @@ import { useFormState, useFormStatus } from 'react-dom'
 import { googleSignin, sendResetPassword, signin } from '../action'
 import { toast } from 'sonner'
 import { useToast } from '@/components/ui/use-toast'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from "@hookform/resolvers/zod"
 
+const formSchema = z.object({
+    email: z.string().min(1, "Required field").email(),
+    password: z.string().min(1, "Required field")
+})
 
-export type ValidationDataT = z.inferFlattenedErrors<
-    typeof SigninSchema
-// { message: string; errorCode: string }
->
-
-const initialState: { validationData: ValidationDataT } = {
-    validationData: {
-        formErrors: [],
-        fieldErrors: {}
-    }
-}
+export type SigninFormValues = z.infer<typeof formSchema>
 
 const SigninView = () => {
+    const form = useForm<SigninFormValues>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "",
+            password: ""
+        },
+    })
+
     const { toast } = useToast()
 
-    const [email, setEmail] = useState("")
 
-    const [state, signinAction] = useFormState(signin, initialState)
-    const { pending } = useFormStatus();
 
-    const fieldErrors = state.validationData.fieldErrors
+    const onSubmit = async (values: SigninFormValues) => {
+        // Do something with the form values.
+        // ✅ This will be type-safe and validated.
+        console.log(values)
+        try {
+            let data = await signin(values)
+            if (data && data.error) throw Error(error)
+        } catch (e: any) {
+            toast({
+                title: "Error",
+                description: e.message,
+                duration: 5000,
+                variant: 'destructive'
+            })
+        }
+
+    }
+
 
     const handleForgotPassword = async () => {
+        const email = form.getValues().email as string
+        console.log(email)
         if (!email) {
             return toast({
                 title: "Enter your email first",
@@ -89,36 +110,61 @@ const SigninView = () => {
                         </p>
                     </div>
                     <>
-                        <form action={signinAction} className="grid gap-4">
-                            <div className="grid gap-1">
-                                <Label htmlFor="email" className='mb-1'>Email</Label>
-                                <Input
-                                    id="email"
+                        < Form {...form} >
+                            <form action={form.handleSubmit(onSubmit) as any} className="flex flex-col gap-4">
+                                <FormField
+                                    control={form.control}
                                     name="email"
-                                    placeholder="m@example.com"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className='!text-black ' >Email</FormLabel>
+                                            <FormControl className=''>
+                                                <Input
+                                                    // id="email"
+                                                    // name="email"
+                                                    // placeholder="m@example.com"
+                                                    // value={email}
+                                                    // onChange={(e) => setEmail(e.target.value)}
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage className='!mt-1' />
+                                        </FormItem>
+                                    )}
                                 />
-                                {fieldErrors.email && <p className='text-xs text-destructive'>{fieldErrors.email[0]}</p>}
-                            </div>
-                            <div className="grid gap-1">
-                                <div className="flex items-end mb-1">
-                                    <Label htmlFor="password" >Password</Label>
-                                    <Button type='reset' onClick={() => handleForgotPassword()} variant='link' className='p-0 h-fit ml-auto text-sm -mb-1'>
 
-                                        Forgot your password?
+                                <FormField
+                                    control={form.control}
+                                    name="password"
+                                    render={({ field }) => (
+                                        <FormItem className='mt-2'>
+                                            <div className="flex justify-between">
+                                                <FormLabel className='!text-black ' >Password</FormLabel>
+                                                <Button type='reset' onClick={() => handleForgotPassword()} variant='link' className='p-0 h-fit ml-auto text-sm '>
+                                                    Forgot your password?
+                                                </Button>
+                                            </div>
+                                            <FormControl className=''>
+                                                <Input
+                                                    type='password'
+                                                    // id="email"
+                                                    // name="email"
+                                                    // placeholder="m@example.com"
+                                                    // value={email}
+                                                    // onChange={(e) => setEmail(e.target.value)}
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage className='!mt-1' />
+                                        </FormItem>
+                                    )}
+                                />
 
-                                    </Button>
-
-                                </div>
-                                <Input id="password" type="password" name="password" />
-                                {fieldErrors.password && <p className='text-xs text-destructive'>{fieldErrors.password[0]}</p>}
-                            </div>
-                            <Button type="submit" className="w-full" disabled={pending} aria-disabled={pending}>
-                                Sign in
-                            </Button>
-
-                        </form>
+                                <Button type="submit" className="w-full" >
+                                    Sign in
+                                </Button>
+                            </form>
+                        </Form>
                         {/* <Button variant="outline" onClick={() => googleSignin()} className="w-full -mt-2">
                             Sign in with Google
                         </Button> */}
