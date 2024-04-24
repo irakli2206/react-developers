@@ -6,42 +6,25 @@ import { createClient } from '@/utils/supabase/server'
 import { redirect } from "next/navigation";
 import { ValidationDataT } from "./page";
 import { SignupSchema } from "@/utils/form/schemas";
+import { SignupFormValues } from "./_components/view";
  
 
-export async function signup(prevState: { validationData: ValidationDataT }, formData: FormData) {
+export async function signup({email, password, firstName, lastName}: SignupFormValues) {
     const supabase = createClient()
-
-
-    // type-casting here for convenience
-    // in practice, you should validate your inputs
-    const parsedForm = SignupSchema.safeParse({
-        email: formData.get('email') as string,
-        password: formData.get('password') as string,
-        first_name: formData.get('first_name') as string,
-        last_name: formData.get('last_name') as string,
-    })
-
-    if (!parsedForm.success) {
-        console.log(parsedForm.error)
-        return { validationData: parsedForm.error.flatten() }
-    }
-
-
-    let { email, password, first_name, last_name } = parsedForm.data
-
+  
     const { data, error } = await supabase.auth.signUp({
         email: email,
         password: password,
         options: {
             data: {
-                first_name: first_name,
-                last_name: last_name,
+                first_name: firstName,
+                last_name: lastName,
             }
         }
     })
 
     if (error) {
-        redirect('/error')
+        return { error: error.message }
     }
 
     const { data: profileData, error: profileError } = await supabase

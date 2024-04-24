@@ -23,29 +23,57 @@ import { useFormState, useFormStatus } from 'react-dom'
 import { z } from 'zod'
 import { SignupSchema } from '@/utils/form/schemas'
 import { signup } from '../action'
-
-export type ValidationDataT = z.inferFlattenedErrors<
-    typeof SignupSchema
-// { message: string; errorCode: string }
->
-
-const initialState: { validationData: ValidationDataT } = {
-    validationData: {
-        formErrors: [],
-        fieldErrors: {}
-    }
-}
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useToast } from '@/components/ui/use-toast'
 
 
+const formSchema = z.object({
+    firstName: z.string().min(1, "Required field"),
+    lastName: z.string().min(1, "Required field"),
+    email: z.string().min(1, "Required field").email(),
+    password: z.string().min(1, "Required field")
+})
+
+export type SignupFormValues = z.infer<typeof formSchema>
 
 const SignupView = () => {
-    const [state, signupAction] = useFormState(signup, initialState)
-    const { pending } = useFormStatus();
+
     const params = useSearchParams()
     const isAskAuthVisible = params.get('ask_auth')
 
-    console.log('state', state.validationData)
-    const fieldErrors = state.validationData.fieldErrors
+    const form = useForm<SignupFormValues>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: ""
+        },
+    })
+
+    const { toast } = useToast()
+
+
+
+    const onSubmit = async (values: SignupFormValues) => {
+        // Do something with the form values.
+        // ✅ This will be type-safe and validated.
+        console.log(values)
+        try {
+            let data = await signup(values)
+            if (data && data.error) throw Error(data.error)
+        } catch (e: any) {
+            toast({
+                title: "Error",
+                description: e.message,
+                duration: 5000,
+                variant: 'destructive'
+            })
+        }
+
+    }
 
     return (
         <div className="w-full flex  min-h-full">
@@ -69,59 +97,103 @@ const SignupView = () => {
                             Enter your information to create an account
                         </p>
                     </div>
-                    <form
-                        action={signupAction}
-                        className="grid gap-4">
-                        <div className='flex gap-4'>
-                            <div className="flex flex-col flex-1 gap-1">
-                                <Label htmlFor="firstname" className='mb-1'>First name</Label>
-                                <Input
-                                    id="first_name"
-                                    name="first_name"
-                                    type="text"
-                                    placeholder="John"
+                    < Form {...form} >
+                        <form action={form.handleSubmit(onSubmit) as any} className="flex flex-col gap-2">
+                            <div className="flex gap-4">
+                                <FormField
+                                    control={form.control}
+                                    name="firstName"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className='!text-black ' >First name</FormLabel>
+                                            <FormControl className='!mt-1'>
+                                                <Input
+                                                    placeholder='John'
+                                                    // id="email"
+                                                    // name="email"
+                                                    // placeholder="m@example.com"
+                                                    // value={email}
+                                                    // onChange={(e) => setEmail(e.target.value)}
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage className='!mt-1' />
+                                        </FormItem>
+                                    )}
                                 />
-                                {fieldErrors?.first_name && <p className='text-xs text-destructive'>{fieldErrors.first_name[0]}</p>}
-                            </div>
-                            <div className="flex flex-col flex-1 gap-1">
-                                <Label htmlFor="lastname" className='mb-1'>Last name</Label>
-                                <Input
-                                    id="last_name"
-                                    name="last_name"
-                                    type="text"
-                                    placeholder="Doe"
+                                <FormField
+                                    control={form.control}
+                                    name="lastName"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className='!text-black ' >Last name</FormLabel>
+                                            <FormControl className='!mt-1'>
+                                                <Input
+                                                    placeholder='Doe'
+                                                    // id="email"
+                                                    // name="email"
+                                                    // placeholder="m@example.com"
+                                                    // value={email}
+                                                    // onChange={(e) => setEmail(e.target.value)}
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage className='!mt-1' />
+                                        </FormItem>
+                                    )}
                                 />
-                                {fieldErrors?.last_name && <p className='text-xs text-destructive'>{fieldErrors.last_name[0]}</p>}
                             </div>
-                        </div>
-                        <div className="grid gap-1">
-                            <Label htmlFor="email">Email</Label>
-                            <Input
-                                id="email"
-                                type="email"
+                            <FormField
+                                control={form.control}
                                 name="email"
-                                placeholder="m@example.com"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className='!text-black ' >Email</FormLabel>
+                                        <FormControl className='!mt-1'>
+                                            <Input
+                                                placeholder='johndoe@gmail.com'
+                                                // id="email"
+                                                // name="email"
+                                                // placeholder="m@example.com"
+                                                // value={email}
+                                                // onChange={(e) => setEmail(e.target.value)}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className='!mt-1' />
+                                    </FormItem>
+                                )}
                             />
-                            {fieldErrors?.email && <p className='text-xs text-destructive'>{fieldErrors.email[0]}</p>}
-                        </div>
-                        <div className="grid gap-1">
-                            <div className="flex items-center">
-                                <Label htmlFor="password" className='mb-1'>Password</Label>
 
-                            </div>
-                            <Input id="password" type="password" name="password" />
-                            {fieldErrors?.password && <p className='text-xs text-destructive'>{fieldErrors.password[0]}</p>}
-                        </div>
-                        <Button type="submit" className="w-full" disabled={pending} aria-disabled={pending}
-                        // onClick={() => router.push('/dashboard')}
-                        >
-                            Sign up
-                        </Button>
-                        {/* <Button variant="outline" className="w-full">
-                            Sign up with Google
-                        </Button> */}
-                    </form>
-                    <div className="mt-4 text-center text-sm">
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem >
+                                        <FormLabel className='!text-black ' >Password</FormLabel>
+                                        <FormControl className='!mt-1'>
+                                            <Input
+                                                type='password'
+                                                // id="email"
+                                                // name="email"
+                                                // placeholder="m@example.com"
+                                                // value={email}
+                                                // onChange={(e) => setEmail(e.target.value)}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className='!mt-1' />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <Button type="submit" className="w-full mt-2" >
+                                Sign up
+                            </Button>
+                        </form>
+                    </Form>
+
+                    <div className=" text-center text-sm">
                         Already have an account?{" "}
 
                         <Button variant='link' className='p-0 h-fit' asChild>
