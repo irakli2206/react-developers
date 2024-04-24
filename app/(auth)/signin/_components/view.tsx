@@ -55,7 +55,7 @@ const SigninView = () => {
         console.log(values)
         try {
             let data = await signin(values)
-            if (data && data.error) throw Error(error)
+            if (data && data.error) throw Error(data.error)
         } catch (e: any) {
             toast({
                 title: "Error",
