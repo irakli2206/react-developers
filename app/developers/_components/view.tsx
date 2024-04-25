@@ -94,7 +94,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
     return (
         <div>
 
-            <div className='container py-32 min-h-screen '>
+            <div className='max-w-7xl container py-32 min-h-screen '>
 
                 {!isEmployer && <div className='flex justify-between mb-12'>
                     <div className="flex flex-col gap-2 ">

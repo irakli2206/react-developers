@@ -6,7 +6,7 @@ import { Separator } from './ui/separator'
 const Footer = () => {
     return (
         <footer className='w-full border-t'>
-            <div className='container  border-zinc-200 py-16 '>
+            <div className='max-w-7xl container  border-zinc-200 py-16 '>
                 <div className="flex flex-col gap-6">
                     <p className='text-sm font-semibold'>React Developers</p>
                     <ul className='flex flex-col gap-3'>
@@ -25,7 +25,7 @@ const Footer = () => {
 
             </div>
             <Separator />
-            <div className="py-4 container  border-zinc-200 flex justify-between">
+            <div className="py-4 max-w-7xl container  border-zinc-200 flex justify-between">
                 <p className='font-light  text-zinc-500 text-sm'>Copyright © 2024. All rights reserved.</p>
 
                 <div className='flex items-center gap-1 text-sm'>

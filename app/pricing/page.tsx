@@ -16,7 +16,7 @@ const Pricing = async () => {
   const isLoggedIn = Boolean(user)
   const isDeveloper = profile?.account_type === 'developer'
   return (
-    <div className='py-36'>
+    <div className='py-36 container max-w-7xl'>
       <div className="flex flex-col gap-12">
         <header className='flex flex-col gap-4 justify-center items-center text-center'>
           <h1 className='text-5xl font-semibold'>We keep it simple</h1>
