@@ -125,8 +125,8 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                     <TooltipProvider>
                         <Tooltip >
                             <TooltipTrigger asChild>
-                                <section className={classNames("flex flex-col h-fit w-1/4 opacity-100 [&>*]:pointer-events-auto !cursor-allowed", {
-                                    "!opacity-50 [&>*]:!pointer-events-none cursor-not-allowed sticky top-14": !isEmployer
+                                <section className={classNames("flex flex-col h-fit w-1/4 opacity-100 [&>*]:pointer-events-auto !cursor-allowed sticky top-14", {
+                                    "!opacity-50 [&>*]:!pointer-events-none cursor-not-allowed ": !isEmployer
                                 })}>
                                     <Separator className='mb-6' />
                                     <div className="role-levels flex flex-col gap-2">
