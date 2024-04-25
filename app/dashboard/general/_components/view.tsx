@@ -146,7 +146,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                             <dt className="  font-medium leading-6 text-gray-900">Title</dt>
                             <dd className="  text-zinc-500 ">Summary of your occupation/profession</dd>
                         </div>
-                        <Input className='flex-1 h-9 drop-shadow-sm' type="text" placeholder="Senior React Developer"
+                        <Input required className='flex-1 h-9 drop-shadow-sm' type="text" placeholder="Senior React Developer"
                             value={profile.title}
                             onChange={(e) => handleFieldChange(e.target.value, 'title')}
                         />

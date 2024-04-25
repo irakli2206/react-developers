@@ -39,6 +39,8 @@ import {
 } from "@/components/ui/tooltip"
 import { Profile } from '@/types/database.types'
 import { getFilteredProfiles } from '@/app/action'
+import Link from 'next/link'
+import { FaVuejs } from "react-icons/fa";
 
 
 type Props = {
@@ -73,8 +75,9 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
     }
 
     useEffect(() => {
-
-        getFilteredData()
+        if (countryInput || selectedRoles.length) {
+            getFilteredData()
+        }
     }, [countryInput, selectedRoles])
 
     const handleFilter = async () => {
@@ -86,15 +89,36 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
         else setCountryInput(newCountryInput)
     }
 
- 
 
 
     return (
         <div>
 
-            <div className='container py-32 min-h-screen'>
+            <div className='container py-32 min-h-screen '>
 
+                {!isEmployer && <div className='flex justify-between mb-12'>
+                    <div className="flex flex-col gap-2 ">
+                        <h1 className='text-4xl font-semibold'>Meet the developers</h1>
+                        <p className='text-muted-foreground text-lg font-light'>Find your company's perfect match in an instant</p>
 
+                        <div className="flex gap-4 mt-4">
+                            <Button asChild className='rounded-full'>
+                                <Link href='/pricing'>Start searching</Link>
+                            </Button>
+                            <Button variant='outline' asChild className='rounded-full'>
+                                <Link href='/signup'>Create an account</Link>
+                            </Button>
+                        </div>
+                    </div>
+
+                    <div className="px-8 py-6 rounded-lg border border-border flex flex-col gap-4"  >
+                        <FaVuejs size={40} className='text-green-500' />
+                        <div className="flex flex-col gap-2">
+                            <h1 className='text-xl  font-semibold'>Looking for VueJS developers?</h1>
+                            <p>Check out <Button variant='link' className='p-0 text-base text-green-500' asChild><Link href='vue-developers.com'>vue-developers.com</Link></Button> to find top VueJS talent.</p>
+                        </div>
+                    </div>
+                </div>}
 
                 <div className="flex gap-4 ">
                     {/* Filters */}
@@ -102,7 +126,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                         <Tooltip >
                             <TooltipTrigger asChild>
                                 <section className={classNames("flex flex-col h-fit w-1/4 opacity-100 [&>*]:pointer-events-auto !cursor-allowed", {
-                                    "!opacity-50 [&>*]:!pointer-events-none cursor-not-allowed": !isEmployer
+                                    "!opacity-50 [&>*]:!pointer-events-none cursor-not-allowed sticky top-14": !isEmployer
                                 })}>
                                     <Separator className='mb-6' />
                                     <div className="role-levels flex flex-col gap-2">
@@ -248,7 +272,7 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
-                    <section className="flex flex-col gap-4 w-3/4">
+                    <section className="flex flex-col gap-4 w-3/4 ">
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
@@ -270,7 +294,7 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
-                        <DeveloperList isEmployer={isEmployer} profilesData={profiles}  />
+                        <DeveloperList isEmployer={isEmployer} profilesData={profiles} />
                     </section>
                 </div>
             </div>

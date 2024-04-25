@@ -51,7 +51,7 @@ export default async function RootLayout({
 
       )}>
         <Navbar isLoggedIn={isLoggedIn}  />
-        <main className="min-h-screen h-screen">
+        <main className="min-h-screen ">
           {children}
         </main>
         <Toaster />

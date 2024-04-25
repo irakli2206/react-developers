@@ -22,7 +22,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import classNames from "classnames"
 import Link from "next/link"
-import { CircleCheck, CircleCheckBig } from "lucide-react"
+import { CircleCheck, CircleCheckBig, CircleUser, CircleUserRound } from "lucide-react"
 import { Profile } from "@/types/database.types"
 
 type Props = Profile & {
@@ -42,8 +42,12 @@ const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, e
                 <CardHeader className='flex flex-row gap-4 items-center pb-2'>
                     <Avatar>
                         <AvatarImage src={avatar as string} className=" object-cover" />
-                        <AvatarImage src="https://github.com/shadcn.png" />
-                        <AvatarFallback>CN</AvatarFallback>
+
+                        <AvatarFallback>
+                            <div className="bg-gray-200  text-gray-400 w-full h-full flex items-center justify-center">
+                                < CircleUserRound size={30} strokeWidth={1} />
+                            </div>
+                        </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col gap-1 justify-between w-full">
                         <p className='text-xs text-zinc-500 font-semibold'>{country} {hourly_rate && `- $${hourly_rate}/hour`}</p>

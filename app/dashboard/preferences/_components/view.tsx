@@ -23,7 +23,30 @@ const PreferencesView = ({ profileData }: Props) => {
 
     const { toast } = useToast()
 
+    //Make sure every necessary field in general tab is filled
+    const allowAvailability = () => {
+        if (profile.available) {
+            if (
+                !profile.avatar ||
+                !profile.experience_years ||
+                !profile.hourly_rate ||
+                !profile.skills ||
+                !profile.title
+            ) {
+                setProfile({ ...profile, available: false })
+                toast({
+                    title: "Can't become available",
+                    description: `You must fill every field in the general information tab before you can toggle your availability`,
+                    duration: 5000
+                })
+            }
+        }
 
+    }
+
+    useEffect(() => {
+        allowAvailability()
+    }, [profile.available])
 
     const handleSave = async () => {
         try {

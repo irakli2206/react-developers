@@ -89,31 +89,31 @@ const Sidebar = ( ) => {
     const tabs = [
         {
             title: 'General',
-            href: 'general',
+            href: '/dashboard/general',
             isActive: path === '/dashboard/general',
             icon: <Home className="h-4 w-4" />
         },
         {
             title: 'Preferences',
-            href: 'preferences',
+            href: '/dashboard/preferences',
             isActive: path === '/dashboard/preferences',
             icon: <Settings2 className="h-4 w-4" />
         },
         {
             title: 'Contacts',
-            href: 'contacts',
+            href: '/dashboard/contacts',
             isActive: path === '/dashboard/contacts',
             icon: <LinkIcon className="h-4 w-4" />
         },
         {
             title: 'Billing',
-            href: 'billing',
+            href: '/dashboard/billing',
             isActive: path === '/dashboard/billing',
             icon: <ReceiptText className="h-4 w-4" />
         },
         {
             title: 'Bookmarks',
-            href: 'bookmarks',
+            href: '/dashboard/bookmarks',
             isActive: path === '/dashboard/bookmarks',
             icon: <Bookmark className="h-4 w-4" />,
             disabled: true,

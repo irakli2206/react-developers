@@ -49,7 +49,7 @@ const Developers = async () => {
     const countriesData = await fetch("https://restcountries.com/v3.1/all?fields=name").then(res => res.json())
     const countriesNames = countriesData.map(c => c.name.common)
 
-    const profilesData = await getProfiles(undefined, true)
+    const profilesData = await getProfiles(10, true)
 
     const isEmployer = profileData?.account_type === 'employer'
 

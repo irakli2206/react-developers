@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { getProfileByID, getProfileData } from '@/app/action';
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import { ArrowUpRight, Bird, BriefcaseBusiness, Building, CalendarCheck, CircleCheck, CircleX, Copy, Hourglass, Laptop, Lock, MapPin } from 'lucide-react';
 import Image from 'next/image';
@@ -60,9 +60,10 @@ const Developer = async ({ params }: Props) => {
 
                 <div className=" items-center flex gap-8 mb-8">
                     <Avatar className='w-auto h-20  '>
-                        <AvatarImage className='object-cover' src={profile.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
+                        <AvatarImage className='object-cover' src={profile.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}  />
+                        {/* <AvatarFallback>
 
-                        />
+                        </AvatarFallback> */}
                     </Avatar>
                     <div className="flex flex-col gap-2 ">
                         <h1 className='text-3xl font-bold'>{profile.title}</h1>
@@ -109,7 +110,7 @@ const Developer = async ({ params }: Props) => {
                                 </div>
                             </div>
                         </div>
-                        {profile.languages?.length ?
+                        {/* {profile.languages?.length ?
                             <>
                                 <Separator className=' ' />
                                 <div className="flex flex-wrap items-center justify-between gap-2 ">
@@ -127,7 +128,7 @@ const Developer = async ({ params }: Props) => {
                             </>
                             :
                             null
-                        }
+                        } */}
 
                     </section>
                     <section className='min-w-[340px] w-2/6 p-6 flex flex-col gap-4 rounded-xl ring-1 ring-gray-200 dark:ring-gray-800 shadow bg-white dark:bg-gray-900'>
@@ -135,7 +136,7 @@ const Developer = async ({ params }: Props) => {
                         <div className="flex justify-between items-center text-sm">
                             <p className='flex items-center gap-4 text-zinc-500'><CalendarCheck width={18} /> Available</p>
                             <span>
-                                {profile.available ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
+                                {profile.available ? <CircleCheck strokeWidth={1.5} width={18} className='fill-green-200 text-green-500' /> : <CircleX strokeWidth={1.5} width={18} className='fill-red-200 text-red-500' />}
                             </span>
                         </div>
                         <div className="flex justify-between items-center text-sm">
@@ -150,25 +151,25 @@ const Developer = async ({ params }: Props) => {
                             <div className="flex justify-between items-center text-sm ">
                                 <p className='flex items-center gap-4 text-zinc-500'><BriefcaseBusiness width={18} /> Employment</p>
                                 <span>
-                                    {profile.employment ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
+                                    {profile.employment ? <CircleCheck strokeWidth={1.5} width={18} className='fill-green-200 text-green-500' /> : <CircleX strokeWidth={1.5} width={18} className='fill-red-200 text-red-500' />}
                                 </span>
                             </div>
                             <div className="flex justify-between items-center text-sm">
                                 <p className='flex items-center gap-4 text-zinc-500'><Bird width={18} /> Freelance</p>
                                 <span>
-                                    {profile.freelance ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
+                                    {profile.freelance ? <CircleCheck strokeWidth={1.5} width={18} className='fill-green-200 text-green-500' /> : <CircleX strokeWidth={1.5} width={18} className='fill-red-200 text-red-500' />}
                                 </span>
                             </div>
                             <div className="flex justify-between items-center text-sm">
                                 <p className='flex items-center gap-4 text-zinc-500'><Laptop width={18} /> Remote</p>
                                 <span>
-                                    {profile.remote ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
+                                    {profile.remote ? <CircleCheck strokeWidth={1.5} width={18} className='fill-green-200 text-green-500' /> : <CircleX strokeWidth={1.5} width={18} className='fill-red-200 text-red-500' />}
                                 </span>
                             </div>
                             <div className="flex justify-between items-center text-sm">
                                 <p className='flex items-center gap-4 text-zinc-500'><Building width={18} />On-site</p>
                                 <span>
-                                    {profile.on_site ? <CircleCheck width={18} className='fill-green-200 text-green-500' /> : <CircleX width={18} className='fill-red-200 text-red-500' />}
+                                    {profile.on_site ? <CircleCheck strokeWidth={1.5} width={18} className='fill-green-200 text-green-500' /> : <CircleX strokeWidth={1.5} width={18} className='fill-red-200 text-red-500' />}
                                 </span>
                             </div>
                         </div>
