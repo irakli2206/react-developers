@@ -73,7 +73,7 @@ export async function getFilteredProfiles(country?: string, role_levels?: string
 
     const supabase = createClient()
     let query = supabase.from('profiles').select()
-    console.log(searchString)
+    console.log(role_levels)
     query.eq('available', true)
     if (searchString) query = query.ilike('title', `%${searchString}%`)
     if (role_levels) query = query.contains('role_levels', role_levels)

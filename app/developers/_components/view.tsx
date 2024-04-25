@@ -70,7 +70,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
 
 
     const getFilteredData = async () => {
-        const filteredData = await getFilteredProfiles(countryInput, selectedRoles, searchInput)
+        const filteredData = await getFilteredProfiles(countryInput, selectedRoles.length ? selectedRoles : undefined, searchInput)
         setProfiles(filteredData)
     }
 
