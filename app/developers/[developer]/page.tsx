@@ -56,7 +56,7 @@ const Developer = () => {
         <>
             {profile &&
 
-                < div className='py-32 container relative'>
+                < div className='py-32 container max-w-7xl relative'>
 
 
                     <div className=" items-center flex gap-8 mb-8">
