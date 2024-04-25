@@ -45,7 +45,7 @@ const Pricing = async () => {
             <PricingCard
               title='Employer'
               subtitle='Start hiring ReactJS talent'
-              cost='$137.00/month'
+              cost='$147.00/month'
               features={[
                 "Full access to developer info",
                 "Ability to use search filters",
@@ -56,7 +56,7 @@ const Pricing = async () => {
                   <>
                     {isDeveloper ?
                       <>
-                        <input type="hidden" name="lookup_key" value="prpl" />
+                        <input type="hidden" name="lookup_key" value="employer" />
                         <input type="hidden" name="user_id" value={user?.id} />
 
                         <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full shadow-sm'>
