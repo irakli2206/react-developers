@@ -23,8 +23,13 @@ const Developer = () => {
     const params = useParams()
     useEffect(() => {
         const getLoggedUser = async () => {
-            const data = await getProfileData()
-            setLoggedUser(data)
+            try {
+                const data = await getProfileData()
+                if (data) setLoggedUser(data)
+            } catch (e) {
+                
+            }
+
         }
         const getProfile = async () => {
             const data = await getProfileByID(params.developer as string);
