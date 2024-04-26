@@ -11,7 +11,9 @@ import {
     Users,
     Link as LinkIcon,
     ReceiptText,
-    Bookmark
+    Bookmark,
+    RocketIcon,
+    UserRoundX
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
@@ -24,7 +26,11 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { ResizablePanel } from '@/components/ui/resizable'
 import * as ResizablePrimitive from "react-resizable-panels"
 import { PanelOnCollapse, PanelOnExpand, PanelOnResize } from 'react-resizable-panels'
-
+import {
+    Alert,
+    AlertDescription,
+    AlertTitle,
+} from "@/components/ui/alert"
 
 
 type ResizablePanelWrapperProps = {
@@ -72,9 +78,9 @@ const ResizablePanelWrapper = ({
     )
 }
 
- 
 
-const Sidebar = ( ) => {
+
+const Sidebar = () => {
     const [profile, setProfile] = useState<Profile | null>()
     const path = usePathname()
 
@@ -158,7 +164,17 @@ const Sidebar = ( ) => {
 
                     </nav>
                 </div>
-                <div className="mt-auto p-2 lg:p-4 hidden md:block">
+                <div className="mt-auto p-2 lg:p-4 hidden md:flex flex-col gap-4">
+                    {
+                        (profile?.account_type === 'developer' && !profile?.available) && <Alert variant={'destructive'}>
+                            <UserRoundX className="h-4 w-4" />
+                            <AlertTitle className='font-semibold'>You're unavailable!</AlertTitle>
+                            <AlertDescription>
+                                If you want your profile to become public, set your preference settings accordingly
+                            </AlertDescription>
+                        </Alert>
+                    }
+
                     {
                         profile?.account_type === 'developer' && <BecomeEmployerOffer accountType={profile.account_type} />
                     }
