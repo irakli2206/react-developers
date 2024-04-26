@@ -47,9 +47,9 @@ const Signin = async () => {
 
 
     return (
-        <Suspense fallback={<Loading />}>
+        < >
             <SigninView />
-        </Suspense>
+        </ >
     )
 }
 

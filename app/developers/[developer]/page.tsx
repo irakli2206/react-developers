@@ -13,6 +13,7 @@ import moment from 'moment'
 import { useParams } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import DeveloperView from './_components/view';
+import Loading from '@/app/loading';
 
 type Params = {
     developer: string
@@ -25,14 +26,14 @@ type Props = {
 const Developer = async ({ params }: Props) => {
     const loggedUser = await getProfileData()
     const profile = await getProfileByID(params.developer as string);
-
+ 
 
 
 
     return (
-        < >
+        <Suspense fallback={<Loading />}>
             <DeveloperView loggedUser={loggedUser} profile={profile} />
-        </ >
+        </Suspense>
     );
 }
 

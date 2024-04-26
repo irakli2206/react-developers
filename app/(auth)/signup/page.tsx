@@ -41,12 +41,12 @@ const initialState: { validationData: ValidationDataT } = {
 const Signup = async () => {
     const user = await getUser()
 
-    if(user) redirect('/dashboard/general')
+    if (user) redirect('/dashboard/general')
 
     return (
-         <Suspense fallback={<Loading />}>
+        < >
             <SignupView />
-         </Suspense>
+        </ >
     )
 }
 
