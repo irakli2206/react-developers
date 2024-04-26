@@ -101,6 +101,8 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
         const filteredData = await getFilteredProfiles("", undefined, "")
         setProfiles(filteredData)
     }
+    
+    console.log(profileData)
 
     return (
         <div>
@@ -116,7 +118,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                             <Button asChild className='rounded-full'>
                                 <Link href='/pricing'>Access filters</Link>
                             </Button>
-                            {profileData && <Button variant='outline' asChild className='rounded-full'>
+                            {!profileData && <Button variant='outline' asChild className='rounded-full'>
                                 <Link href='/signup'>Create an account</Link>
                             </Button>}
 

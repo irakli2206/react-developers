@@ -2,7 +2,7 @@
 
 import ChooseType from '@/components/sections/signup/ChooseType'
 import { AccountTypeT } from '@/types/general'
-import { BriefcaseBusiness, Info, UserRoundSearch } from 'lucide-react'
+import { BriefcaseBusiness, Info, RefreshCw, UserRoundSearch } from 'lucide-react'
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import {
@@ -53,6 +53,8 @@ const SignupView = () => {
         },
     })
 
+    const isFormSubmitting = form.formState.isSubmitting
+
     const { toast } = useToast()
 
 
@@ -77,7 +79,7 @@ const SignupView = () => {
     return (
         <div className="w-full flex  min-h-full">
             <div className="flex items-center justify-center pb-24 flex-1">
-                <div className="mx-auto grid w-[350px] gap-6">
+                <div className="mx-auto grid w-[350px] px-2 sm:px-0 gap-6">
                     {isAskAuthVisible === 'true' &&
                         <div className='border border-blue-200 p-4 bg-blue-50 rounded-lg flex gap-4'>
                             <div>
@@ -186,7 +188,8 @@ const SignupView = () => {
                                 )}
                             />
 
-                            <Button type="submit" className="w-full mt-2" >
+                            <Button disabled={isFormSubmitting} type="submit" className="w-full mt-2" >
+                            {isFormSubmitting && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
                                 Sign up
                             </Button>
                         </form>

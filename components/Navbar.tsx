@@ -50,8 +50,8 @@ const Navbar = ({ isLoggedIn }: Props) => {
     return (
         <>
             <header className="fixed w-full  z-[51] top-0 flex h-14 items-center border-b border-border/40  backdrop-blur bg-background/60 px-4 md:px-6">
-                <div className="max-w-7xl container flex">
-                    <Sheet>
+                <div className="max-w-7xl w-full mx-auto md:container flex">
+                    <Sheet  >
                         <SheetTrigger asChild>
                             <Button
                                 variant="outline"
@@ -62,14 +62,15 @@ const Navbar = ({ isLoggedIn }: Props) => {
                                 <span className="sr-only">Toggle navigation menu</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left">
+                        <SheetContent className='mt-14' side="left">
                             <nav className="grid gap-6 text-lg font-medium">
                                 <Link
                                     href="#"
-                                    className="flex items-center gap-2 text-lg font-semibold"
+                                    className={classNames("text-muted-foreground hover:text-foreground", {
+                                        "text-foreground": pathname.includes('home')
+                                    })}
                                 >
-                                    <Package2 className="h-6 w-6" />
-                                    <span className="sr-only">Acme Inc</span>
+                                    Home
                                 </Link>
                                 <Link
                                     href="/developers"
@@ -103,7 +104,7 @@ const Navbar = ({ isLoggedIn }: Props) => {
 
 
                     </nav>
-                    <div className=" flex gap-8 items-center ml-auto text-sm">
+                    <div className="hidden md:flex gap-8 items-center ml-auto text-sm">
                         <Link
                             href="/developers"
                             className={classNames("text-zinc-700 font-medium transition-colors hover:text-blue-500", {
@@ -137,7 +138,7 @@ const Navbar = ({ isLoggedIn }: Props) => {
                         </div>
                         :
                         <div className="flex items-center gap-4 ml-auto md:gap-2 lg:gap-3">
-                            <Button asChild  className='rounded-full group drop-shadow-sm hover:drop-shadow-none ' variant="outline">
+                            <Button asChild className='rounded-full group drop-shadow-sm hover:drop-shadow-none ' variant="outline">
                                 <Link href="/signin" className=''>Sign in</Link>
                             </Button>
                             <Button asChild className='rounded-full group drop-shadow-sm hover:drop-shadow-none  ' >

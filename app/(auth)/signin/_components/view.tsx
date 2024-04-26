@@ -2,7 +2,7 @@
 
 import ChooseType from '@/components/sections/signup/ChooseType'
 import { AccountTypeT } from '@/types/general'
-import { BriefcaseBusiness, UserRoundSearch } from 'lucide-react'
+import { BriefcaseBusiness, RefreshCw, UserRoundSearch } from 'lucide-react'
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import {
@@ -27,6 +27,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
+import { ReloadIcon } from '@radix-ui/react-icons'
 
 const formSchema = z.object({
     email: z.string().min(1, "Required field").email(),
@@ -43,6 +44,7 @@ const SigninView = () => {
             password: ""
         },
     })
+    const isFormSubmitting = form.formState.isSubmitting
 
     const { toast } = useToast()
 
@@ -96,11 +98,10 @@ const SigninView = () => {
 
     }
 
-
     return (
         <div className="w-full flex  min-h-full">
             <div className="flex items-center justify-center pb-12 flex-1">
-                <div className="mx-auto grid w-[350px] gap-6">
+                <div className="mx-auto grid w-[350px] px-2 sm:px-0 gap-6">
                     <div className="grid gap-2 text-center">
                         <h1 className="text-3xl font-bold ">Sign in</h1>
                         <p className="text-balance text-muted-foreground">
@@ -158,7 +159,9 @@ const SigninView = () => {
                                 )}
                             />
 
-                            <Button type="submit" className="w-full" >
+                            <Button disabled={isFormSubmitting} type="submit" className="w-full"  >
+                                {isFormSubmitting && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
+
                                 Sign in
                             </Button>
                         </form>
