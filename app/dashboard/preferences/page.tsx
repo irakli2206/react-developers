@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { getProfileData } from '@/app/action'
 import { createClient } from '@/utils/supabase/client'
 import { useToast } from '@/components/ui/use-toast'
-import Loading from '../loading'
 import PreferencesView from './_components/view'
 
 
@@ -18,9 +17,9 @@ const Preferences = async () => {
 
 
     return (
-        <Suspense fallback={<Loading />}>
+        < >
             <PreferencesView profileData={profileData} />
-        </Suspense>
+        </ >
     )
 }
 

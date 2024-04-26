@@ -62,10 +62,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
         return profiles.length
     }, [profiles])
 
-    const router = useRouter()
-    const params = useParams()
-
-
+  
     useEffect(() => {
         if (!isRolesExpanded) setSelectedRoles([])
         if (!isCountryExpanded) setCountryInput("")

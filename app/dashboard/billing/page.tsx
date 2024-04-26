@@ -34,7 +34,6 @@ import classNames from 'classnames'
 import { getInvoiceList } from './action'
 import { capitalize, formatPrice } from '@/utils/util'
 import Link from 'next/link'
-import Loading from '../loading'
 import BillingView from './_components/view'
 
 const invoicesDummy = [
@@ -101,9 +100,9 @@ const Billing = async () => {
     }
 
     return (
-        <Suspense fallback={<Loading />}>
+        < >
             <BillingView invoices={invoices} isPageLocked={isPageLocked} invoicesTotal={invoicesTotal} />
-        </Suspense>
+        </ >
     )
 }
 

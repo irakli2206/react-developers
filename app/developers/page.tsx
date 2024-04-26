@@ -37,7 +37,6 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import Loading from '../dashboard/loading'
 import { Profile } from '@/types/database.types'
 import DevelopersView from './_components/view'
 
@@ -55,9 +54,9 @@ const Developers = async () => {
 
 
     return (
-        <Suspense fallback={<Loading />}>
+        <  >
             <DevelopersView profileData={profileData} countriesData={countriesNames} profilesData={profilesData} isEmployer={isEmployer} />
-        </Suspense>
+        </ >
     )
 }
 

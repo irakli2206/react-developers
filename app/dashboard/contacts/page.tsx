@@ -8,7 +8,6 @@ import { CiGlobe } from "react-icons/ci";
 import { Globe, Linkedin, Save } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast'
 import { getProfileData } from '@/app/action'
-import Loading from '../loading'
 import ContactsView from './_components/view'
 
 
@@ -45,9 +44,9 @@ const Contacts = async () => {
 
 
     return (
-        <Suspense fallback={<Loading />}>
+        < >
             <ContactsView profileData={profileData} />
-        </Suspense>
+        </ >
     )
 }
 

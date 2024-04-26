@@ -32,7 +32,7 @@ const Hero = () => {
                                 <DialogDescription className='pt-2 flex flex-col gap-2'>
                                     <p><strong>Developers</strong> - Join now and get an advantage when being filtered by employers</p>
 
-                                    <p><strong>Employers</strong> - Become an employer at a whopping 25% discount</p>
+                                    <p><strong>Employers</strong> - Minimum of one weekly call to give us your input and feature requests</p>
 
                                 </DialogDescription>
                             </DialogHeader>
