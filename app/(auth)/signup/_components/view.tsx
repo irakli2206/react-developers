@@ -60,7 +60,6 @@ const SignupView = () => {
     const onSubmit = async (values: SignupFormValues) => {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log(values)
         try {
             let data = await signup(values)
             if (data && data.error) throw Error(data.error)

@@ -14,7 +14,6 @@ type Props = {
 }
 
 const ChooseType = ({ accountType, setAccountType, setWizardStep }: Props) => {
-    console.log(accountType)
     return (
         <section className=" text-center ">
             <div className="flex flex-col m-auto">

@@ -41,7 +41,6 @@ export async function signup({email, password, firstName, lastName}: SignupFormV
     if (profileError) {
         redirect('/error')
     }
-    console.log('created user data', data)
 
 
 

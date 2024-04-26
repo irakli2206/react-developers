@@ -58,7 +58,6 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
 
 
 
-    console.log(profile)
     const handleFieldChange = (value: string | File | null, fieldName: keyof typeof profile) => {
         if (value === "") value = null
         const isFieldArray = Array.isArray(profile[fieldName])

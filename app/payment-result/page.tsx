@@ -6,6 +6,7 @@ import { getInvoice, getSessionData } from './action'
 import Stripe from 'stripe'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { capitalize } from '@/utils/util'
 
 
 type SearchParams = {
@@ -26,8 +27,7 @@ const PaymentResult = async ({ searchParams }: Props) => {
     const isSuccess = searchParams.success === 'true' ? true : false
     if (isSuccess) session = await getSessionData(searchParams.session_id)
     if (session && session.invoice) invoice = await getInvoice(session.invoice as string)
-
-    console.log('Invoice', invoice)
+        console.log(session)
     return (
         <section className='py-48 '>
             {
@@ -55,8 +55,8 @@ const PaymentResult = async ({ searchParams }: Props) => {
                                     <p className='font-medium'>{session.payment_method_types[0][0].toUpperCase() + session.payment_method_types[0].slice(1)}</p>
                                 </div>}
                                 {session.expires_at && <div className="flex justify-between">
-                                    <p className='text-muted-foreground font-light'>Renewal date</p>
-                                    <p className='font-medium'>{new Date(session.expires_at * 1000).toDateString()}</p>
+                                    <p className='text-muted-foreground font-light'>Type</p>
+                                    <p className='font-medium'>{capitalize(session.mode)}</p>
                                 </div>}
                                 {session.amount_total && <div className="flex justify-between mt-4 items-end">
                                     <p className='text-muted-foreground font-light'>Total payment</p>

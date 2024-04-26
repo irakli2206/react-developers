@@ -53,7 +53,6 @@ const Developers = async () => {
 
     const isEmployer = profileData?.account_type === 'employer'
 
-    console.log(countriesData)
 
     return (
         <Suspense fallback={<Loading />}>

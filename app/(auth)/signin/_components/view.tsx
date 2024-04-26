@@ -69,7 +69,6 @@ const SigninView = () => {
 
     const handleForgotPassword = async () => {
         const email = form.getValues().email as string
-        console.log(email)
         if (!email) {
             return toast({
                 title: "Enter your email first",

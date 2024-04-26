@@ -58,6 +58,10 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
     const [isCountryExpanded, setIsCountryExpanded] = useState(false)
     const [searchInput, setSearchInput] = useState('')
 
+    const profilesCount = useMemo(() => {
+        return profiles.length
+    }, [profiles])
+
     const router = useRouter()
     const params = useParams()
 
@@ -89,7 +93,14 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
         else setCountryInput(newCountryInput)
     }
 
-
+    const handleClearFilters = async () => {
+        setCountryInput("")
+        setSearchInput("")
+        setSelectedRoles([])
+        console.log('search', searchInput)
+        const filteredData = await getFilteredProfiles("", undefined, "")
+        setProfiles(filteredData)
+    }
 
     return (
         <div>
@@ -103,19 +114,20 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
 
                         <div className="flex gap-4 mt-4">
                             <Button asChild className='rounded-full'>
-                                <Link href='/pricing'>Start searching</Link>
+                                <Link href='/pricing'>Access filters</Link>
                             </Button>
-                            <Button variant='outline' asChild className='rounded-full'>
+                            {profileData && <Button variant='outline' asChild className='rounded-full'>
                                 <Link href='/signup'>Create an account</Link>
-                            </Button>
+                            </Button>}
+
                         </div>
                     </div>
 
-                    <div className="px-8 py-6 rounded-lg border border-border flex flex-col gap-4"  >
+                    <div className="px-8 py-4 rounded-lg border border-border flex flex-col gap-4"  >
                         <FaVuejs size={40} className='text-green-500' />
                         <div className="flex flex-col gap-2">
                             <h1 className='text-xl  font-semibold'>Looking for VueJS developers?</h1>
-                            <p>Check out <Button variant='link' className='p-0 text-base text-green-500' asChild><Link href='vue-developers.com'>vue-developers.com</Link></Button> to find top VueJS talent.</p>
+                            <p>Check out <Button variant='link' className='p-0 text-base text-green-500' asChild><Link href='https://vue-developers.com' target='_blank'>vue-developers.com</Link></Button> to find top VueJS talent.</p>
                         </div>
                     </div>
                 </div>}
@@ -276,10 +288,10 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <form action={handleFilter} className={classNames("flex gap-2 w-fit items-center opacity-100 [&>*]:pointer-events-auto cursor-allowed", {
+                                    <form action={handleFilter} className={classNames("flex gap-2 w-full items-center opacity-100 [&>*]:pointer-events-auto cursor-allowed", {
                                         "!opacity-50 [&>*]:!pointer-events-none cursor-not-allowed": !isEmployer
                                     })}>
-                                        <div className='flex-1 flex relative max-w-[300px]'>
+                                        <div className='flex-1 flex relative max-w-[250px]'>
                                             <Input className='pl-10  drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Mid React Developer"
                                                 value={searchInput}
                                                 onChange={e => setSearchInput(e.target.value)}
@@ -287,6 +299,8 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                                             <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
                                         </div>
                                         <Button type='submit'> Search</Button>
+
+                                        <p className="ml-auto text-sm font-medium self-end text-primary">{profilesCount} developers found</p>
                                     </form>
                                 </TooltipTrigger>
                                 <TooltipContent hidden={isEmployer}>
@@ -294,7 +308,7 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
-                        <DeveloperList isEmployer={isEmployer} profilesData={profiles} />
+                        <DeveloperList isEmployer={isEmployer} profilesData={profiles} handleClearFilters={handleClearFilters} />
                     </section>
                 </div>
             </div>

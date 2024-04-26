@@ -28,7 +28,6 @@ export async function getProfileData() {
     if (!formattedData.skills) formattedData.skills = []
     if (!formattedData.role_levels) formattedData.role_levels = []
     if (!formattedData.languages) formattedData.languages = []
-    console.log('formatted', formattedData)
     return formattedData
 }
 
@@ -73,7 +72,6 @@ export async function getFilteredProfiles(country?: string, role_levels?: string
 
     const supabase = createClient()
     let query = supabase.from('profiles').select()
-    console.log(role_levels)
     query.eq('available', true)
     if (searchString) query = query.ilike('title', `%${searchString}%`)
     if (role_levels) query = query.contains('role_levels', role_levels)
