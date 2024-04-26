@@ -170,7 +170,7 @@ const Sidebar = () => {
                             <UserRoundX className="h-4 w-4" />
                             <AlertTitle className='font-semibold'>You're unavailable!</AlertTitle>
                             <AlertDescription>
-                                If you want your profile to become public, set your preference settings accordingly
+                                If you want your profile to become public, set your preference settings accordingly.
                             </AlertDescription>
                         </Alert>
                     }
