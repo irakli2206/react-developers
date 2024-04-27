@@ -28,7 +28,7 @@ const Features = () => {
     const [currentThing, setCurrentThing] = useState("time")
     console.log(currentThing)
     return (
-        <div className='max-w-7xl container py-32 flex flex-col gap-4'>
+        <div className='max-w-7xl container py-24 flex flex-col gap-4'>
             <div className="flex flex-col gap-2 text-4xl xl:text-5xl font-semibold relative">
                 <h1 className=' '>We save you </h1>
                 {savedThings.map((s, i) => {
@@ -74,7 +74,7 @@ const Features = () => {
                             <Separator />
                             <div className="flex flex-col gap-2 text-center px-4 py-10">
                                 <h1 className='font-semibold text-2xl'>{title}</h1>
-                                <p className='text-muted-foreground'>{description}</p>
+                                <p className='text-muted-foreground font-light'>{description}</p>
                             </div>
                         </div>
                     )

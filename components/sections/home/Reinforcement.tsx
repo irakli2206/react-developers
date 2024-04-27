@@ -66,7 +66,7 @@ const Reinforcement = () => {
                                 return (
                                     <div className='flex'>
                                         <div className="flex flex-col gap-2">
-                                            <h3 className="font-medium text-xl text-black">{title}</h3>
+                                            <h3 className="font-medium text-xl text-black ">{title}</h3>
                                             <p className='text-muted-foreground font-light text-lg'>{description}</p>
                                         </div>
                                         {/* <Separator orientation='vertical' className='ml-8' /> */}

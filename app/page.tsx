@@ -5,6 +5,7 @@ import OurDevs from "@/components/sections/home/OurDevs";
 import Features from "@/components/sections/home/Features";
 import Reinforcement from "@/components/sections/home/Reinforcement";
 import Summary from "@/components/sections/home/Summary";
+import CTA from "@/components/sections/home/CTA";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Summary />
       <Reinforcement />
       <Features />
+      <CTA />
     </main>
   );
 }

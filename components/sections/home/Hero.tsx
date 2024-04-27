@@ -46,7 +46,7 @@ const Hero = () => {
                     <h1 className='scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl '>
                         Premier platform linking React developers and employers.
                     </h1>
-                    <p className="mt-4 text-xl text-zinc-500 ">
+                    <p className="mt-4 text-xl text-muted-foreground font-light ">
                         Linking React Pros with Dream Jobs: Where Talent Meets Opportunity
 
                     </p>
