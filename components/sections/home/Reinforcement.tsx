@@ -60,7 +60,7 @@ const Reinforcement = () => {
 
             <div className="flex  mt-4">
                 <Tabs defaultValue="developer" className="">
-                    <TabsList className="grid grid-cols-2 w-[500px] mx-auto">
+                    <TabsList className="grid grid-cols-2 w-[300px] md:w-[500px] mx-auto">
 
                         <TabsTrigger value="developer">Developer</TabsTrigger>
                         <TabsTrigger value="employer">Employer</TabsTrigger>

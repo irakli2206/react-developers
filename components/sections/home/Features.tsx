@@ -29,7 +29,7 @@ const Features = () => {
     console.log(currentThing)
     return (
         <div className='max-w-7xl container py-24 flex flex-col gap-4'>
-            <div className="flex flex-col gap-2 text-4xl xl:text-4xl font-semibold relative">
+            <div className="hidden  md:flex flex-col gap-2 text-4xl xl:text-4xl font-semibold relative">
                 <h1 className=' '>We save you </h1>
                 {savedThings.map((s, i) => {
 
@@ -54,16 +54,21 @@ const Features = () => {
                         >{s}</motion.p>
                     )
                 })}
-                <p className='text-muted-foreground font-light text-lg w-1/2'>Ditch conventional job boards. Discover the perfect candidates tailored to your needs, without sifting through stacks of resumes that don't meet your criteria.</p>
+                <p className='text-muted-foreground font-light text-lg lg:w-1/2'>Ditch conventional job boards. Discover the perfect candidates tailored to your needs, without sifting through stacks of resumes that don't meet your criteria.</p>
+
+            </div>
+            <div className="flex md:hidden flex-col gap-2 text-4xl xl:text-4xl font-semibold relative">
+                <h1 className=' '>Save time, effort and money </h1>
+                <p className='text-muted-foreground font-light text-lg '>Ditch conventional job boards. Discover the perfect candidates tailored to your needs, without sifting through stacks of resumes that don't meet your criteria.</p>
 
             </div>
 
-            <div className="flex gap-4 justify-between mt-12">
- 
+            <div className="flex flex-col md:flex-row gap-4 justify-between items-center md:items-stretch mt-12">
+
                 {cardData.map(({ title, description, src }) => {
 
                     return (
-                        <div className="flex flex-col w-[350px] rounded-lg border shadow border-border">
+                        <div className="flex flex-col w-[280px] sm:w-[350px] rounded-lg border shadow border-border">
                             <Image
                                 src={src}
                                 alt=''
