@@ -16,6 +16,8 @@ export async function getProfileData() {
 
     const { data, error } = await supabase.auth.getUser()
 
+    if(!data.user) return null
+
     const { data: profile, error: profileError } = await supabase.from('profiles').select('*').eq('id', data.user?.id).maybeSingle()
 
 

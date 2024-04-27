@@ -15,7 +15,7 @@ import { useParams } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 
 type Props = {
-    loggedUser: Profile
+    loggedUser: Profile | null
     profile: Profile
 }
 

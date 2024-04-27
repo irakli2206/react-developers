@@ -50,7 +50,7 @@ const Navbar = ({ isLoggedIn }: Props) => {
     return (
         <>
             <header className="fixed w-full  z-[51] top-0 flex h-14 items-center border-b border-border/40  backdrop-blur bg-background/60 px-4 md:px-6">
-                <div className="max-w-7xl w-full mx-auto md:container flex">
+                <div className="!max-w-7xl w-full mx-auto md:container flex">
                     <Sheet  >
                         <SheetTrigger asChild>
                             <Button

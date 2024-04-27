@@ -27,8 +27,7 @@ const Developer = async ({ params }: Props) => {
     const loggedUser = await getProfileData()
     const profile = await getProfileByID(params.developer as string);
  
-
-
+    
 
     return (
         <Suspense fallback={<Loading />}>
