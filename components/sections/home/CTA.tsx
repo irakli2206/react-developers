@@ -19,8 +19,8 @@ const CTA = () => {
             <h1 className=' font-semibold text-3xl'>Outhire your competition now</h1>
             <p className='text-xl font-light text-gray-200'>Become one of the first in the reverse job board revolution, or book a call with the founder</p>
 
-            <div className="flex gap-2 mt-8">
-              <Button variant='secondary' className=' shadow-[0px_0px_8px_2px_white] w-[200px]' asChild>
+            <div className="flex gap-4 mt-8">
+              <Button variant='default' className='transition shadow-[0px_0px_12px_2px_#2563eb] hover:shadow-[0px_0px_12px_0px_#2563eb] w-[200px]' asChild>
                 <Link href='/signup'>Sign up</Link>
               </Button>
               <Button variant='secondary' className=' bg-transparent border border-gray-300 text-white w-[200px] hover:bg-gray-300/20' asChild>

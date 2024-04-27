@@ -1,5 +1,7 @@
+'use client'
+
 import { Separator } from '@/components/ui/separator'
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Tabs,
     TabsContent,
@@ -49,6 +51,9 @@ const Reinforcement = () => {
 
     ]
 
+    const [isHovered, setIsHovered] = useState(true)
+
+
     return (
         <div className='max-w-7xl container py-32 flex flex-col items-center gap-4'>
             <h1 className='text-4xl xl:text-4xl font-semibold'>For any type of developer, for teams of all sizes</h1>
@@ -56,8 +61,8 @@ const Reinforcement = () => {
             <div className="flex  mt-4">
                 <Tabs defaultValue="developer" className="">
                     <TabsList className="grid grid-cols-2 w-[500px] mx-auto">
-                        
-                        <TabsTrigger  value="developer">Developer</TabsTrigger>
+
+                        <TabsTrigger value="developer">Developer</TabsTrigger>
                         <TabsTrigger value="employer">Employer</TabsTrigger>
                     </TabsList>
                     <TabsContent value="developer">
@@ -82,7 +87,10 @@ const Reinforcement = () => {
                                 return (
                                     <div className='flex'>
                                         <div className="flex flex-col gap-2">
-                                            <h3 className="font-medium text-xl text-black">{title}</h3>
+                                            <div className="flex justify-between items-end">
+                                                <h3 className="font-medium text-xl text-black">{title}</h3>
+                                                {title.includes('Startups') && <p className="text-primary pr-2">Popular</p>}
+                                            </div>
                                             <p className='text-muted-foreground text-light text-lg'>{description}</p>
                                         </div>
                                         {/* <Separator orientation='vertical' className='ml-8' /> */}
