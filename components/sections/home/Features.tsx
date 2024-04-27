@@ -29,12 +29,12 @@ const Features = () => {
     console.log(currentThing)
     return (
         <div className='max-w-7xl container py-24 flex flex-col gap-4'>
-            <div className="flex flex-col gap-2 text-4xl xl:text-5xl font-semibold relative">
+            <div className="flex flex-col gap-2 text-4xl xl:text-4xl font-semibold relative">
                 <h1 className=' '>We save you </h1>
                 {savedThings.map((s, i) => {
 
                     return (
-                        <motion.p key={s} className='underline text-primary absolute left-56 xl:left-[300px]'
+                        <motion.p key={s} className='underline text-primary absolute left-56 '
                             initial={{
                                 opacity: 0
                             }}

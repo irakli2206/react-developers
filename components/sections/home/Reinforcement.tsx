@@ -51,7 +51,7 @@ const Reinforcement = () => {
 
     return (
         <div className='max-w-7xl container py-32 flex flex-col items-center gap-4'>
-            <h1 className='text-4xl xl:text-5xl font-semibold'>For any type of developer, for teams of all sizes</h1>
+            <h1 className='text-4xl xl:text-4xl font-semibold'>For any type of developer, for teams of all sizes</h1>
 
             <div className="flex  mt-4">
                 <Tabs defaultValue="developer" className="">

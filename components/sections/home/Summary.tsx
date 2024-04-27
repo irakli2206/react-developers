@@ -17,7 +17,7 @@ const Summary = () => {
             </div>
             <div className="flex-[1]">
                 {/* <p className='font-medium text-primary mb-2 text-lg '>What</p> */}
-                <h1 className='text-4xl xl:text-5xl font-semibold'>A new, better way to connect employers with talent</h1>
+                <h1 className='text-4xl xl:text-4xl font-semibold'>A new, better way to connect employers with talent</h1>
                 <p className='text-muted-foreground mt-4 text-xl font-light'>Revolutionize your hiring process with our groundbreaking reverse job board. No more endless resume browsing or wasted time. Our platform connects employers directly with skilled professionals, streamlining recruitment and ensuring a perfect fit every time. Say hello to a simpler, smarter way to find your next great hire.
 
                 </p>
