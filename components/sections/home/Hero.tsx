@@ -23,22 +23,20 @@ const Hero = () => {
                         <DialogTrigger className='focus-visible:outline-none'>
                             <div className="mx-auto lg:ml-0 rounded-full bg-blue-50 ring-1 px-4 py-1 text-sm  ring-blue-200 text-blue-700 w-fit  mb-6 cursor-pointer hover:ring-blue-300 transition 
                     shadow-[inset_0px_0px_6px_-4px_rgba(37,99,235,0)] hover:shadow-[inset_0px_0px_8px_-4px_rgba(37,99,235,0.5)]">
-                                <div>Early access: developer and employer privileges. <div className="font-semibold text-blue-700 inline cursor-pointer relative"><span className="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">→</span></div></div>
+                                <div>Alpha release: Talent discovery stage. <div className="font-semibold text-blue-700 inline cursor-pointer relative"><span className="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">→</span></div></div>
                             </div>
                         </DialogTrigger>
                         <DialogContent>
                             <DialogHeader>
-                                <DialogTitle>Attention developers and employers!</DialogTitle>
+                                <DialogTitle>Attention developers!</DialogTitle>
                                 <DialogDescription className='pt-2 flex flex-col gap-2'>
-                                    <p><strong>Developers</strong> - Join now and get an advantage when being filtered by employers</p>
-
-                                    <p><strong>Employers</strong> - Minimum of one weekly call to give us your input and feature requests</p>
+                                    Seize your chance to stand out in search results. Register today for increased employer visibility.
 
                                 </DialogDescription>
                             </DialogHeader>
                             <DialogFooter className='mt-4'>
                                 <Button asChild >
-                                    <Link href='/pricing'>Check Pricing</Link>
+                                    <Link href='/signup'>Sign up</Link>
                                 </Button>
                             </DialogFooter>
                         </DialogContent>

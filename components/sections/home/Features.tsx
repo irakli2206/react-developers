@@ -39,7 +39,7 @@ const Features = () => {
                                 opacity: 0
                             }}
                             animate={{
-                                y: [-20, 0, 0, 20],
+                                y: [-10, 0, 0, 10],
                                 opacity: [0, 1, 1, 0]
                             }}
 
