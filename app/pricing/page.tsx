@@ -20,11 +20,11 @@ const Pricing = async () => {
       <div className="flex flex-col gap-12">
         <header className='flex flex-col justify-center items-center text-center'>
           <p className='font-medium text-primary text-sm mb-2'>Pricing</p>
-          <h1 className='text-5xl font-semibold mb-4'>We keep it simple</h1>
+          <h1 className='text-4xl lg:text-5xl font-semibold mb-4'>We keep it simple</h1>
           <p className='text-muted-foreground font-light text-lg'>No 5 different confusing subscription plans, our terms are straightforward</p>
         </header>
 
-        <main className="flex gap-4 justify-center">
+        <main className="flex flex-col lg:flex-row gap-4 justify-center items-center place-items-stretch ">
           <PricingCard
             title='Developer'
             subtitle='Add your profile to ReactFind'
