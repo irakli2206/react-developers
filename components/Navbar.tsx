@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from "next/link"
 import { ArrowRight, CircleUser, Menu, MoveRight, Package2, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -41,6 +41,12 @@ const Navbar = ({ isLoggedIn }: Props) => {
     const router = useRouter()
     const supabase = createClient()
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    
+    useEffect(() => {
+        setIsMenuOpen(false)
+    }, [pathname])
+
     const handleSignout = async () => {
         await signout()
         window.location.reload()
@@ -51,8 +57,8 @@ const Navbar = ({ isLoggedIn }: Props) => {
         <>
             <header className="fixed w-full  z-[51] top-0 flex h-14 items-center border-b border-border/40  backdrop-blur bg-background/60 px-4 md:px-6">
                 <div className="!max-w-7xl w-full mx-auto md:container flex">
-                    <Sheet  >
-                        <SheetTrigger asChild>
+                    <Sheet open={isMenuOpen}  onOpenChange={(e) => setIsMenuOpen(e)} >
+                        <SheetTrigger  asChild>
                             <Button
                                 variant="outline"
                                 size="icon"
@@ -62,10 +68,10 @@ const Navbar = ({ isLoggedIn }: Props) => {
                                 <span className="sr-only">Toggle navigation menu</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent className='mt-14' side="left">
+                        <SheetContent  className='mt-14' side="left">
                             <nav className="grid gap-6 text-lg font-medium">
                                 <Link
-                                    href="#"
+                                    href="/"
                                     className={classNames("text-muted-foreground hover:text-foreground", {
                                         "text-foreground": pathname.includes('home')
                                     })}
