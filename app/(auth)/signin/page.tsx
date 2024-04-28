@@ -19,7 +19,7 @@ import { FaGoogle } from "react-icons/fa";
 import Image from "next/image"
 import { createClient } from '@/utils/supabase/server'
 import { z } from 'zod'
-import { SigninSchema, SignupSchema } from '@/utils/form/schemas'
+import { SigninSchema, SignupSchema } from '@/utils/schemas'
 import { useFormState, useFormStatus } from 'react-dom'
 import { signin } from './action'
 import Loading from '@/app/dashboard/loading'

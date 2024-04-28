@@ -5,7 +5,7 @@ import { z } from "zod";
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from "next/navigation";
 import { ValidationDataT } from "./page";
-import { SignupSchema } from "@/utils/form/schemas";
+import { SignupSchema } from "@/utils/schemas";
 import { SignupFormValues } from "./_components/view";
  
 

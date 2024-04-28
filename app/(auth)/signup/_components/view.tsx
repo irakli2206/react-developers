@@ -21,7 +21,7 @@ import Image from "next/image"
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useFormState, useFormStatus } from 'react-dom'
 import { z } from 'zod'
-import { SignupSchema } from '@/utils/form/schemas'
+import { SignupSchema } from '@/utils/schemas'
 import { signup } from '../action'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'

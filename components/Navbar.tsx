@@ -88,7 +88,14 @@ const Navbar = ({ isLoggedIn }: Props) => {
                                 >
                                     Pricing
                                 </Link>
-
+                                <Link
+                                    href="/faq"
+                                    className={classNames("text-muted-foreground hover:text-foreground", {
+                                        "text-foreground": pathname.includes('faq')
+                                    })}
+                                >
+                                    FAQ
+                                </Link>
                             </nav>
                         </SheetContent>
                     </Sheet>
@@ -120,6 +127,14 @@ const Navbar = ({ isLoggedIn }: Props) => {
                             })}
                         >
                             Pricing
+                        </Link>
+                        <Link
+                            href="/faq"
+                            className={classNames("text-zinc-700 font-medium transition-colors hover:text-blue-500", {
+                                "!text-blue-600 !font-semibold ": pathname.includes('faq')
+                            })}
+                        >
+                            FAQ
                         </Link>
                     </div>
 

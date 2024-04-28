@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 import { z } from 'zod'
-import { SigninSchema } from '@/utils/form/schemas'
+import { SigninSchema } from '@/utils/schemas'
 import { ValidationDataT } from './page'
 
  

@@ -20,7 +20,7 @@ import { FaGoogle } from "react-icons/fa";
 import Image from "next/image"
 import { createClient } from '@/utils/supabase/server'
 import { z } from 'zod'
-import { SigninSchema, SignupSchema } from '@/utils/form/schemas'
+import { SigninSchema, SignupSchema } from '@/utils/schemas'
 import { useFormState, useFormStatus } from 'react-dom'
 import { googleSignin, sendResetPassword, signin } from '../action'
 import { useToast } from '@/components/ui/use-toast'
