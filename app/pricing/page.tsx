@@ -18,9 +18,10 @@ const Pricing = async () => {
   return (
     <div className='py-36 container max-w-7xl'>
       <div className="flex flex-col gap-12">
-        <header className='flex flex-col gap-4 justify-center items-center text-center'>
-          <h1 className='text-5xl font-semibold'>We keep it simple</h1>
-          <p className='text-muted-foreground text-lg'>No 5 different confusing subscription plans, our terms are straightforward</p>
+        <header className='flex flex-col justify-center items-center text-center'>
+          <p className='font-medium text-primary text-sm mb-2'>Pricing</p>
+          <h1 className='text-5xl font-semibold mb-4'>We keep it simple</h1>
+          <p className='text-muted-foreground font-light text-lg'>No 5 different confusing subscription plans, our terms are straightforward</p>
         </header>
 
         <main className="flex gap-4 justify-center">
