@@ -111,7 +111,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                         <h1 className='text-4xl font-semibold'>Meet the developers</h1>
                         <p className='text-muted-foreground text-lg font-light'>Find your company's perfect match in an instant</p>
 
-                        <div className="flex gap-4 mt-4">
+                        <div className="flex gap-4 mt-4 flex-col sm:flex-row">
                             <Button asChild className='rounded-full'>
                                 <Link href='/pricing'>Access filters</Link>
                             </Button>
@@ -122,7 +122,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                         </div>
                     </div>
 
-                    <div className="px-8 py-4 rounded-lg border border-border flex flex-col gap-4"  >
+                    <div className="hidden lg:flex px-8 py-4 rounded-lg border border-border flex-col gap-4"  >
                         <FaVuejs size={40} className='text-green-500' />
                         <div className="flex flex-col gap-2">
                             <h1 className='text-xl  font-semibold'>Looking for VueJS developers?</h1>
@@ -136,7 +136,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                     <TooltipProvider>
                         <Tooltip >
                             <TooltipTrigger asChild>
-                                <section className={classNames("flex flex-col h-fit w-1/4 opacity-100 [&>*]:pointer-events-auto !cursor-allowed sticky top-14", {
+                                <section className={classNames("hidden md:flex flex-col h-fit w-1/4 opacity-100 [&>*]:pointer-events-auto !cursor-allowed sticky top-14", {
                                     "!opacity-50 [&>*]:!pointer-events-none cursor-not-allowed ": !isEmployer
                                 })}>
                                     <Separator className='mb-6' />
@@ -283,7 +283,7 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
-                    <section className="flex flex-col gap-4 w-3/4 ">
+                    <section className="flex flex-col gap-4 w-full lg:w-3/4">
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
@@ -299,7 +299,7 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                                         </div>
                                         <Button type='submit'> Search</Button>
 
-                                        <p className="ml-auto text-sm font-medium self-end text-primary">{profilesCount} developers found</p>
+                                        <p className="hidden md:block ml-auto text-sm font-medium self-end text-primary">{profilesCount} developers found</p>
                                     </form>
                                 </TooltipTrigger>
                                 <TooltipContent hidden={isEmployer}>
