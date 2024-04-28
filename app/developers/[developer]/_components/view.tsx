@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { getProfileByID, getProfileData } from '@/app/action';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { ArrowUpRight, Bird, BriefcaseBusiness, Building, CalendarCheck, CircleCheck, CircleX, Copy, Hourglass, Laptop, Lock, Mail, MapPin } from 'lucide-react';
+import { ArrowUpRight, Bird, BriefcaseBusiness, Building, CalendarCheck, CircleCheck, CircleUserRound, CircleX, Copy, Hourglass, Laptop, Lock, Mail, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -44,11 +44,13 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
 
 
                 <div className=" items-center flex gap-8 mb-8">
-                    <Avatar className='w-auto h-20  '>
-                        <AvatarImage className='object-cover' src={profile.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} />
-                        {/* <AvatarFallback>
-
-                        </AvatarFallback> */}
+                    <Avatar className='w-20 h-20  '>
+                        <AvatarImage className='object-cover' src={profile.avatar} />
+                        <AvatarFallback>
+                            <div className="bg-gray-200  text-gray-400 w-full h-full flex items-center justify-center">
+                                < CircleUserRound size={48} strokeWidth={1} />
+                            </div>
+                        </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col gap-2 ">
                         <h1 className='text-2xl sm:text-3xl font-bold'>{profile.title}</h1>
@@ -160,10 +162,10 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                             </div>
                         </div>
 
-                        {(profile.website_url || profile.linkedin_url || profile.github_url || profile.gitlab_url || profile.twitter_url) && <>
-                            <Separator />
-                            <h2 className='text font-semibold'>Contacts</h2>
-                        </>}
+
+                        <Separator />
+                        <h2 className='text font-semibold'>Contacts</h2>
+
                         {isEmployer ?
                             <div className="flex flex-col divide-y text-muted-foreground divide-zinc-200 ">
 

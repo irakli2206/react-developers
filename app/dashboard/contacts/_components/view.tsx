@@ -80,7 +80,7 @@ const ContactsView = ({profileData}: Props) => {
             <div className="flex justify-between">
                 <div className="">
                     <h3 className="text-base font-semibold leading-7 text-gray-900">Contact Links</h3>
-                    <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Make it easier for talent experts to get in touch with you</p>
+                    <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Make it possible for talent experts to get in touch with you</p>
                 </div>
                 <Button size='sm' className='rounded-full mt-auto' onClick={handleSave}>
                     Save changes</Button>
