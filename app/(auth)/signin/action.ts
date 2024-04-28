@@ -23,7 +23,7 @@ export async function signin({ email, password }: SigninFormValues) {
   }
 
   revalidatePath('/', 'layout')
-  redirect('/dashboard')
+  redirect('/dashboard/general')
 
 }
 

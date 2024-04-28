@@ -184,8 +184,8 @@ const SigninView = () => {
             </div>
             <div className="hidden lg:flex flex-col justify-center gap-16 flex-1 bg-gradient-to-b from-blue-100/80 via-red-50 to-white overflow-hidden rounded-tl-[7.5%]">
                 <div className="flex flex-col gap-4 min-w-[300px] w-3/4 mx-auto pt-16">
-                    <p className='font-semibold text-xl'>Thanks to ReactDevelopers, we've spared ourselves hours of sorting through numerous unqualified or below-par candidates.</p>
-                    <p className="text-gray-500 font-medium ">- Sneed's Feed and Seed</p>
+                    <p className='font-semibold text-xl'>Thanks to ReactFind, we've spared ourselves hours of sorting through numerous unqualified or below-par candidates.</p>
+                    <p className="text-gray-500 font-medium ">- Ancestral Whispers, our first customer</p>
                 </div>
 
                 <div className="relative w-full h-full  ">
@@ -208,7 +208,7 @@ const SigninView = () => {
             {/* <div className="hidden lg:flex flex-col justify-center gap-16 flex-1 bg-gradient-to-b from-gray-100/80 to-white  overflow-hidden ">
 
                 <div className="flex flex-col gap-4 min-w-[300px] w-3/4 mx-auto pt-16">
-                    <p className='font-semibold text-xl'>Thanks to ReactDevelopers, we've spared ourselves hours of sorting through numerous unqualified or below-par candidates.</p>
+                    <p className='font-semibold text-xl'>Thanks to ReactFind, we've spared ourselves hours of sorting through numerous unqualified or below-par candidates.</p>
                     <p className="text-gray-500 font-medium ">- Sneed's Feed and Seed</p>
                 </div>
 

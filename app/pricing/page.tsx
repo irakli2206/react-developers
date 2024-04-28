@@ -26,7 +26,7 @@ const Pricing = async () => {
         <main className="flex gap-4 justify-center">
           <PricingCard
             title='Developer'
-            subtitle='Add your profile to ReactDevelopers'
+            subtitle='Add your profile to ReactFind'
             cost='Free'
             features={[
               "Join our database",
