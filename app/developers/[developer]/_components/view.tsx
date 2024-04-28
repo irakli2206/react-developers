@@ -51,7 +51,7 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                         </AvatarFallback> */}
                     </Avatar>
                     <div className="flex flex-col gap-2 ">
-                        <h1 className='text-3xl font-bold'>{profile.title}</h1>
+                        <h1 className='text-2xl sm:text-3xl font-bold'>{profile.title}</h1>
 
                         {isEmployer ?
                             <p className=' text-xl font-medium'>  {profile.name} </p>
@@ -72,9 +72,9 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                         <p className='flex gap-2 items-center text-muted-foreground text-sm '><MapPin width={16} /> {profile.country} </p>
                     </div>
                 </div>
-                <div className='flex gap-8'>
+                <div className='flex flex-col md:flex-row gap-8'>
 
-                    <section className='w-3/4 h-fit flex flex-col gap-5 px-8 py-6 rounded-xl ring-1 ring-gray-200 dark:ring-gray-800 shadow bg-white dark:bg-gray-900'>
+                    <section className='w-full md:w-3/4 h-fit flex flex-col gap-5 px-8 py-6 rounded-xl ring-1 ring-gray-200 dark:ring-gray-800 shadow bg-white dark:bg-gray-900'>
 
 
                         <div className="flex flex-wrap items-center justify-between gap-2 ">
@@ -117,7 +117,7 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                         } */}
 
                     </section>
-                    <section className='min-w-[340px] w-2/6 p-6 flex flex-col gap-4 rounded-xl ring-1 ring-gray-200 dark:ring-gray-800 shadow bg-white dark:bg-gray-900'>
+                    <section className='w-full md:w-2/6 md:min-w-[340px] p-6 flex flex-col gap-4 rounded-xl ring-1 ring-gray-200 dark:ring-gray-800 shadow bg-white dark:bg-gray-900'>
                         <h2 className='text font-semibold'>Terms</h2>
                         <div className="flex justify-between items-center text-sm">
                             <p className='flex items-center gap-4 text-zinc-500'><CalendarCheck width={18} /> Available</p>
@@ -133,7 +133,7 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                         </div>
                         <Separator />
                         <h2 className='text font-semibold'>Conditions</h2>
-                        <div className="grid grid-cols-2 gap-4 gap-x-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-x-8">
                             <div className="flex justify-between items-center text-sm ">
                                 <p className='flex items-center gap-4 text-zinc-500'><BriefcaseBusiness width={18} /> Employment</p>
                                 <span>
