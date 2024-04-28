@@ -72,7 +72,7 @@ const Reinforcement = () => {
                                     <div className='flex'>
                                         <div className="flex flex-col gap-2">
                                             <h3 className="font-medium text-xl text-black ">{title}</h3>
-                                            <p className='text-muted-foreground font-light text-lg'>{description}</p>
+                                            <p className='text-muted-foreground text-lg'>{description}</p>
                                         </div>
                                         {/* <Separator orientation='vertical' className='ml-8' /> */}
                                     </div>
@@ -91,7 +91,7 @@ const Reinforcement = () => {
                                                 <h3 className="font-medium text-xl text-black">{title}</h3>
                                                 {title.includes('Startups') && <p className="text-primary pr-2">Popular</p>}
                                             </div>
-                                            <p className='text-muted-foreground text-light text-lg'>{description}</p>
+                                            <p className='text-muted-foreground  text-lg'>{description}</p>
                                         </div>
                                         {/* <Separator orientation='vertical' className='ml-8' /> */}
                                     </div>
