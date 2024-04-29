@@ -8,7 +8,7 @@ import { getProfileByID } from "@/app/action";
 import { stripe } from "@/lib/stripe";
 import { Profile } from "@/types/database.types";
 
-const secret = 'whsec_4a233bc79fca3fa1043c952d6e5a835b004e99bdaf9cfd5b68ead656de1a7e57';
+const secret = process.env.STRIPE_WEBOOK_SECRET! ;
 
 
 export async function POST(
