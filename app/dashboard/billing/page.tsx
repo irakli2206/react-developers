@@ -83,21 +83,21 @@ const invoicesDummy = [
 
 const Billing = async () => {
     const profile = await getProfileData()
-    let invoices
+    // let invoices
     let invoicesTotal = 0
 
-    const isPageLocked = profile.account_type === 'developer'
+    // const isPageLocked = profile.account_type === 'developer'
 
-    if (!isPageLocked) {
-        invoices = await getInvoiceList(profile.stripe_customer_id as string)
+    // if (!isPageLocked) {
+      let  invoices = await getInvoiceList(profile.stripe_customer_id as string)
 
     }
 
-    if (invoices) {
-        invoices.forEach(e => {
-            invoicesTotal += e.amount_due / 100
-        })
-    }
+    // if (invoices) {
+    //     invoices.forEach(e => {
+    //         invoicesTotal += e.amount_due / 100
+    //     })
+    // }
 
     return (
         < >
