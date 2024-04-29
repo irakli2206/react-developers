@@ -83,7 +83,7 @@ const invoicesDummy = [
 
 type Props = {
     isPageLocked: boolean
-    invoices: Stripe.Invoice[]
+    invoices: Stripe.Invoice[] | undefined
     invoicesTotal: number
 }
 
