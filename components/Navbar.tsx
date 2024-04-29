@@ -31,6 +31,7 @@ import { createClient } from '@/utils/supabase/client'
 import { revalidatePath } from 'next/cache'
 import classNames from 'classnames'
 import { signout } from '@/app/action'
+import Image from 'next/image'
 
 type Props = {
     isLoggedIn: boolean
@@ -42,7 +43,7 @@ const Navbar = ({ isLoggedIn }: Props) => {
     const supabase = createClient()
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
-    
+
     useEffect(() => {
         setIsMenuOpen(false)
     }, [pathname])
@@ -55,10 +56,10 @@ const Navbar = ({ isLoggedIn }: Props) => {
 
     return (
         <>
-            <header className="fixed w-full  z-[51] top-0 flex h-14 items-center border-b border-border/40  backdrop-blur bg-background/60 px-4 md:px-6">
+            <header className="fixed w-full  z-[51] top-0 flex h-14 items-center border-b border-border/40  backdrop-blur bg-background/60 px-2 md:px-0">
                 <div className="!max-w-7xl w-full mx-auto md:container flex">
-                    <Sheet open={isMenuOpen}  onOpenChange={(e) => setIsMenuOpen(e)} >
-                        <SheetTrigger  asChild>
+                    <Sheet open={isMenuOpen} onOpenChange={(e) => setIsMenuOpen(e)} >
+                        <SheetTrigger asChild>
                             <Button
                                 variant="outline"
                                 size="icon"
@@ -68,7 +69,7 @@ const Navbar = ({ isLoggedIn }: Props) => {
                                 <span className="sr-only">Toggle navigation menu</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent  className='mt-14' side="left">
+                        <SheetContent className='mt-14' side="left">
                             <nav className="grid gap-6 text-lg font-medium">
                                 <Link
                                     href="/"
@@ -110,8 +111,14 @@ const Navbar = ({ isLoggedIn }: Props) => {
                             href="/"
                             className="flex items-center gap-2 text-lg font-semibold md:text-base"
                         >
-                            < FaReact className="h-8 w-8" />
-
+                            {/* < FaReact className="h-8 w-8" /> */}
+                            <Image
+                                src='/logo.svg'
+                                alt=''
+                                width={200}
+                                height={40}
+                                className='h-5 w-auto'
+                            />
                             <span className="sr-only">Acme Inc</span>
                         </Link>
 
