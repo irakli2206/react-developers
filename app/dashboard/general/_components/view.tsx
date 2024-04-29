@@ -83,6 +83,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
         try {
             const { data: imageUpload, error: imageUploadError } = await supabase.storage.from('avatars').upload(`public/${profile.id}`, avatar as File, {
                 upsert: true,
+                contentType: 'image/webp'
             })
             console.log('imageupload', imageUpload)
 
