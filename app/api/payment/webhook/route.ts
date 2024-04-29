@@ -8,7 +8,7 @@ import { getProfileByID } from "@/app/action";
 import { stripe } from "@/lib/stripe";
 import { Profile } from "@/types/database.types";
 
-const secret = process.env.STRIPE_WEBHOOK_SECRET! ;
+const secret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 
 export async function POST(
