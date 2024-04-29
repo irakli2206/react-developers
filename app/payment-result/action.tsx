@@ -1,4 +1,5 @@
 'use server'
+import { BASE_URL } from '@/env'
 import Stripe from 'stripe'
 
 export async function getSessionData(sessionId: string) {
