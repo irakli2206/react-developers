@@ -101,7 +101,7 @@ const SigninView = () => {
     return (
         <div className="w-full flex  min-h-full">
             <div className="flex items-center justify-center pb-12 flex-1">
-                <div className="mx-auto grid w-[350px] px-2 sm:px-0 gap-6">
+                <div className="mx-auto grid md:w-[350px] px-2 sm:px-0 gap-6">
                     <div className="grid gap-2 text-center">
                         <h1 className="text-3xl font-bold ">Sign in</h1>
                         <p className="text-balance text-muted-foreground">

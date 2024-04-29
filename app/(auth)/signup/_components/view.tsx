@@ -79,7 +79,7 @@ const SignupView = () => {
     return (
         <div className="w-full flex  min-h-full">
             <div className="flex items-center justify-center pb-24 flex-1">
-                <div className="mx-auto grid w-[350px] px-2 sm:px-0 gap-6">
+                <div className="mx-auto grid md:w-[350px] px-2 sm:px-0 gap-6">
                     {isAskAuthVisible === 'true' &&
                         <div className='border border-blue-200 p-4 bg-blue-50 rounded-lg flex gap-4'>
                             <div>
