@@ -91,7 +91,7 @@ const Billing = async () => {
     // if (!isPageLocked) {
       let  invoices = await getInvoiceList(profile.stripe_customer_id as string)
 
-    }
+ 
 
     // if (invoices) {
     //     invoices.forEach(e => {
