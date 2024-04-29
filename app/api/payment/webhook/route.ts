@@ -5,8 +5,14 @@ import { buffer } from 'micro'
 import Stripe from "stripe"
 import { createClient } from "@/utils/supabase/server";
 import { getProfileByID } from "@/app/action";
-import { stripe } from "@/lib/stripe";
-import { Profile } from "@/types/database.types";
+ import { Profile } from "@/types/database.types";
+
+
+
+export const stripe = new Stripe(process.env.STRIPE_SECRET!, {
+    apiVersion: '2024-04-10',
+    typescript: true
+})
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET! ;
 

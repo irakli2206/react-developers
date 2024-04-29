@@ -1,6 +1,14 @@
-import Stripe from 'stripe'
-import { stripe } from '@/lib/stripe'
+ 
 import { NextApiRequest } from 'next'
+
+
+import Stripe from "stripe"
+
+
+export const stripe = new Stripe(process.env.STRIPE_SECRET!, {
+    apiVersion: '2024-04-10',
+    typescript: true
+})
 
 export async function GET(req: NextApiRequest) {
 
