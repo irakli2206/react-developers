@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { stripe } from '@/lib/stripe'
 import { getProfileData } from "@/app/action";
+import { BASE_URL } from "@/env";
 
  
 
@@ -38,8 +39,8 @@ export async function POST(
             }
         },
         mode: 'subscription',
-        success_url: `${process.env.NEXT_PUBLIC_URL}/payment-result?success=true&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_URL}?canceled=true`,
+        success_url: `${BASE_URL}/payment-result?success=true&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${BASE_URL}?canceled=true`,
     });
 
     return Response.redirect(session.url!);

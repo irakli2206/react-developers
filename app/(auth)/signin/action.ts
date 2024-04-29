@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { SigninSchema } from '@/utils/schemas'
 import { ValidationDataT } from './page'
 import { SigninFormValues } from './_components/view'
+import { BASE_URL } from '@/env'
 
 export async function signin({ email, password }: SigninFormValues) {
   const supabase = createClient()
@@ -49,7 +50,7 @@ export async function googleSignin() {
 export async function sendResetPassword(email: string) {
   const supabase = createClient()
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_URL}/reset-password`,
+    redirectTo: `${BASE_URL}/reset-password`,
   })
 
   if (error) {
