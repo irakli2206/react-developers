@@ -33,13 +33,11 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useToast } from '@/components/ui/use-toast'
 import { getCountryList, getProfileData } from '@/app/action'
 import GeneralView from './_components/view'
-
+import countries from '@/data/countryData.json'
 
 const General = async () => {
-
     const profile = await getProfileData()
-    const countryOptions = await getCountryList()
-
+    const countryOptions = countries.map(c => c.name.common)
 
     return (
         < >

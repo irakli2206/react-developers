@@ -39,13 +39,14 @@ import {
 } from "@/components/ui/tooltip"
 import { Profile } from '@/types/database.types'
 import DevelopersView from './_components/view'
+import countries from '@/data/countryData.json'
 
 
 const Developers = async () => {
 
     const profileData = await getProfileData().catch(e => null)
 
-    const countriesData = await fetch("https://restcountries.com/v3.1/all?fields=name").then(res => res.json())
+    const countriesData = countries
     const countriesNames = countriesData.map(c => c.name.common)
 
     const profilesData = await getProfiles(10, true)

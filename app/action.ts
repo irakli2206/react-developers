@@ -85,6 +85,7 @@ export async function getFilteredProfiles(country?: string, role_levels?: string
     return data
 }
 
+//Not using this for now, sometimes API gets too much load and it doesn't perform well
 export async function getCountryList() {
     const countries = await fetch("https://restcountries.com/v3.1/all?fields=name", {cache: 'force-cache'})
     const countriesData = await countries.json()
