@@ -41,6 +41,7 @@ import { Profile } from '@/types/database.types'
 import { getFilteredProfiles } from '@/app/action'
 import Link from 'next/link'
 import { FaVuejs } from "react-icons/fa";
+import { Slider } from '@/components/ui/slider'
 
 
 type Props = {
@@ -50,57 +51,73 @@ type Props = {
     isEmployer: boolean
 }
 
+type Filters = {
+    searchInput: string
+    countryInput: string
+    selectedRoles: string[]
+    hourlyRate: number
+    experience: number
+}
+
 const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }: Props) => {
     const [profiles, setProfiles] = useState<Profile[]>(profilesData)
-    const [countryInput, setCountryInput] = useState("")
-    const [selectedRoles, setSelectedRoles] = useState<string[]>([])
-    const [isRolesExpanded, setIsRolesExpanded] = useState(false)
-    const [isCountryExpanded, setIsCountryExpanded] = useState(false)
-    const [searchInput, setSearchInput] = useState('')
+
+    const [filters, setFilters] = useState<Filters>({
+        searchInput: "",
+        countryInput: "",
+        selectedRoles: [],
+        hourlyRate: 100,
+        experience: 3
+    })
+
+    const [hourlyRateLabel, setHourlyRateLabel] = useState(filters.hourlyRate)
+
+    const [experienceLabel, setExperienceLabel] = useState(filters.experience)
+
+    const changeFilter = (filterName: keyof Filters, newValue: any) => {
+        setFilters((prevState) => (
+            {
+                ...prevState,
+                [filterName]: newValue
+            }
+        ))
+    }
 
     const profilesCount = useMemo(() => {
         return profiles.length
     }, [profiles])
 
-  
-    useEffect(() => {
-        if (!isRolesExpanded) setSelectedRoles([])
-        if (!isCountryExpanded) setCountryInput("")
-    }, [isRolesExpanded, isCountryExpanded])
-
-
 
     const getFilteredData = async () => {
-        const filteredData = await getFilteredProfiles(countryInput, selectedRoles.length ? selectedRoles : undefined, searchInput)
+        const filteredData = await getFilteredProfiles(filters.countryInput, filters.selectedRoles, filters.searchInput, filters.hourlyRate, filters.experience)
         setProfiles(filteredData)
     }
 
     useEffect(() => {
-        if (countryInput || selectedRoles.length) {
+        if (filters.countryInput || filters.selectedRoles) {
             getFilteredData()
         }
-    }, [countryInput, selectedRoles])
+    }, [filters.countryInput, filters.selectedRoles, filters.hourlyRate, filters.experience])
 
     const handleFilter = async () => {
         await getFilteredData()
     }
 
     const handleSelectCountry = (newCountryInput: string) => {
-        if (countryInput === newCountryInput) setCountryInput("")
-        else setCountryInput(newCountryInput)
+        if (filters.countryInput === newCountryInput) changeFilter('countryInput', '')
+        else changeFilter('countryInput', newCountryInput)
     }
 
     const handleClearFilters = async () => {
-        setCountryInput("")
-        setSearchInput("")
-        setSelectedRoles([])
-        console.log('search', searchInput)
-        const filteredData = await getFilteredProfiles("", undefined, "")
+        changeFilter('countryInput', '')
+        changeFilter('searchInput', '')
+        changeFilter('selectedRoles', [])
+        console.log('search', filters.searchInput)
+        const filteredData = await getFilteredProfiles("", [], "", 100, 3)
         setProfiles(filteredData)
     }
-    
-    console.log(profileData)
 
+    console.log(filters)
     return (
         <div>
 
@@ -139,143 +156,171 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                                 <section className={classNames("hidden md:flex flex-col h-fit w-1/4 opacity-100 [&>*]:pointer-events-auto !cursor-allowed sticky top-14", {
                                     "!opacity-50 [&>*]:!pointer-events-none cursor-not-allowed ": !isEmployer
                                 })}>
-                                    <Separator className='mb-6' />
+                                    <Separator className='mb-4' />
                                     <div className="role-levels flex flex-col gap-2">
                                         <div className="flex justify-between text-muted-foreground">
                                             <p className='text-sm font-medium'>Role levels</p>
-                                            <Button variant={'link'} asChild size='icon' className='text-muted-foreground'
-                                                onClick={() => {
-                                                    setIsRolesExpanded(!isRolesExpanded)
-                                                }}
-                                            >
-                                                {isRolesExpanded ? <Minus className='cursor-pointer !w-5 h-auto' /> : <Plus className='cursor-pointer !w-5 h-auto' />}
-                                            </Button>
+
 
                                         </div>
-                                        {
-                                            isRolesExpanded ?
-                                                <>
-                                                    <div className="flex mt-2 gap-2 items-center space-x-2">
 
-                                                        <Checkbox id="junior"
-                                                            checked={selectedRoles.includes('junior')}
-                                                            onCheckedChange={(e) => {
-                                                                if (e === true) {
-                                                                    setSelectedRoles([...selectedRoles, 'junior'])
-                                                                } else setSelectedRoles([...selectedRoles].filter(role => role !== 'junior'))
-                                                            }}
-                                                        />
-                                                        <label
-                                                            htmlFor="junior"
-                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                                        >
-                                                            Junior
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex mt-2 gap-2 items-center space-x-2">
+                                        <>
+                                            <div className="flex mt-2 gap-2 items-center space-x-2">
 
-                                                        <Checkbox id="mid"
-                                                            checked={selectedRoles.includes('mid')}
-                                                            onCheckedChange={(e) => {
-                                                                if (e === true) {
-                                                                    setSelectedRoles([...selectedRoles, 'mid'])
-                                                                } else setSelectedRoles([...selectedRoles].filter(role => role !== 'mid'))
-                                                            }}
-                                                        />
-                                                        <label
-                                                            htmlFor="mid"
-                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                                        >
-                                                            Mid
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex mt-2 gap-2 items-center space-x-2">
+                                                <Checkbox id="junior"
+                                                    checked={filters.selectedRoles.includes('junior')}
+                                                    onCheckedChange={(e) => {
+                                                        if (e === true) {
+                                                            changeFilter('selectedRoles', [...filters.selectedRoles, 'junior'])
 
-                                                        <Checkbox id="senior"
-                                                            checked={selectedRoles.includes('senior')}
-                                                            onCheckedChange={(e) => {
-                                                                if (e === true) {
-                                                                    setSelectedRoles([...selectedRoles, 'senior'])
-                                                                } else setSelectedRoles([...selectedRoles].filter(role => role !== 'senior'))
-                                                            }}
-                                                        />
-                                                        <label
-                                                            htmlFor="senior"
-                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                                        >
-                                                            Senior
-                                                        </label>
-                                                    </div>
-                                                </>
-                                                :
-                                                null
-                                        }
+                                                        } else changeFilter('selectedRoles', [...filters.selectedRoles].filter(role => role !== 'junior'))
+                                                    }}
+                                                />
+                                                <label
+                                                    htmlFor="junior"
+                                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                >
+                                                    Junior
+                                                </label>
+                                            </div>
+                                            <div className="flex mt-2 gap-2 items-center space-x-2">
+
+                                                <Checkbox id="mid"
+                                                    checked={filters.selectedRoles.includes('mid')}
+                                                    onCheckedChange={(e) => {
+                                                        if (e === true) {
+                                                            changeFilter('selectedRoles', [...filters.selectedRoles, 'mid'])
+
+                                                        } else changeFilter('selectedRoles', [...filters.selectedRoles].filter(role => role !== 'mid'))
+                                                    }}
+                                                />
+                                                <label
+                                                    htmlFor="mid"
+                                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                >
+                                                    Mid
+                                                </label>
+                                            </div>
+                                            <div className="flex mt-2 gap-2 items-center space-x-2">
+
+                                                <Checkbox id="senior"
+                                                    checked={filters.selectedRoles.includes('senior')}
+                                                    onCheckedChange={(e) => {
+                                                        if (e === true) {
+                                                            changeFilter('selectedRoles', [...filters.selectedRoles, 'senior'])
+
+                                                        } else changeFilter('selectedRoles', [...filters.selectedRoles].filter(role => role !== 'senior'))
+                                                    }}
+                                                />
+                                                <label
+                                                    htmlFor="senior"
+                                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                >
+                                                    Senior
+                                                </label>
+                                            </div>
+                                        </>
+
 
 
                                     </div>
-                                    <Separator className='my-6' />
+                                    <Separator className='my-4' />
 
                                     <div className="flex justify-between  text-muted-foreground">
                                         <p className='text-sm font-medium'>Country</p>
-                                        <Button variant={'link'} asChild size='icon' className='text-muted-foreground'
-                                            onClick={() => {
-                                                setIsCountryExpanded(!isCountryExpanded)
-                                            }}
-                                        >
-                                            {isCountryExpanded ? <Minus className='cursor-pointer !w-5 h-auto' /> : <Plus className='cursor-pointer !w-5 h-auto' />}
-                                        </Button>
+
 
                                     </div>
-                                    {
-                                        isCountryExpanded ?
-                                            <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
 
-                                                <Select  >
-                                                    <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
-                                                        {/* <SelectValue placeholder={profile.country ? profile.country : "Select country"} /> */}
-                                                        <SelectValue placeholder={countryInput || "Select country"} />
-                                                    </SelectTrigger>
-                                                    <SelectContent >
-                                                        <Command   >
-                                                            <CommandInput className='h-9' placeholder="Search"
+                                    <div className="px-4 py-3 flex items-center sm:gap-4 sm:px-0">
 
-                                                            />
-                                                            <CommandList>
-                                                                <CommandEmpty  >No results found.</CommandEmpty>
-                                                                <CommandGroup  >
-                                                                    {countriesData.map(c => {
-                                                                        // const isSelected = profile.country === c
-                                                                        const isSelected = countryInput === c
-                                                                        return (
-                                                                            <CommandItem
-                                                                                key={c}
-                                                                                value={c}
-                                                                                onSelect={(e) => handleSelectCountry(e)}
-                                                                                className='justify-between'
-                                                                            >
+                                        <Select  >
+                                            <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
+                                                {/* <SelectValue placeholder={profile.country ? profile.country : "Select country"} /> */}
+                                                <SelectValue placeholder={filters.countryInput || "Select country"} />
+                                            </SelectTrigger>
+                                            <SelectContent >
+                                                <Command   >
+                                                    <CommandInput className='h-9' placeholder="Search"
 
-                                                                                <span>{c}</span>
-                                                                                {isSelected && <Check className="mr-2 h-4 w-4" />}
-                                                                            </CommandItem>
-                                                                        )
-                                                                    })}
+                                                    />
+                                                    <CommandList>
+                                                        <CommandEmpty  >No results found.</CommandEmpty>
+                                                        <CommandGroup  >
+                                                            {countriesData.map(c => {
+                                                                // const isSelected = profile.country === c
+                                                                const isSelected = filters.countryInput === c
+                                                                return (
+                                                                    <CommandItem
+                                                                        key={c}
+                                                                        value={c}
+                                                                        onSelect={(e) => handleSelectCountry(e)}
+                                                                        className='justify-between'
+                                                                    >
 
-                                                                </CommandGroup>
+                                                                        <span>{c}</span>
+                                                                        {isSelected && <Check className="mr-2 h-4 w-4" />}
+                                                                    </CommandItem>
+                                                                )
+                                                            })}
 
-                                                            </CommandList>
-                                                        </Command>
+                                                        </CommandGroup>
 
-                                                    </SelectContent>
-                                                </Select>
-                                                {/* <Input className='flex-1 h-9 drop-shadow-sm' type="text" placeholder="John Doe"
-value={profile.country}
-onChange={(e) => handleFieldChange(e.target.value, 'country')}
-/> */}
-                                            </div>
-                                            :
-                                            null
-                                    }
+                                                    </CommandList>
+                                                </Command>
 
+                                            </SelectContent>
+                                        </Select>
+
+                                    </div>
+                                    <Separator className='my-4' />
+                                    <div className="role-levels flex flex-col gap-2">
+                                        <div className="flex justify-between text-muted-foreground">
+                                            <p className='text-sm font-medium'>Hourly rate</p>
+                                            <p className='text-sm'>{`up to $${hourlyRateLabel}`}</p>
+
+                                        </div>
+
+                                        <div className='flex gap-2'>
+
+                                            <Slider
+                                                defaultValue={[filters.hourlyRate]}
+                                                max={200}
+                                                step={5}
+                                                onValueChange={(e) => setHourlyRateLabel(e[0])}
+                                                onValueCommit={(e) => changeFilter('hourlyRate', e[0])}
+                                                className='py-2'
+                                            // {...props}
+                                            />
+                                        </div>
+
+
+
+                                    </div>
+                                    <Separator className='my-4' />
+                                    <div className="role-levels flex flex-col gap-2">
+                                        <div className="flex justify-between text-muted-foreground">
+                                            <p className='text-sm font-medium'>Experience</p>
+                                            <p className='text-sm'>{`${experienceLabel} years`}</p>
+
+                                        </div>
+
+                                        <div className='flex gap-2'>
+
+                                            <Slider
+                                                defaultValue={[filters.experience]}
+                                                max={20}
+                                                step={0.5}
+                                                onValueChange={(e) => setExperienceLabel(e[0])}
+                                                onValueCommit={(e) => changeFilter('experience', e[0])}
+                                                className='py-2'
+                                            // {...props}
+                                            />
+                                        </div>
+
+
+
+                                    </div>
                                 </section>
                             </TooltipTrigger>
                             <TooltipContent hidden={isEmployer} >
@@ -292,8 +337,8 @@ onChange={(e) => handleFieldChange(e.target.value, 'country')}
                                     })}>
                                         <div className='flex-1 flex relative max-w-[250px]'>
                                             <Input className='pl-10  drop-shadow-sm relative z-50 bg-transparent' type="text" placeholder="Mid React Developer"
-                                                value={searchInput}
-                                                onChange={e => setSearchInput(e.target.value)}
+                                                value={filters.searchInput}
+                                                onChange={e => changeFilter('searchInput', e.target.value)}
                                             />
                                             <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
                                         </div>

@@ -16,7 +16,7 @@ export async function getProfileData() {
 
     const { data, error } = await supabase.auth.getUser()
 
-    if(!data.user) return null
+    if (!data.user) return null
 
     const { data: profile, error: profileError } = await supabase.from('profiles').select('*').eq('id', data.user?.id).maybeSingle()
 
@@ -70,14 +70,17 @@ export async function getProfiles(limit?: number, availableOnly?: boolean): Prom
 }
 
 
-export async function getFilteredProfiles(country?: string, role_levels?: string[], searchString?: string) {
-
+export async function getFilteredProfiles(country: string, role_levels: string[], searchString: string, hourlyRate: number, experience: number) {
+    console.log(country)
+    console.log(role_levels)
     const supabase = createClient()
     let query = supabase.from('profiles').select()
     query.eq('available', true)
     if (searchString) query = query.ilike('title', `%${searchString}%`)
     if (role_levels) query = query.contains('role_levels', role_levels)
     if (country) query = query.eq('country', country)
+    if (hourlyRate) query = query.lte('hourly_rate', hourlyRate)
+    if (experience) query = query.gte('experience_years', experience)
 
     const { data, error } = await query
     if (error) throw Error(error.message)
@@ -87,19 +90,19 @@ export async function getFilteredProfiles(country?: string, role_levels?: string
 
 //Not using this for now, sometimes API gets too much load and it doesn't perform well
 export async function getCountryList() {
-    const countries = await fetch("https://restcountries.com/v3.1/all?fields=name", {cache: 'force-cache'})
+    const countries = await fetch("https://restcountries.com/v3.1/all?fields=name", { cache: 'force-cache' })
     const countriesData = await countries.json()
     const countryNames = countriesData.map((c: any) => c.name.common).sort((a: any, b: any) => a - b)
     return countryNames
 }
 
-export async function signout(){
+export async function signout() {
     const supabase = createClient()
     await supabase.auth.signOut()
     // revalidatePath('/')
 }
 
 
-export async function clearCache(path: string){
+export async function clearCache(path: string) {
     revalidatePath(path)
 }
