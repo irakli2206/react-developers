@@ -43,7 +43,7 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
             < div className='py-32 container max-w-7xl relative'>
 
 
-                <div className=" items-center flex gap-8 mb-8">
+                <div className=" items-center flex flex-col md:flex-row gap-8 mb-8">
                     <Avatar className='w-20 h-20  '>
                         <AvatarImage className='object-cover' src={profile.avatar} />
                         <AvatarFallback>
@@ -60,7 +60,7 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                             :
                             <Link href='/pricing'
                                 className='w-full bg-zinc-100 border-dashed  border-zinc-300 text-zinc-400 border-2 rounded-md flex items-center
-                                          justify-center gap-2 text-center px-2 py-1  hover:border-zinc-400 transition'
+                                          justify-center gap-2 md:text-center px-2 py-1  hover:border-zinc-400 transition'
                             >
                                 <Lock width={16} />
                                 <p className='text-sm'>Become an employer to view the developer's name</p>
@@ -89,7 +89,7 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                         <div className="flex flex-wrap items-center justify-between gap-2 ">
                             <div className="flex flex-col gap-4">
                                 <h1 className='text font-bold'>Skills</h1>
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 flex-wrap">
                                     {profile.skills?.map(skill => {
                                         return (
                                             < Badge key={skill} variant="outline" className='rounded-md '>{skill}</Badge>
@@ -102,9 +102,9 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                             <>
                                 <Separator className=' ' />
                                 <div className="flex flex-wrap items-center justify-between gap-2 ">
-                                    <div className="flex flex-col gap-4">
+                                    <div className="flex flex-col gap-4 ">
                                         <h1 className='text font-bold'>Languages</h1>
-                                        <div className="flex gap-2">
+                                        <div className="flex gap-2 flex-wrap">
                                             {profile.languages?.map(language => {
                                                 return (
                                                     < Badge key={language} variant="outline" className='rounded-md '>{language}</Badge>
@@ -135,7 +135,7 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                         </div>
                         <Separator />
                         <h2 className='text font-semibold'>Conditions</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-x-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-x-4">
                             <div className="flex justify-between items-center text-sm ">
                                 <p className='flex items-center gap-4 text-zinc-500'><BriefcaseBusiness width={18} /> Employment</p>
                                 <span>

@@ -56,13 +56,13 @@ const DeveloperCard = ({ id, title, hourly_rate, skills, bio, remote, on_site, e
                     {/* {available && <div className="text-green-500 self-start flex items-center gap-1">Available <CircleCheck width={18} className='fill-green-200 text-green-500' /></div>} */}
                 </CardHeader>
                 <CardContent>
-                    <div className='flex gap-1 mb-4'>
+                    <div className='flex gap-1 mb-4 flex-wrap'>
                         {skills ? skills.map(skill => <Badge key={skill} variant="default" className='rounded-md pointer-events-none'>{skill}</Badge>) : null}
                     </div>
 
                     <p className='text-zinc-500 text-sm'>{bio}</p>
                 </CardContent>
-                <CardFooter className="flex gap-1">
+                <CardFooter className="flex gap-1 flex-wrap">
                     {terms.map(term => <Badge key={term} variant="outline" className='rounded-md '>{term}</Badge>)}
                 </CardFooter>
             </Card>
