@@ -29,7 +29,7 @@ const PaymentResult = async ({ searchParams }: Props) => {
     if (session && session.invoice) invoice = await getInvoice(session.invoice as string)
         console.log(session)
     return (
-        <section className='py-48 '>
+        <section className='py-48 w-full'>
             {
                 session ?
                     <div className="bg-zinc-50 shadow p-4 max-w-[400px] mx-auto rounded-lg">
