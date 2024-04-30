@@ -15,7 +15,7 @@ export async function POST(
     res: NextApiResponse
 ) {
     const user = await getProfileData()
-    // For demonstration purposes, we're using the Checkout session to retrieve the customer ID.
+// For demonstration purposes, we're using the Checkout session to retrieve the customer ID.
     // Typically this is stored alongside the authenticated user in your database.
     // const session_id = (await req.formData()).get('session_id');
     // console.log('SESSION', session_id)

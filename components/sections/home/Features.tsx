@@ -26,7 +26,6 @@ const Features = () => {
     ]
 
     const [currentThing, setCurrentThing] = useState("time")
-    console.log(currentThing)
     return (
         <div className='max-w-7xl container py-24 flex flex-col gap-4'>
             <div className="hidden  md:flex flex-col gap-2 text-4xl xl:text-4xl font-semibold relative">

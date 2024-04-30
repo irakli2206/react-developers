@@ -53,7 +53,6 @@ const SigninView = () => {
     const onSubmit = async (values: SigninFormValues) => {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log(values)
         try {
             let data = await signin(values)
             if (data && data.error) throw Error(data.error)

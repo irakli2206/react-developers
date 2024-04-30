@@ -47,7 +47,6 @@ export async function googleSignin() {
     redirect('/error')
   }
 
-  console.log('GITHUB INFO', data)
 
   revalidatePath('/', 'layout')
   redirect('/signin')
@@ -64,6 +63,5 @@ export async function sendResetPassword(email: string) {
     redirect('/error')
   }
 
-  console.log('resetPassword', data)
 }
 

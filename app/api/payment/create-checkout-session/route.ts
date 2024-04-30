@@ -17,7 +17,6 @@ export async function POST(
     const userProfile = await getProfileData()
     let formData = await req.formData()
     let userId = formData.get('user_id') as string
-    console.log('FORMDATA', formData.get('user_id'))
     // return Response.json({ message: 'Hellos from Next.js!' })
     const prices = await stripe.prices.list({
         lookup_keys: [formData.get('lookup_key') as string],

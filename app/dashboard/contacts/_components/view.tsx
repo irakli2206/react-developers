@@ -83,7 +83,6 @@ const ContactsView = ({ profileData }: Props) => {
     const onSubmit = async (values: ContactsFormValues) => {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log(values)
         try {
             const { data, error } = await supabase.from('profiles').update(values).eq('id', profile!.id)
             toast({

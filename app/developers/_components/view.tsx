@@ -123,7 +123,6 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
     }
 
     const handleClearFilters = async () => {
-        console.log('reached')
         setFilters({
             searchInput: "",
             countryInput: "",
@@ -138,7 +137,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
         setProfiles(filteredData)
     }
 
-    console.log(filters)
+    // console.log(filters)
     return (
         <div className='w-full'>
 

@@ -71,8 +71,7 @@ export async function getProfiles(limit?: number, availableOnly?: boolean): Prom
 
 
 export async function getFilteredProfiles(country: string, role_levels: string[], searchString: string, hourlyRate: number, experience: number, languages: string[], skills: string[]) {
-    console.log(country)
-    console.log(role_levels)
+
     const supabase = createClient()
     let query = supabase.from('profiles').select()
     query.eq('available', true)

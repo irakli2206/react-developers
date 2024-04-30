@@ -27,7 +27,6 @@ const PaymentResult = async ({ searchParams }: Props) => {
     const isSuccess = searchParams.success === 'true' ? true : false
     if (isSuccess) session = await getSessionData(searchParams.session_id)
     if (session && session.invoice) invoice = await getInvoice(session.invoice as string)
-        console.log(session)
     return (
         <section className='py-48 w-full'>
             {
@@ -71,7 +70,7 @@ const PaymentResult = async ({ searchParams }: Props) => {
                                 <Link href={invoice?.invoice_pdf as string} target='_blank' className='flex gap-2 items-center'><ArrowDownToLine width={16} /> Download Invoice</Link>
                             </Button>
                             <Button variant='default' className='w-full ' asChild>
-                                <Link href={'/developers'}  className='flex gap-2 items-center'>Browse Developers  </Link>
+                                <Link href={'/developers'} className='flex gap-2 items-center'>Browse Developers  </Link>
                             </Button>
                         </footer>
                         {/* <div className="product Box-root">

@@ -86,7 +86,6 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                 upsert: true,
                 contentType: 'image/jpeg'
             })
-            console.log('imageupload', imageUpload)
 
             if (imageUploadError) return toast({
                 title: "Error",
@@ -303,7 +302,6 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                         <Input className='flex-1  drop-shadow-sm' accept='image/*' type="file" placeholder="Senior React Developer"
 
                             onChange={(e) => {
-                                console.log(e.target.files?.length)
                                 e.target.files?.length ? setAvatar(e.target.files[0]) : setAvatar(undefined)
 
                             }}

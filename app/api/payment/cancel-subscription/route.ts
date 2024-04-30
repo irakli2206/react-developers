@@ -14,7 +14,6 @@ export async function POST(
     res: NextApiResponse
 ) {
     const data = req.body
-    console.log('CANCELLATION DATA', data)
     const subscription = await stripe.subscriptions.update(data.subscriptionId, {
         cancel_at_period_end: true
     })
