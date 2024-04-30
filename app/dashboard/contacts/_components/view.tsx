@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from '@/components/ui/button'
 import { LuGithub, LuGitlab, LuLinkedin, LuTwitter, LuGlobe } from "react-icons/lu";
 import { CiGlobe } from "react-icons/ci";
-import { Globe, Linkedin, Save } from 'lucide-react';
+import { Globe, Linkedin, RefreshCw, Save } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast'
 import { clearCache, getProfileData } from '@/app/action'
 import { createClient } from '@/utils/supabase/client'
@@ -109,7 +109,6 @@ const ContactsView = ({ profileData }: Props) => {
 
 
 
-
     return (
         < Form {...form} >
             <form action={form.handleSubmit(onSubmit) as any} className='w-full'>
@@ -118,7 +117,8 @@ const ContactsView = ({ profileData }: Props) => {
                         <h3 className="text-base font-semibold leading-7 text-gray-900">Contact Links</h3>
                         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Make it possible for talent experts to get in touch with you</p>
                     </div>
-                    <Button type='submit' size='sm' className='rounded-full mt-auto' >
+                    <Button disabled={isFormSubmitting} type='submit' size='sm' className='rounded-full mt-auto' >
+                        {isFormSubmitting && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
                         Save changes</Button>
                 </div>
                 <div className="mt-4 border-t border-gray-200">

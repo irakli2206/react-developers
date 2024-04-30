@@ -31,7 +31,7 @@ const PreferencesView = ({ profileData }: Props) => {
                 !profile.experience_years ||
                 !profile.hourly_rate ||
                 !profile.skills ||
-                !profile.title || 
+                !profile.title ||
                 !profile.languages ||
                 !profile.languages.length
             ) {
@@ -47,7 +47,8 @@ const PreferencesView = ({ profileData }: Props) => {
     }
 
     useEffect(() => {
-        allowAvailability()
+        //If user has already been set to available, removing necessary fields shouldn't switch this back to unavaialable
+        if (!profileData.available) allowAvailability()
     }, [profile.available])
 
     const handleSave = async () => {
@@ -78,7 +79,9 @@ const PreferencesView = ({ profileData }: Props) => {
                     <h3 className="text-base font-semibold leading-7 text-gray-900">Account Preferences</h3>
                     <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">You're available for new opportunities and would like to appear in our listings</p>
                 </div>
-                <Button onClick={handleSave} size='sm' className='rounded-full mt-auto  '>Save changes</Button>
+                <Button onClick={handleSave} size='sm' className='rounded-full mt-auto  '>
+                    Save changes
+                </Button>
             </div>
 
             <div className="mt-4 border-y  border-gray-200">
