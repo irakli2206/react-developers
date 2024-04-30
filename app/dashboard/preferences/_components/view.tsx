@@ -10,7 +10,7 @@ import { clearCache, getProfileData } from '@/app/action'
 import { createClient } from '@/utils/supabase/client'
 import { useToast } from '@/components/ui/use-toast'
 import { Profile } from '@/types/database.types'
-
+import { useRouter } from "next/navigation";
 
 const supabase = createClient()
 
@@ -20,7 +20,7 @@ type Props = {
 
 const PreferencesView = ({ profileData }: Props) => {
     const [profile, setProfile] = useState<Profile>(profileData)
-
+    const router = useRouter()
     const { toast } = useToast()
 
     //Make sure every necessary field in general tab is filled
@@ -57,6 +57,7 @@ const PreferencesView = ({ profileData }: Props) => {
                 duration: 3000,
             })
             clearCache('/')
+            window.location.reload()
         } catch (e) {
             toast({
                 title: "Oops",
