@@ -98,7 +98,7 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                                 </div>
                             </div>
                         </div>
-                        {/* {profile.languages?.length ?
+                        {profile.languages?.length ?
                             <>
                                 <Separator className=' ' />
                                 <div className="flex flex-wrap items-center justify-between gap-2 ">
@@ -116,7 +116,7 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                             </>
                             :
                             null
-                        } */}
+                        }
 
                     </section>
                     <section className='w-full md:w-2/6 md:min-w-[340px] p-6 flex flex-col gap-4 rounded-xl ring-1 ring-gray-200 dark:ring-gray-800 shadow bg-white dark:bg-gray-900'>

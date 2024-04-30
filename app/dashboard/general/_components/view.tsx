@@ -36,6 +36,7 @@ import { clearCache, getCountryList, getProfileData } from '@/app/action'
 import Loading from '../../loading'
 import { Profile } from '@/types/database.types'
 import { revalidatePath } from 'next/cache'
+import languages from '@/data/languageData.json'
 
 type Props = {
     profileData: Profile,
@@ -43,7 +44,7 @@ type Props = {
 }
 
 
- 
+
 
 const supabase = createClient()
 
@@ -120,7 +121,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
     return (
         <div
 
-            className='w-full'>
+            className='w-full '>
             <div className="flex justify-between">
                 <div className="">
                     <h3 className="text-base font-semibold leading-7 text-gray-900">General Information</h3>
@@ -241,6 +242,46 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                                                     >
 
                                                         <span>{skill}</span>
+                                                        {isSelected && <Check className="mr-2 h-4 w-4" />}
+                                                    </CommandItem>
+                                                )
+                                            })}
+
+                                        </CommandGroup>
+
+                                    </CommandList>}
+                                </Command>
+
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="px-4 py-5 flex items-center sm:gap-4 sm:px-0">
+                        <div className='flex flex-col gap-1 flex-1 text-sm'>
+                            <dt className="  font-medium leading-6 text-gray-900">Languages</dt>
+                            <dd className="  text-zinc-500 ">What languages you speak</dd>
+                        </div>
+                        <Select  >
+                            <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
+                                <SelectValue placeholder={(profile.languages && profile.languages.length) ? `${profile.languages.length} languages selected` : "Select languages"} />
+                            </SelectTrigger>
+                            <SelectContent  >
+                                <Command  >
+                                    <CommandInput className='h-9' placeholder="Search" />
+                                    {profile.languages && <CommandList>
+                                        <CommandEmpty  >No results found.</CommandEmpty>
+                                        <CommandGroup  >
+                                            {languages.map((language: any) => {
+                                                let languageName = language.name
+                                                const isSelected = profile.languages.includes(languageName)
+                                                return (
+                                                    <CommandItem
+                                                        key={languageName}
+                                                        value={languageName}
+                                                        onSelect={(e) => handleFieldChange(e, "languages")}
+                                                        className='justify-between'
+                                                    >
+
+                                                        <span>{languageName}</span>
                                                         {isSelected && <Check className="mr-2 h-4 w-4" />}
                                                     </CommandItem>
                                                 )

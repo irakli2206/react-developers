@@ -42,7 +42,8 @@ import { getFilteredProfiles } from '@/app/action'
 import Link from 'next/link'
 import { FaVuejs } from "react-icons/fa";
 import { Slider } from '@/components/ui/slider'
-
+import countries from '@/data/countryData.json'
+import languages from '@/data/languageData.json'
 
 type Props = {
     profileData: Profile | null
@@ -57,6 +58,8 @@ type Filters = {
     selectedRoles: string[]
     hourlyRate: number
     experience: number
+    languages: string[]
+
 }
 
 const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }: Props) => {
@@ -67,7 +70,8 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
         countryInput: "",
         selectedRoles: [],
         hourlyRate: 200,
-        experience: 0
+        experience: 0,
+        languages: []
     })
 
     const [hourlyRateLabel, setHourlyRateLabel] = useState(filters.hourlyRate)
@@ -89,15 +93,15 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
 
 
     const getFilteredData = async () => {
-        const filteredData = await getFilteredProfiles(filters.countryInput, filters.selectedRoles, filters.searchInput, filters.hourlyRate, filters.experience)
+        const filteredData = await getFilteredProfiles(filters.countryInput, filters.selectedRoles, filters.searchInput, filters.hourlyRate, filters.experience, filters.languages)
         setProfiles(filteredData)
     }
 
     useEffect(() => {
-        if (filters.countryInput || filters.selectedRoles) {
-            getFilteredData()
-        }
-    }, [filters.countryInput, filters.selectedRoles, filters.hourlyRate, filters.experience])
+
+        getFilteredData()
+
+    }, [filters.countryInput, filters.selectedRoles, filters.hourlyRate, filters.experience, filters.languages])
 
     const handleFilter = async () => {
         await getFilteredData()
@@ -320,6 +324,51 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
 
 
 
+                                    </div>
+                                    <Separator className='my-4' />
+
+                                    <div className="role-levels flex flex-col gap-2">
+                                        <div className="flex justify-between text-muted-foreground">
+                                            <p className='text-sm font-medium'>Languages</p>
+                                        </div>
+
+                                        <Select  >
+                                            <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
+                                                <SelectValue placeholder={(filters.languages && filters.languages.length) ? `${filters.languages.length} languages selected` : "Select languages"} />
+                                            </SelectTrigger>
+                                            <SelectContent  >
+                                                <Command  >
+                                                    <CommandInput className='h-9' placeholder="Search" />
+                                                    {filters.languages && <CommandList>
+                                                        <CommandEmpty  >No results found.</CommandEmpty>
+                                                        <CommandGroup  >
+                                                            {languages.map((language: any) => {
+                                                                let languageName = language.name
+                                                                const isSelected = filters.languages.includes(languageName)
+                                                                return (
+                                                                    <CommandItem
+                                                                        key={languageName}
+                                                                        value={languageName}
+                                                                        onSelect={(e) => {
+                                                                            if (isSelected) changeFilter('languages', filters.languages.filter(l => l !== languageName))
+                                                                            else changeFilter('languages', [...filters.languages, languageName])
+                                                                        }}
+                                                                        className='justify-between'
+                                                                    >
+
+                                                                        <span>{languageName}</span>
+                                                                        {isSelected && <Check className="mr-2 h-4 w-4" />}
+                                                                    </CommandItem>
+                                                                )
+                                                            })}
+
+                                                        </CommandGroup>
+
+                                                    </CommandList>}
+                                                </Command>
+
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                 </section>
                             </TooltipTrigger>

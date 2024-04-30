@@ -3,7 +3,21 @@
 @tailwind utilities;
 
 
+::-webkit-scrollbar {
+  width: 10px; /* width of the scrollbar */
+}
 
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a1a1a1; /* color of the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #919191; /* color of the thumb on hover */
+}
 
 @layer base {
   :root {

@@ -70,7 +70,7 @@ export async function getProfiles(limit?: number, availableOnly?: boolean): Prom
 }
 
 
-export async function getFilteredProfiles(country: string, role_levels: string[], searchString: string, hourlyRate: number, experience: number) {
+export async function getFilteredProfiles(country: string, role_levels: string[], searchString: string, hourlyRate: number, experience: number, languages: string[]) {
     console.log(country)
     console.log(role_levels)
     const supabase = createClient()
@@ -81,7 +81,7 @@ export async function getFilteredProfiles(country: string, role_levels: string[]
     if (country) query = query.eq('country', country)
     if (hourlyRate) query = query.lte('hourly_rate', hourlyRate)
     if (experience) query = query.gte('experience_years', experience)
-
+    if (languages) query = query.contains('languages', languages)
     const { data, error } = await query
     if (error) throw Error(error.message)
 
