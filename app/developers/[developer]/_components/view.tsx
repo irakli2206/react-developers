@@ -183,10 +183,10 @@ const DeveloperView = ({ loggedUser, profile }: Props) => {
                                         <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
                                     </Link>
                                 }
-                                {profile.linkedin_url && <Link href={profile.linkedin_url} target='_blank' className="flex justify-between py-2 group">
+                                {profile.linkedin_url && <a href={`https://${profile.linkedin_url}`}  target='_blank' className="flex justify-between py-2 group">
                                     <p className=''>LinkedIn</p>
                                     <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
-                                </Link>}
+                                </a>}
                                 {profile.github_url && <Link href={profile.github_url} target='_blank' className="flex justify-between py-2 group">
                                     <p className=''>Github</p>
                                     <ArrowUpRight width={20} className='relative group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition' />
