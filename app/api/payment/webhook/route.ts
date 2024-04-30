@@ -20,7 +20,6 @@ const secret = process.env.STRIPE_WEBHOOK_SECRET! ;
 export async function POST(
     req: Request,
 ) {
-
     const supabase = createClient()
 
     const body = await req.text()

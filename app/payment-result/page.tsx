@@ -70,7 +70,7 @@ const PaymentResult = async ({ searchParams }: Props) => {
                             <Button variant='outline' className='w-full '>
                                 <Link href={invoice?.invoice_pdf as string} target='_blank' className='flex gap-2 items-center'><ArrowDownToLine width={16} /> Download Invoice</Link>
                             </Button>
-                            <Button variant='default' className='w-full '>
+                            <Button variant='default' className='w-full ' asChild>
                                 <Link href={'/developers'}  className='flex gap-2 items-center'>Browse Developers  </Link>
                             </Button>
                         </footer>
