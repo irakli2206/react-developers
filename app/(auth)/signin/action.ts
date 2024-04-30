@@ -19,8 +19,14 @@ export async function signin({ email, password }: SigninFormValues) {
     password: password,
   })
 
+
   if (error) {
     return { error: error.message }
+  }
+  const { data: profile, error: profileError } = await supabase.from('profiles').select().eq('id', data.user.id).maybeSingle()
+
+  if(profile.account_type === 'employer') {
+    redirect('/developers')
   }
 
   revalidatePath('/', 'layout')

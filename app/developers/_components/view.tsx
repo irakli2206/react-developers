@@ -66,8 +66,8 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
         searchInput: "",
         countryInput: "",
         selectedRoles: [],
-        hourlyRate: 100,
-        experience: 3
+        hourlyRate: 200,
+        experience: 0
     })
 
     const [hourlyRateLabel, setHourlyRateLabel] = useState(filters.hourlyRate)
@@ -113,7 +113,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
         changeFilter('searchInput', '')
         changeFilter('selectedRoles', [])
         console.log('search', filters.searchInput)
-        const filteredData = await getFilteredProfiles("", [], "", 100, 3)
+        const filteredData = await getFilteredProfiles("", [], "", 200, 0)
         setProfiles(filteredData)
     }
 

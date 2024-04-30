@@ -103,6 +103,6 @@ export async function signout() {
 }
 
 
-export async function clearCache(path: string) {
-    revalidatePath(path)
+export async function clearCache(path: string, type: 'layout' | 'page' = 'page') {
+    revalidatePath(path, type)
 }
