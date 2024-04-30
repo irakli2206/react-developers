@@ -48,7 +48,6 @@ type ResizablePanelWrapperProps = {
     order?: number | undefined;
     style?: object | undefined;
     tagName?: keyof HTMLElementTagNameMap | undefined;
-    defaultLayout: any
 }
 
 const ResizablePanelWrapper = ({
@@ -131,7 +130,7 @@ const Sidebar = () => {
 
     return (
         <ResizablePanelWrapper>
-            <div className="flex w-full h-full max-h-screen flex-col pt-4">
+            <div className="flex w-full  flex-col pt-4">
 
                 <div className="flex-1">
                     <nav className="grid items-start px-2 text-[0px] md:text-sm font-medium lg:px-4">

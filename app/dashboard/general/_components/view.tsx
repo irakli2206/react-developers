@@ -121,7 +121,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
     return (
         <div
 
-            className='w-full overflow-auto'>
+            className='w-full'>
             <div className="flex justify-between">
                 <div className="">
                     <h3 className="text-base font-semibold leading-7 text-gray-900">General Information</h3>
@@ -130,11 +130,11 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                 <Button onClick={handleSave} type='submit' size='sm' className='rounded-full mt-auto  '>Save changes</Button>
             </div>
             <div className="mt-4 border-t border-gray-200">
-                <dl className=" divide-gray-200 grid grid-cols-1 lg:grid-cols-2 gap-x-12">
+                <dl className=" divide-gray-200 grid grid-cols-1 lg:grid-cols-1 gap-x-12">
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Full name</dt>
-                            <dd className="  text-zinc-500 ">Your first and last name</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">Your first and last name</dd>
                         </div>
                         <Input className='flex-1 h-9 drop-shadow-sm' type="text" placeholder="John Doe"
                             value={profile.name}
@@ -145,7 +145,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Title</dt>
-                            <dd className="  text-zinc-500 ">Summary of your occupation/profession</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">Summary of your occupation/profession</dd>
                         </div>
                         <Input required className='flex-1 h-9 drop-shadow-sm' type="text" placeholder="Senior React Developer"
                             value={profile.title}
@@ -155,7 +155,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Hourly rate ($)</dt>
-                            <dd className="  text-zinc-500 ">What you expect as your hourly compensation</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">What you expect as your hourly compensation</dd>
                         </div>
                         <Input className='flex-1 h-9 drop-shadow-sm' type="number" placeholder="25"
                             value={profile.hourly_rate}
@@ -165,7 +165,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Experience</dt>
-                            <dd className="  text-zinc-500 ">Years of experience you have</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">Years of experience you have</dd>
                         </div>
                         <Input className='flex-1 h-9 drop-shadow-sm' type="number" step={0.5} placeholder="2.5"
                             value={profile.experience_years}
@@ -175,7 +175,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Country</dt>
-                            <dd className="  text-zinc-500 ">Country where you are currently located</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">Country where you are currently located</dd>
                         </div>
                         <Select  >
                             <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
@@ -219,7 +219,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Skills</dt>
-                            <dd className="  text-zinc-500 ">Your tech stack</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">Your tech stack</dd>
                         </div>
                         <Select  >
                             <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
@@ -258,7 +258,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Languages</dt>
-                            <dd className="  text-zinc-500 ">What languages you speak</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">What languages you speak</dd>
                         </div>
                         <Select  >
                             <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
@@ -298,7 +298,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Avatar</dt>
-                            <dd className="  text-zinc-500 ">Small image to identify you easier</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">Small image to identify you easier</dd>
                         </div>
                         <Input className='flex-1  drop-shadow-sm' accept='image/*' type="file" placeholder="Senior React Developer"
 
@@ -316,12 +316,12 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                         </div>
                         <Input className='flex-1 h-9 drop-shadow-sm' type="text" placeholder="John Doe" />
                     </div> */}
-                    <div className="px-4 py-5 flex lg:col-span-2  sm:gap-4 sm:px-0">
+                    <div className="px-4 py-5 flex lg:col-span-1  sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Bio</dt>
-                            <dd className="  text-zinc-500 ">A few words about you</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">A few words about you</dd>
                         </div>
-                        <Textarea className='flex-1 lg:flex-[2] drop-shadow-sm !min-h-[100px]' placeholder="Tell us about yourself"
+                        <Textarea className='flex-1  drop-shadow-sm !min-h-[100px]' placeholder="Tell us about yourself"
                             value={profile.bio || ""}
                             onChange={(e) => handleFieldChange(e.target.value, 'bio')}
                         />

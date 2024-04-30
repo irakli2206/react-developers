@@ -17,21 +17,21 @@ import { redirect } from "next/navigation"
 import Sidebar from '@/components/sections/dashboard/Sidebar'
 import { createClient } from '@/utils/supabase/server'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
-
+import { getUser } from '../action'
 
 type Props = {
   children: React.ReactNode
 }
 
 const DashboardLayout = async ({ children }: Props) => {
-  const supabase = createClient()
-  const { data, error } = await supabase.auth.getUser()
-  const isLoggedIn = Boolean(data.user)
+  const user = await getUser()
+  const isLoggedIn = Boolean(user)
 
+ 
   if (!isLoggedIn) redirect('/signin')
 
   return (
-    <div className='min-h-screen h-screen flex w-full pt-[56px]'>
+    <div className=' flex w-full pt-[56px]'>
       <ResizablePanelGroup direction='horizontal'>
         <Sidebar />
         <ResizableHandle withHandle className='hidden xl:flex'/>
