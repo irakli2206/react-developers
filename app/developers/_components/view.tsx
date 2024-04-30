@@ -44,6 +44,7 @@ import { FaVuejs } from "react-icons/fa";
 import { Slider } from '@/components/ui/slider'
 import countries from '@/data/countryData.json'
 import languages from '@/data/languageData.json'
+import { skills } from '@/data/data'
 
 type Props = {
     profileData: Profile | null
@@ -59,6 +60,7 @@ type Filters = {
     hourlyRate: number
     experience: number
     languages: string[]
+    skills: string[]
 
 }
 
@@ -71,12 +73,18 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
         selectedRoles: [],
         hourlyRate: 200,
         experience: 0,
-        languages: []
+        languages: [],
+        skills: []
     })
 
     const [hourlyRateLabel, setHourlyRateLabel] = useState(filters.hourlyRate)
 
     const [experienceLabel, setExperienceLabel] = useState(filters.experience)
+
+    useEffect(() => {
+        setHourlyRateLabel(filters.hourlyRate)
+        setExperienceLabel(filters.experience)
+    }, [filters.experience, filters.hourlyRate])
 
     const changeFilter = (filterName: keyof Filters, newValue: any) => {
         setFilters((prevState) => (
@@ -93,15 +101,17 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
 
 
     const getFilteredData = async () => {
-        const filteredData = await getFilteredProfiles(filters.countryInput, filters.selectedRoles, filters.searchInput, filters.hourlyRate, filters.experience, filters.languages)
+        const filteredData = await getFilteredProfiles(filters.countryInput, filters.selectedRoles, filters.searchInput, filters.hourlyRate, filters.experience, filters.languages, filters.skills)
         setProfiles(filteredData)
     }
 
     useEffect(() => {
+        if (filters.countryInput || filters.selectedRoles.length || filters.hourlyRate || filters.experience || filters.languages.length || filters.skills.length) {
+            getFilteredData()
+        }
 
-        getFilteredData()
 
-    }, [filters.countryInput, filters.selectedRoles, filters.hourlyRate, filters.experience, filters.languages])
+    }, [filters])
 
     const handleFilter = async () => {
         await getFilteredData()
@@ -113,17 +123,24 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
     }
 
     const handleClearFilters = async () => {
-        changeFilter('countryInput', '')
-        changeFilter('searchInput', '')
-        changeFilter('selectedRoles', [])
-        console.log('search', filters.searchInput)
-        const filteredData = await getFilteredProfiles("", [], "", 200, 0)
+        console.log('reached')
+        setFilters({
+            searchInput: "",
+            countryInput: "",
+            selectedRoles: [],
+            hourlyRate: 200,
+            experience: 0,
+            languages: [],
+            skills: []
+        })
+        const filteredData = await getFilteredProfiles("", [], "", 200, 0, [], [])
+
         setProfiles(filteredData)
     }
 
     console.log(filters)
     return (
-        <div>
+        <div className='w-full'>
 
             <div className='max-w-7xl container py-32 min-h-screen '>
 
@@ -279,7 +296,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                                     </div>
                                     <Separator className='my-4' />
                                     <div className="role-levels flex flex-col gap-2">
-                                        <div className="flex justify-between text-muted-foreground">
+                                        <div className="flex gap-2 flex-col lg:flex-row justify-between text-muted-foreground">
                                             <p className='text-sm font-medium'>Hourly rate</p>
                                             <p className='text-sm'>{`up to $${hourlyRateLabel}`}</p>
 
@@ -289,6 +306,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
 
                                             <Slider
                                                 defaultValue={[filters.hourlyRate]}
+                                                value={[hourlyRateLabel]}
                                                 max={200}
                                                 step={5}
                                                 onValueChange={(e) => setHourlyRateLabel(e[0])}
@@ -303,9 +321,9 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                                     </div>
                                     <Separator className='my-4' />
                                     <div className="role-levels flex flex-col gap-2">
-                                        <div className="flex justify-between text-muted-foreground">
+                                        <div className="flex gap-2 flex-col lg:flex-row justify-between text-muted-foreground">
                                             <p className='text-sm font-medium'>Experience</p>
-                                            <p className='text-sm'>{`${experienceLabel} years`}</p>
+                                            <p className='text-sm'>{`at least ${experienceLabel} years`}</p>
 
                                         </div>
 
@@ -313,6 +331,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
 
                                             <Slider
                                                 defaultValue={[filters.experience]}
+                                                value={[experienceLabel]}
                                                 max={20}
                                                 step={0.5}
                                                 onValueChange={(e) => setExperienceLabel(e[0])}
@@ -370,6 +389,51 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                                             </SelectContent>
                                         </Select>
                                     </div>
+
+                                    <Separator className='my-4' />
+
+                                    <div className="role-levels flex flex-col gap-2">
+                                        <div className="flex justify-between text-muted-foreground">
+                                            <p className='text-sm font-medium'>Skills</p>
+                                        </div>
+
+                                        <Select  >
+                                            <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
+                                                <SelectValue placeholder={(filters.skills && filters.skills.length) ? `${filters.skills.length} skills selected` : "Select skills"} />
+                                            </SelectTrigger>
+                                            <SelectContent  >
+                                                <Command  >
+                                                    <CommandInput className='h-9' placeholder="Search" />
+                                                    {filters.skills && <CommandList>
+                                                        <CommandEmpty  >No results found.</CommandEmpty>
+                                                        <CommandGroup  >
+                                                            {skills.map((skill: string) => {
+                                                                const isSelected = filters.skills.includes(skill)
+                                                                return (
+                                                                    <CommandItem
+                                                                        key={skill}
+                                                                        value={skill}
+                                                                        onSelect={(e) => {
+                                                                            if (isSelected) changeFilter('skills', filters.skills.filter(l => l !== skill))
+                                                                            else changeFilter('skills', [...filters.skills, skill])
+                                                                        }}
+                                                                        className='justify-between'
+                                                                    >
+
+                                                                        <span>{skill}</span>
+                                                                        {isSelected && <Check className="mr-2 h-4 w-4" />}
+                                                                    </CommandItem>
+                                                                )
+                                                            })}
+
+                                                        </CommandGroup>
+
+                                                    </CommandList>}
+                                                </Command>
+
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                 </section>
                             </TooltipTrigger>
                             <TooltipContent hidden={isEmployer} >
@@ -392,7 +456,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                                             <Search className='absolute top-2.5 left-4 w-4 h-4 text-zinc-400 fill-gray-200' />
                                         </div>
                                         <Button type='submit'> Search</Button>
-
+                                        <Button variant='ghost' onClick={handleClearFilters}> Clear filters</Button>
                                         <p className="hidden md:block ml-auto text-sm font-medium self-end text-primary">{profilesCount} developers found</p>
                                     </form>
                                 </TooltipTrigger>
