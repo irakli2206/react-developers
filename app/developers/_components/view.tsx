@@ -169,7 +169,7 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                     </div>
                 </div>}
 
-                <div className="flex gap-4 ">
+                <div className="flex gap-8 ">
                     {/* Filters */}
                     <TooltipProvider>
                         <Tooltip >

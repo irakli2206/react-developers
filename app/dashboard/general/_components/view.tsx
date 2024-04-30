@@ -319,11 +319,12 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     <div className="px-4 py-5 flex lg:col-span-1  sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Bio</dt>
-                            <dd className="hidden sm:inline-block  text-zinc-500 ">A few words about you</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">A few words about you (600 characters)</dd>
                         </div>
                         <Textarea className='flex-1  drop-shadow-sm !min-h-[100px]' placeholder="Tell us about yourself"
                             value={profile.bio || ""}
                             onChange={(e) => handleFieldChange(e.target.value, 'bio')}
+                            maxLength={600}
                         />
                     </div>
                 </dl>
