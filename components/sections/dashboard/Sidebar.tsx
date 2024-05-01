@@ -130,7 +130,7 @@ const Sidebar = () => {
 
     return (
         <ResizablePanelWrapper>
-            <div className="flex w-full  flex-col pt-4">
+            <div className="flex w-full h-full flex-col pt-4">
 
                 <div className="flex-1">
                     <nav className="grid items-start px-2 text-[0px] md:text-sm font-medium lg:px-4">
