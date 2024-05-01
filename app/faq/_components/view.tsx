@@ -16,6 +16,10 @@ const FAQView = () => {
             answer: "We've concluded that refining our platform to cater exclusively to React developers will enhance clarity and effectiveness for both employers and developers alike. Unlike other platforms, which often host a diverse range of skillsets among developers, this focused approach will streamline the process for employers, ensuring they can easily identify the ideal candidates for their needs."
         },
         {
+            question: "Why use ReactFind when there's Upwork?",
+            answer: `Unlike Upwork, where developers often charge extra to cover platform fees up to 20% of the hourly rate, ReactFind operates differently. Developers set their base rates, eliminating the need for additional hourly charges. Instead, ReactFind employs a subscription-based model, offering more transparency and potentially cost-effective solutions for clients.`
+        },
+        {
             question: "What do I have to do as a developer?",
             answer: "Just register and share your details with us. If any employers find you intriguing, they'll get in touch with you directly."
         },
