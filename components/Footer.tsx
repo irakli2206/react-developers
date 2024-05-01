@@ -30,10 +30,10 @@ const Footer = () => {
 
             </div>
             <Separator />
-            <div className="py-4 max-w-7xl container  border-zinc-200 flex justify-between">
-                <p className='font-light  text-zinc-500 text-sm'>Copyright © 2024. All rights reserved.</p>
+            <div className="py-4 max-w-7xl container  border-zinc-200 flex flex-col sm:flex-row gap-2 justify-between">
+                <p className='font-light  text-zinc-500 text-sm text-center sm:text-start'>Copyright © 2024. All rights reserved.</p>
 
-                <div className='flex items-center gap-1 text-sm'>
+                <div className='flex items-center gap-1 text-sm mx-auto sm:mr-0'>
                     <p>Website created by</p>
                     <Button asChild variant='link' className='p-0 h-fit font-bold '>
                         <Link target='_blank' href='https://gravette.dev'>Gravette</Link>

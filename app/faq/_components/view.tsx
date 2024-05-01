@@ -46,7 +46,7 @@ const FAQView = () => {
     ];
 
     return (
-        <div className='h-screen min-h-screen w-full flex justify-center items-start py-32 relative'>
+        <div className=' min-h-screen w-full flex justify-center items-start py-32 relative'>
             <main className="max-w-7xl container flex flex-col relative z-10 mx-auto">
                 <p className='text-primary font-medium text-sm mb-2'>Frequently asked questions</p>
                 <h1 className="text-3xl md:text-4xl xl:text-5xl font-semibold">Everything you need to know about ReactFind</h1>
