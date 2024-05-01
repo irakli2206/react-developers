@@ -20,6 +20,11 @@ const Footer = () => {
                                 <Link href='/pricing'>Pricing</Link>
                             </Button>
                         </li>
+                        <li>
+                            <Button asChild variant='link' className='p-0 font-light h-fit text-gray-900'>
+                                <Link href='/faq'>FAQ</Link>
+                            </Button>
+                        </li>
                     </ul>
                 </div>
 
