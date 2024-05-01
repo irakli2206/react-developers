@@ -8,7 +8,7 @@ import { useFormState, useFormStatus } from 'react-dom'
 import { createClient } from '@/utils/supabase/client'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Check, CheckIcon, ChevronDown } from 'lucide-react'
+import { Check, CheckIcon, ChevronDown, RefreshCw } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
     Calculator,
@@ -49,7 +49,7 @@ type Props = {
 const supabase = createClient()
 
 const GeneralView = ({ profileData, countryOptionsData }: Props) => {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const { toast } = useToast()
 
     const [avatar, setAvatar] = useState<File | undefined>()
@@ -82,6 +82,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
 
     const handleSave = async () => {
         try {
+            setLoading(true)
             const { data: imageUpload, error: imageUploadError } = await supabase.storage.from('avatars').upload(`public/${profile.id}`, avatar as File, {
                 upsert: true,
                 contentType: 'image/jpeg'
@@ -112,10 +113,12 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                 description: JSON.stringify(e),
                 duration: 3000,
             })
+        } finally {
+            setLoading(false)
         }
 
     }
-
+    console.log(loading)
 
     return (
         <div
@@ -126,7 +129,9 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     <h3 className="text-base font-semibold leading-7 text-gray-900">General Information</h3>
                     <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Before you begin applying, shortly introduce yourself to potential employers</p>
                 </div>
-                <Button onClick={handleSave} type='submit' size='sm' className='rounded-full mt-auto  '>Save changes</Button>
+                <Button disabled={loading} onClick={handleSave} type='submit' size='sm' className='rounded-full mt-auto  '>
+                    {loading && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
+                    Save changes</Button>
             </div>
             <div className="mt-4 border-t border-gray-200">
                 <dl className=" divide-gray-200 grid grid-cols-1 lg:grid-cols-1 gap-x-12">

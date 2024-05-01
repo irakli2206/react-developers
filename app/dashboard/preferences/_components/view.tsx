@@ -11,6 +11,7 @@ import { createClient } from '@/utils/supabase/client'
 import { useToast } from '@/components/ui/use-toast'
 import { Profile } from '@/types/database.types'
 import { useRouter } from "next/navigation";
+import { RefreshCw } from 'lucide-react'
 
 const supabase = createClient()
 
@@ -19,6 +20,7 @@ type Props = {
 }
 
 const PreferencesView = ({ profileData }: Props) => {
+    const [loading, setLoading] = useState(false)
     const [profile, setProfile] = useState<Profile>(profileData)
     const router = useRouter()
     const { toast } = useToast()
@@ -53,6 +55,7 @@ const PreferencesView = ({ profileData }: Props) => {
 
     const handleSave = async () => {
         try {
+            setLoading(true)
             const { data, error } = await supabase.from('profiles').update(profile).eq('id', profile!.id)
             toast({
                 title: "Success",
@@ -67,6 +70,8 @@ const PreferencesView = ({ profileData }: Props) => {
                 description: JSON.stringify(e),
                 duration: 3000,
             })
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -79,7 +84,8 @@ const PreferencesView = ({ profileData }: Props) => {
                     <h3 className="text-base font-semibold leading-7 text-gray-900">Account Preferences</h3>
                     <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">You're available for new opportunities and would like to appear in our listings</p>
                 </div>
-                <Button onClick={handleSave} size='sm' className='rounded-full mt-auto  '>
+                <Button disabled={loading} onClick={handleSave} size='sm' className='rounded-full mt-auto  '>
+                    {loading && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
                     Save changes
                 </Button>
             </div>
