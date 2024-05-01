@@ -36,7 +36,7 @@ const PreferencesView = ({ profileData }: Props) => {
                 !profile.title ||
                 !profile.languages ||
                 !profile.languages.length ||
-                !profile.primary_skill
+                !profile.primary_tech
             ) {
                 setProfile({ ...profile, available: false })
                 toast({

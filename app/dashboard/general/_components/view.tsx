@@ -80,25 +80,40 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
         }))
     }
 
+
     const handleSave = async () => {
         try {
             setLoading(true)
-            const { data: imageUpload, error: imageUploadError } = await supabase.storage.from('avatars').upload(`public/${profile.id}`, avatar as File, {
-                upsert: true,
-                contentType: 'image/jpeg'
-            })
 
-            if (imageUploadError) return toast({
-                title: "Error",
-                description: imageUploadError.message,
-                duration: 3000,
-                variant: 'destructive'
-            })
+            if (avatar) {
+                const { data: imageUpload, error: imageUploadError } = await supabase.storage.from('avatars').upload(`public/${profile.id}`, avatar as File, {
+                    upsert: true,
+                    contentType: 'image/jpeg'
+                })
 
-            const { error, status } = await supabase.from('profiles').update({
-                ...profile,
-                avatar: "https://ctvgjowlmxhioryyhtkv.supabase.co/storage/v1/object/public/avatars/" + imageUpload.path
-            }).eq('id', profile.id)
+                if (imageUploadError) return toast({
+                    title: "Error",
+                    description: imageUploadError.message,
+                    duration: 3000,
+                    variant: 'destructive'
+                })
+
+                const { error, status } = await supabase.from('profiles').update({
+                    ...profile,
+                    avatar: "https://ctvgjowlmxhioryyhtkv.supabase.co/storage/v1/object/public/avatars/" + imageUpload.path
+                }).eq('id', profile.id)
+
+                if (error) throw new Error(error.message)
+            }
+            else {
+                const { error, status } = await supabase.from('profiles').update({
+                    ...profile
+                }).eq('id', profile.id)
+
+                if (error) throw new Error(error.message)
+            }
+
+
             toast({
                 title: "Success",
                 description: "Your profile details have been updated",
@@ -118,7 +133,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
         }
 
     }
-    console.log(loading)
+    console.log(profile)
 
     return (
         <div
@@ -160,11 +175,11 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Primary Skill</dt>
-                            <dd className="hidden sm:inline-block  text-zinc-500 ">Summary of your occupation/profession</dd>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">What you are most proficient in</dd>
                         </div>
                         <Select  >
                             <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
-                                <SelectValue placeholder={profile.primary_skill ? profile.primary_skill : "Select skill"} />
+                                <SelectValue placeholder={profile.primary_tech ? profile.primary_tech : "Select skill"} />
                             </SelectTrigger>
                             <SelectContent >
                                 <Command   >
@@ -173,12 +188,12 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                                         <CommandEmpty  >No results found.</CommandEmpty>
                                         <CommandGroup  >
                                             {["React", "Vue.js", "Angular", "Node.js", "Django", "Flask", "Java", ".NET"].map(c => {
-                                                const isSelected = profile.primary_skill === c
+                                                const isSelected = profile.primary_tech === c
                                                 return (
                                                     <CommandItem
                                                         key={c}
                                                         value={c}
-                                                        onSelect={(e) => handleFieldChange(e, "primary_skill")}
+                                                        onSelect={(e) => handleFieldChange(e, "primary_tech")}
                                                         className='justify-between'
                                                     >
 
@@ -344,8 +359,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                             <dt className="  font-medium leading-6 text-gray-900">Avatar</dt>
                             <dd className="hidden sm:inline-block  text-zinc-500 ">Small image to identify you easier</dd>
                         </div>
-                        <Input className='flex-1  drop-shadow-sm' accept='image/*' type="file" placeholder="Senior React Developer"
-
+                        <Input className='flex-1  drop-shadow-sm' accept='image/*' type="file"
                             onChange={(e) => {
                                 e.target.files?.length ? setAvatar(e.target.files[0]) : setAvatar(undefined)
 
