@@ -16,9 +16,9 @@ import {
 
 const Hero = () => {
     return (
-        <section className='pt-8 lg:pt-12 w-full flex justify-center items-center '>
-            <main className=' flex align-center w-full justify-between'>
-                <div className='w-full flex-1 grow-[3] px-4 md:px-12 text-center lg:text-start relative z-50'>
+        <section className='pt-20  h-full  w-full flex justify-center items-center '>
+            <main className=' flex items-center w-full justify-between '>
+                <div className='w-full flex-1 grow-[3] px-4 md:px-12 text-center  relative z-50'>
                     <Dialog>
                         <DialogTrigger className='hidden sm:inline-block focus-visible:outline-none'>
                             <div className="mx-auto lg:ml-0 rounded-full bg-blue-50 ring-1 px-4 py-1 text-sm  ring-blue-200 text-blue-700 w-fit  mb-6 cursor-pointer hover:ring-blue-300 transition 
@@ -42,28 +42,30 @@ const Hero = () => {
                         </DialogContent>
                     </Dialog>
                     <h1 className='scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl '>
-                        Premier platform linking React developers and employers.
+                        Linking developers and recruiters the right way
                     </h1>
                     <p className="mt-4 text-xl text-muted-foreground font-light ">
-                        Linking React Pros with Dream Jobs: Where Talent Meets Opportunity
-
+                    Unlocking seamless collaboration for tech talent acquisition
                     </p>
 
-                    <div className='flex flex-col sm:flex-row mt-10 gap-6 w-fit mx-auto lg:ml-0'>
-                        <Button size='lg' className='rounded-full drop-shadow-sm hover:drop-shadow-none' variant='outline' asChild>
+                    <div className='flex flex-col sm:flex-row mt-10 gap-6 w-fit mx-auto '>
+                        <Button size='lg' className=' drop-shadow-sm hover:drop-shadow-none' variant='outline' asChild>
                             <Link href='signup'>
-                                <CirclePlus size='20px' className='mr-2 text-gray-500 fill-gray-100' />Add your profile
+                                <CirclePlus size='18px' className='mr-2 text-gray-500 fill-gray-100' />Add your profile
                             </Link>
                         </Button>
-                        <Button size='lg' className='rounded-full drop-shadow-sm ' asChild >
-                            <Link href='pricing' ><UserRoundPlus size='20px' className='mr-2' />Start Hiring</Link>
+                        <Button size='lg'
+                        // className='shadow-[inset_0px_0px_12px_2px_rgba(255,255,255,0.5)] drop-shadow-sm ' 
+                        className=' drop-shadow-sm '
+                        asChild >
+                            <Link href='pricing' ><UserRoundPlus size='18px' className='mr-2' />Hire now</Link>
                         </Button>
                     </div>
                 </div>
-                <div className='relative z-10 hidden lg:inline-block flex-1 h-[450px] xl:h-[450px] -top-12 -right-4 rounded-xl grow-[2] xl:grow-[3]'>
+                {/* <div className='relative z-10 hidden lg:inline-block flex-1 h-[450px] xl:h-[450px] -top-12 -right-4 rounded-xl grow-[2] xl:grow-[3]'>
                     <div className="absolute right-0 w-full h-[calc(100%+10px)] bg-gradient-to-r from-transparent to-[80%] to-white z-50 "></div>
                     <Image src={Deco} placeholder='blur' fill className='object-cover object-left-top drop-shadow-sm border border-zinc-200 rounded-lg absolute  ' alt='' />
-                </div>
+                </div> */}
             </main>
         </section>
     )

@@ -159,13 +159,13 @@ const DevelopersView = ({ profileData, profilesData, countriesData, isEmployer }
                         </div>
                     </div>
 
-                    <div className="hidden lg:flex px-8 py-4 rounded-lg border border-border flex-col gap-4"  >
+                    {/* <div className="hidden lg:flex px-8 py-4 rounded-lg border border-border flex-col gap-4"  >
                         <FaVuejs size={40} className='text-green-500' />
                         <div className="flex flex-col gap-2">
                             <h1 className='text-xl  font-semibold'>Looking for VueJS developers?</h1>
                             <p>Check out <Button variant='link' className='p-0 text-base text-green-500' asChild><Link href='https://vue-developers.com' target='_blank'>vue-developers.com</Link></Button> to find top VueJS talent.</p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>}
 
                 <div className="flex gap-8 ">

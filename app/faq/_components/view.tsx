@@ -16,8 +16,8 @@ const FAQView = () => {
             answer: "We've concluded that refining our platform to cater exclusively to React developers will enhance clarity and effectiveness for both employers and developers alike. Unlike other platforms, which often host a diverse range of skillsets among developers, this focused approach will streamline the process for employers, ensuring they can easily identify the ideal candidates for their needs."
         },
         {
-            question: "Why use ReactFind when there's Upwork?",
-            answer: `Unlike Upwork, where developers often charge extra to cover platform fees up to 20% of the hourly rate, ReactFind operates differently. Developers set their base rates, eliminating the need for additional hourly charges. Instead, ReactFind employs a subscription-based model, offering more transparency and potentially cost-effective solutions for clients.`
+            question: "Why use DevSearch when there's Upwork?",
+            answer: `Unlike Upwork, where developers often charge extra to cover platform fees up to 20% of the hourly rate, DevSearch operates differently. Developers set their base rates, eliminating the need for additional hourly charges. Instead, DevSearch employs a subscription-based model, offering more transparency and potentially cost-effective solutions for clients.`
         },
         {
             question: "What do I have to do as a developer?",
@@ -49,7 +49,7 @@ const FAQView = () => {
         <div className=' min-h-screen w-full flex justify-center items-start py-32 relative'>
             <main className="max-w-7xl container flex flex-col relative z-10 mx-auto">
                 <p className='text-primary font-medium text-sm mb-2'>Frequently asked questions</p>
-                <h1 className="text-3xl md:text-4xl xl:text-5xl font-semibold">Everything you need to know about ReactFind</h1>
+                <h1 className="text-3xl md:text-4xl xl:text-5xl font-semibold">Everything you need to know about DevSearch</h1>
 
                 <Accordion type="single" collapsible className="w-full mt-8">
                     {accordionData.map(({ question, answer }) => {

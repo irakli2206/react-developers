@@ -146,6 +146,7 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                         />
 
                     </div>
+
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
                             <dt className="  font-medium leading-6 text-gray-900">Title</dt>
@@ -155,6 +156,45 @@ const GeneralView = ({ profileData, countryOptionsData }: Props) => {
                             value={profile.title}
                             onChange={(e) => handleFieldChange(e.target.value, 'title')}
                         />
+                    </div>
+                    <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
+                        <div className='flex flex-col gap-1 flex-1 text-sm'>
+                            <dt className="  font-medium leading-6 text-gray-900">Primary Skill</dt>
+                            <dd className="hidden sm:inline-block  text-zinc-500 ">Summary of your occupation/profession</dd>
+                        </div>
+                        <Select  >
+                            <SelectTrigger className='flex-1 h-9 drop-shadow-sm' >
+                                <SelectValue placeholder={profile.primary_skill ? profile.primary_skill : "Select skill"} />
+                            </SelectTrigger>
+                            <SelectContent >
+                                <Command   >
+                                    <CommandInput className='h-9' placeholder="Search" />
+                                    <CommandList>
+                                        <CommandEmpty  >No results found.</CommandEmpty>
+                                        <CommandGroup  >
+                                            {["React", "Vue.js", "Angular", "Node.js", "Django", "Flask", "Java", ".NET"].map(c => {
+                                                const isSelected = profile.primary_skill === c
+                                                return (
+                                                    <CommandItem
+                                                        key={c}
+                                                        value={c}
+                                                        onSelect={(e) => handleFieldChange(e, "primary_skill")}
+                                                        className='justify-between'
+                                                    >
+
+                                                        <span>{c}</span>
+                                                        {isSelected && <Check className="mr-2 h-4 w-4" />}
+                                                    </CommandItem>
+                                                )
+                                            })}
+
+                                        </CommandGroup>
+
+                                    </CommandList>
+                                </Command>
+
+                            </SelectContent>
+                        </Select>
                     </div>
                     <div className="px-4 py-5 flex items-end sm:gap-4 sm:px-0">
                         <div className='flex flex-col gap-1 flex-1 text-sm'>
