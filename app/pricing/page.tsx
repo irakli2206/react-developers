@@ -27,7 +27,7 @@ const Pricing = async () => {
         <main className="flex flex-col lg:flex-row gap-4 justify-center items-center place-items-stretch ">
           <PricingCard
             title='Developer'
-            subtitle='Add your profile to DevSearch'
+            subtitle='Add your profile to Devvyx'
             cost='Free'
             features={[
               "Join our database",

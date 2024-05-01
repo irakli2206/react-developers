@@ -5,7 +5,7 @@ import React from 'react'
 
 const CTA = () => {
   return (
-    <div className='max-w-7xl  container pt-32 flex flex-col gap-4 '>
+    <div className='max-w-7xl  container py-32 flex flex-col gap-4 '>
       <div className="shadow   rounded-3xl w-full px-4 md:px-12 py-12 md:py-24  relative overflow-hidden">
         <Image
           src='/cta-bg.png'

@@ -73,7 +73,7 @@ const SigninView = () => {
             {/* <div className="hidden lg:flex flex-col justify-center gap-16 flex-1 bg-gradient-to-b from-gray-100/80 to-white  overflow-hidden ">
 
                 <div className="flex flex-col gap-4 min-w-[300px] w-3/4 mx-auto pt-16">
-                    <p className='font-semibold text-xl'>Thanks to DevSearch, we've spared ourselves hours of sorting through numerous unqualified or below-par candidates.</p>
+                    <p className='font-semibold text-xl'>Thanks to Devvyx, we've spared ourselves hours of sorting through numerous unqualified or below-par candidates.</p>
                     <p className="text-gray-500 font-medium ">- Sneed's Feed and Seed</p>
                 </div>
 

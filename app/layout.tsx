@@ -24,7 +24,7 @@ const raleway = Inter({
   // style: ['normal']
 })
 export const metadata: Metadata = {
-  title: "DevSearch",
+  title: "Devvyx",
   description: "Number 1 hub for React devs and talent experts",
 };
 
