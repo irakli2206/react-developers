@@ -60,14 +60,18 @@ const Pricing = async () => {
                         <input type="hidden" name="lookup_key" value="employer" />
                         <input type="hidden" name="user_id" value={user?.id} />
 
-                        <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full shadow-sm'>
-                          Subscribe </Button>
+                        <Button asChild id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full shadow-sm'>
+                          <Link href='mailto:iraklibego1@gmail.com'>
+                            Subscribe
+                          </Link>
+                        </Button>
                       </>
                       :
-                      <>
-                        <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full shadow-sm'>
-                          Unsubscribe </Button>
-                      </>
+                      null
+                      // <>
+                      //   <Button id="checkout-and-portal-button" variant='default' type='submit' className='rounded-full w-full shadow-sm'>
+                      //     Unsubscribe </Button>
+                      // </>
                     }
                   </>
 
