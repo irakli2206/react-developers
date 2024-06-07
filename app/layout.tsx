@@ -50,6 +50,7 @@ export default async function RootLayout({
         "min-h-screen bg-background font-sans antialiased",
 
       )}>
+         <a className='sr-only' href="https://jobby.ge"></a>
         <Navbar isLoggedIn={isLoggedIn}  />
         <main className="min-h-screen flex">
           {children}
